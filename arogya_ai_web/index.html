@@ -1,0 +1,680 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>ArogyaAI — AI Rural Healthcare Assistant</title>
+    <!-- Google Fonts Outfit -->
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+    <!-- Google Material Icons Round -->
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons+Round" rel="stylesheet">
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div class="app-container">
+        
+        <!-- Mobile Mockup Status Bar -->
+        <div class="status-bar">
+            <span class="status-time">9:41</span>
+            <div class="status-icons">
+                <span class="material-icons-round font-12">signal_cellular_alt</span>
+                <span class="material-icons-round font-12">wifi</span>
+                <span class="material-icons-round font-12">battery_full</span>
+            </div>
+        </div>
+
+        <!-- Offline Banner -->
+        <div id="offline-banner" class="offline-banner hidden">
+            <span class="material-icons-round">wifi_off</span> Offline Mode Enabled
+        </div>
+
+        <!-- 1. WELCOME & LOGIN SCREEN -->
+        <div id="login-screen" class="screen active">
+            <div class="login-wrapper">
+                <div class="ambient-glow-1"></div>
+                <div class="ambient-glow-2"></div>
+                
+                <!-- Phone Entry Step -->
+                <div id="login-step-phone" class="login-substep">
+                    <div class="login-header">
+                        <div class="logo-circle">
+                            <span class="material-icons-round pulse">monitor_heart</span>
+                        </div>
+                        <h1>Welcome to ArogyaAI</h1>
+                        <p>Enter your mobile number to continue</p>
+                    </div>
+
+                    <div class="glass-card login-card margin-top-24">
+                        <label class="input-label">Mobile Number</label>
+                        <div class="input-group">
+                            <span class="input-prefix">🇮🇳 +91</span>
+                            <input type="tel" id="login-phone" placeholder="Enter mobile number" maxlength="10" oninput="this.value = this.value.replace(/\D/g, '')">
+                        </div>
+
+                        <button id="btn-send-otp" class="btn primary-btn" onclick="app.sendOtpCode()">
+                            Send OTP
+                        </button>
+
+                        <div class="divider-container">
+                            <div class="divider-line"></div>
+                            <span>or continue with</span>
+                            <div class="divider-line"></div>
+                        </div>
+
+                        <button class="btn google-btn" onclick="app.loginWithGoogle()">
+                            <img src="https://www.gstatic.com/images/branding/product/1x/gsa_android_64dp.png" class="google-logo" alt="Google"> Continue with Google
+                        </button>
+                    </div>
+                    
+                    <p class="login-disclaimer">
+                        By continuing, you agree to our <a href="#">Terms of Service</a> & <a href="#">Privacy Policy</a>
+                    </p>
+                </div>
+
+                <!-- OTP Verification Step -->
+                <div id="login-step-otp" class="login-substep hidden">
+                    <div class="login-header">
+                        <button class="back-circle" onclick="app.changePhoneNumber()">
+                            <span class="material-icons-round">arrow_back</span>
+                        </button>
+                        <div class="logo-circle bg-emerald-50">
+                            <span class="material-icons-round text-emerald-600">verified_user</span>
+                        </div>
+                        <h1>OTP Verification</h1>
+                        <p>We've sent a 4-digit code to <strong id="verify-phone-label">+91 98765 43210</strong></p>
+                    </div>
+
+                    <div class="glass-card login-card margin-top-24">
+                        <label class="input-label text-center width-100 block">Enter Verification Code</label>
+                        <div class="otp-input-row">
+                            <input type="tel" maxlength="1" class="otp-digit" id="otp-1" oninput="app.focusNextOtp(this, 'otp-2')" onkeydown="app.handleOtpBack(event, '')">
+                            <input type="tel" maxlength="1" class="otp-digit" id="otp-2" oninput="app.focusNextOtp(this, 'otp-3')" onkeydown="app.handleOtpBack(event, 'otp-1')">
+                            <input type="tel" maxlength="1" class="otp-digit" id="otp-3" oninput="app.focusNextOtp(this, 'otp-4')" onkeydown="app.handleOtpBack(event, 'otp-2')">
+                            <input type="tel" maxlength="1" class="otp-digit" id="otp-4" oninput="app.focusNextOtp(this, '')" onkeydown="app.handleOtpBack(event, 'otp-3')">
+                        </div>
+
+                        <button id="btn-verify-otp" class="btn primary-btn" onclick="app.verifyOtpCode()">
+                            Verify & Continue
+                        </button>
+                        
+                        <p class="resend-text">Didn't receive code? <span id="resend-action" onclick="app.sendOtpCode()">Resend Code</span></p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- 2. LANGUAGE SELECTION SCREEN -->
+        <div id="language-screen" class="screen">
+            <div class="screen-content padding-24">
+                <h2 class="title-green">Choose Your Language</h2>
+                <p class="subtitle-muted">You can always change this later in settings.</p>
+
+                <div class="lang-grid-stack" id="language-options-container">
+                    <!-- Dynamic Languages with markers and radio checkmarks -->
+                </div>
+
+                <button class="btn primary-btn btn-bottom-sticky" onclick="app.confirmLanguage()">
+                    Continue
+                </button>
+            </div>
+        </div>
+
+        <!-- 3. HOME DASHBOARD SCREEN -->
+        <div id="home-screen" class="screen">
+            <header class="header">
+                <div class="user-greeting">
+                    <h1 id="home-user-title">Hello, Naveen 👋</h1>
+                    <p>How are you feeling today?</p>
+                </div>
+                <div class="header-actions">
+                    <button class="btn-lang-indicator" onclick="app.showScreen('language-screen')">
+                        <span class="material-icons-round">language</span> <span id="current-lang-label">English (IN)</span>
+                    </button>
+                </div>
+            </header>
+
+            <div class="padding-horizontal-20">
+                <!-- Search bar -->
+                <div class="search-container">
+                    <span class="material-icons-round search-icon">search</span>
+                    <input type="text" id="dashboard-search" placeholder="Search symptoms, doctors, hospitals..." onfocus="app.setTab(1)">
+                </div>
+
+                <!-- Hero "Speak Symptoms" Card -->
+                <div class="speak-symptoms-hero-card" onclick="app.openSymptomChecker()">
+                    <div class="hero-card-content">
+                        <h3>Speak Symptoms</h3>
+                        <p>Tap to start AI diagnosis</p>
+                        
+                        <div class="voice-soundwave-row margin-top-12">
+                            <div class="soundwave-bar"></div>
+                            <div class="soundwave-bar"></div>
+                            <div class="soundwave-bar"></div>
+                            <div class="soundwave-bar"></div>
+                            <div class="soundwave-bar text-active-guide">Listening...</div>
+                        </div>
+                    </div>
+                    <div class="hero-mic-circle">
+                        <span class="material-icons-round font-28">mic</span>
+                    </div>
+                </div>
+
+                <!-- 2x3 Actions Grid -->
+                <section class="quick-grid-section margin-top-20">
+                    <div class="action-grid-2x3">
+                        <div class="action-grid-item" onclick="app.openTypeSymptoms()">
+                            <div class="grid-icon-box bg-blue-50 text-blue-500">
+                                <span class="material-icons-round">description</span>
+                            </div>
+                            <span>Type Symptoms</span>
+                        </div>
+                        <div class="action-grid-item" onclick="app.openUploadImage()">
+                            <div class="grid-icon-box bg-purple-50 text-purple-500">
+                                <span class="material-icons-round">photo_camera</span>
+                            </div>
+                            <span>Upload Image</span>
+                        </div>
+                        <div class="action-grid-item" onclick="app.openSymptomChecker()">
+                            <div class="grid-icon-box bg-emerald-50 text-emerald-500">
+                                <span class="material-icons-round">favorite</span>
+                            </div>
+                            <span>AI Analysis</span>
+                        </div>
+                        <div class="action-grid-item" onclick="app.setTab(1)">
+                            <div class="grid-icon-box bg-teal-50 text-teal-500">
+                                <span class="material-icons-round">place</span>
+                            </div>
+                            <span>Nearby Hospitals</span>
+                        </div>
+                        <div class="action-grid-item" onclick="app.setTab(1)">
+                            <div class="grid-icon-box bg-indigo-50 text-indigo-500">
+                                <span class="material-icons-round">calendar_today</span>
+                            </div>
+                            <span>Book Appointment</span>
+                        </div>
+                        <div class="action-grid-item" onclick="app.openHealthReports()">
+                            <div class="grid-icon-box bg-orange-50 text-orange-500">
+                                <span class="material-icons-round">insert_drive_file</span>
+                            </div>
+                            <span>Health Reports</span>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- SOS Emergency Banner -->
+                <div class="sos-emergency-banner margin-top-20">
+                    <div class="sos-banner-left">
+                        <span class="material-icons-round sos-icon text-danger">report_problem</span>
+                        <div class="sos-text-block">
+                            <h4>Emergency Help</h4>
+                            <p>Call ambulance instantly</p>
+                        </div>
+                    </div>
+                    <button class="sos-badge-btn" onclick="app.triggerEmergency()">SOS</button>
+                </div>
+            </div>
+        </div>
+
+        <!-- 4. SPEAK SYMPTOMS SCREEN -->
+        <div id="symptom-screen" class="screen">
+            <header class="header minimal">
+                <button class="back-circle bg-slate-100" onclick="app.closeSymptomChecker()">
+                    <span class="material-icons-round">arrow_back</span>
+                </button>
+                <h2>Speak Symptoms</h2>
+                <button class="back-circle bg-slate-100" onclick="app.clearChat()">
+                    <span class="material-icons-round">refresh</span>
+                </button>
+            </header>
+
+            <div class="padding-20 flex-1 flex-column gap-16">
+                <div>
+                    <label class="section-label">RECOGNITION LANGUAGE</label>
+                    <div class="horizontal-scroll-pills margin-top-8" id="speak-lang-pills">
+                        <!-- Lang Pills -->
+                    </div>
+                </div>
+
+                <div class="mic-button-zone margin-top-12">
+                    <div class="mic-ripple-ring" id="mic-ring-anim"></div>
+                    <button id="chat-mic-btn" class="large-mic-action-btn" onclick="app.toggleVoice()">
+                        <span class="material-icons-round font-36">mic</span>
+                    </button>
+                    <h4 class="margin-top-16 font-15 text-slate-800" id="mic-status-label">Tap mic & speak clearly</h4>
+                    <p class="font-11 text-slate-400">Hold close to your mouth · speak slowly</p>
+                </div>
+
+                <div class="live-transcript-card">
+                    <div class="transcript-header">
+                        <span class="material-icons-round text-emerald-500 font-14">auto_awesome</span>
+                        <span>LIVE TRANSCRIPT</span>
+                    </div>
+                    <textarea id="symptom-input" class="transcript-content" placeholder="Your spoken symptoms will appear here..." readonly></textarea>
+                </div>
+
+                <!-- Action row -->
+                <div class="bottom-action-row margin-top-auto">
+                    <button class="btn secondary-btn width-20" onclick="app.closeSymptomChecker()">✕</button>
+                    <button id="btn-analyze-speech" class="btn primary-btn flex-1" onclick="app.sendUserMessage()">Analyze Symptoms</button>
+                </div>
+            </div>
+        </div>
+
+        <!-- 5. TYPE SYMPTOMS SCREEN -->
+        <div id="type-symptoms-screen" class="screen">
+            <header class="header minimal">
+                <button class="back-circle bg-slate-100" onclick="app.backToDashboard()">
+                    <span class="material-icons-round">arrow_back</span>
+                </button>
+                <h2>Type Symptoms</h2>
+                <div style="width:40px;"></div>
+            </header>
+
+            <div class="padding-20 flex-1 flex-column gap-16">
+                <!-- Info Sparkle card -->
+                <div class="info-sparkle-card">
+                    <span class="material-icons-round text-emerald-600">auto_awesome</span>
+                    <p>Describe what you're feeling. Our AI will analyze and suggest the best care.</p>
+                </div>
+
+                <!-- Textarea -->
+                <div>
+                    <label class="input-label uppercase">Describe Your Symptoms</label>
+                    <textarea id="type-symptom-input" class="symptom-textarea" placeholder="I have been having a sore throat and mild fever since yesterday. Slight body ache as well."></textarea>
+                </div>
+
+                <!-- Quick Select Symptoms pills -->
+                <div>
+                    <label class="input-label uppercase">Quick Select Symptoms</label>
+                    <div class="pill-grid-select margin-top-8">
+                        <button class="quick-pill" onclick="app.toggleQuickPill('Fever', this)">Fever</button>
+                        <button class="quick-pill" onclick="app.toggleQuickPill('Cough', this)">Cough</button>
+                        <button class="quick-pill" onclick="app.toggleQuickPill('Headache', this)">Headache</button>
+                        <button class="quick-pill" onclick="app.toggleQuickPill('Sore throat', this)">Sore throat</button>
+                        <button class="quick-pill" onclick="app.toggleQuickPill('Stomach ache', this)">Stomach ache</button>
+                        <button class="quick-pill" onclick="app.toggleQuickPill('Skin rash', this)">Skin rash</button>
+                    </div>
+                </div>
+
+                <!-- Duration Selection -->
+                <div>
+                    <label class="input-label uppercase">How long have you had these?</label>
+                    <div class="duration-grid-row margin-top-8">
+                        <div class="duration-box selected" onclick="app.selectDuration('&lt; 24h', this)">
+                            <span>&lt; 24h</span>
+                        </div>
+                        <div class="duration-box" onclick="app.selectDuration('2-3 days', this)">
+                            <span>2-3 days</span>
+                        </div>
+                        <div class="duration-box" onclick="app.selectDuration('&gt; 1 week', this)">
+                            <span>&gt; 1 week</span>
+                        </div>
+                    </div>
+                </div>
+
+                <button class="btn primary-btn margin-top-auto" onclick="app.analyzeTypedSymptoms()">
+                    Analyze with AI
+                </button>
+            </div>
+        </div>
+
+        <!-- 6. AI ANALYSIS RESULT SCREEN -->
+        <div id="ai-result-screen" class="screen">
+            <header class="header minimal">
+                <button class="back-circle bg-slate-100" onclick="app.backToSymptoms()"><span class="material-icons-round">arrow_back</span></button>
+                <h2>AI Analysis Result</h2>
+                <div style="width:40px;"></div>
+            </header>
+
+            <div class="padding-20 flex-1 scroll-y">
+                <!-- Diagnosis Card -->
+                <div class="diagnosis-result-card">
+                    <div class="diagnosis-header-row">
+                        <span class="badge-active-emerald">Analysis Complete</span>
+                        <span class="text-slate-400 font-11" id="diag-time-label">Today, 10:42 AM</span>
+                    </div>
+                    <h2 class="diag-title-slate margin-top-12" id="diag-title">Viral Pharyngitis</h2>
+                    <p class="diag-subtitle-desc" id="diag-desc">Based on your reported symptoms of throat irritation, vocal strain, and mild body temperature elevation.</p>
+                    
+                    <div class="severity-progress-block margin-top-16">
+                        <div class="flex justify-between font-12 font-700">
+                            <span class="text-slate-600">Severity Level</span>
+                            <span id="severity-label-value" class="text-orange-500">Moderate (65%)</span>
+                        </div>
+                        <div class="progress-bar-track margin-top-6">
+                            <div class="progress-bar-fill moderate" id="severity-progress-fill" style="width: 65%;"></div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Suggested Medicines -->
+                <div class="medicines-section margin-top-20">
+                    <h3 class="section-title-teal">Suggested Medicines</h3>
+                    <div class="meds-list-container margin-top-8" id="diag-meds-list">
+                        <!-- Dynamic Medicine list items -->
+                    </div>
+                </div>
+
+                <!-- Precautions Section -->
+                <div class="precautions-section margin-top-20">
+                    <h3 class="section-title-danger flex align-center gap-6">
+                        <span class="material-icons-round font-18">error_outline</span> Precautions
+                    </h3>
+                    <ul class="precautions-list margin-top-8" id="diag-precautions-list">
+                        <!-- Bullet precautions -->
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <!-- 7. UPLOAD IMAGE SCREEN -->
+        <div id="upload-image-screen" class="screen">
+            <header class="header minimal">
+                <button class="back-circle bg-slate-100" onclick="app.backToDashboard()"><span class="material-icons-round">arrow_back</span></button>
+                <h2>Upload Image</h2>
+                <div style="width:40px;"></div>
+            </header>
+
+            <div class="padding-20 flex-1 flex-column gap-16">
+                <div>
+                    <h3 class="font-16 font-800 text-slate-800">Upload Infection Image</h3>
+                    <p class="font-12 text-slate-500 margin-top-4">Take a clear photo of the affected area for AI analysis</p>
+                </div>
+
+                <!-- File upload card preview -->
+                <div class="uploaded-image-preview-card" id="image-preview-card">
+                    <img src="https://images.unsplash.com/photo-1559757175-5700dde675bc?auto=format&fit=crop&w=600&q=80" id="preview-img" alt="Skin Preview">
+                    <button class="preview-close-circle" onclick="app.clearUploadedImage()">✕</button>
+                    <div class="preview-status-badge">✓ Image ready</div>
+                    <div class="preview-details-block">
+                        <span class="file-label">FILE</span>
+                        <h4 id="preview-filename">skin_infection_01.jpg</h4>
+                        <p>1.2 MB · JPEG</p>
+                    </div>
+                </div>
+
+                <!-- Camera / Gallery selectors -->
+                <div class="selector-row-buttons">
+                    <div class="selector-card-btn" onclick="app.simulateImageUpload('skin_rash_severe.jpg')">
+                        <div class="btn-icon bg-blue-50 text-blue-500">
+                            <span class="material-icons-round">photo_camera</span>
+                        </div>
+                        <span>Camera</span>
+                    </div>
+                    <div class="selector-card-btn" onclick="app.simulateImageUpload('dermal_redness.jpg')">
+                        <div class="btn-icon bg-purple-50 text-purple-500">
+                            <span class="material-icons-round">image</span>
+                        </div>
+                        <span>Gallery</span>
+                    </div>
+                </div>
+
+                <!-- Tips list -->
+                <div class="tips-section-box">
+                    <h4 class="font-13 font-800 text-slate-700">📸 Tips for best results</h4>
+                    <ul class="tips-list-bullets margin-top-6">
+                        <li>Use bright, natural lighting</li>
+                        <li>Keep the camera steady and focused</li>
+                        <li>Capture the entire affected area</li>
+                    </ul>
+                </div>
+
+                <button id="btn-analyze-image" class="btn primary-btn margin-top-auto" onclick="app.analyzeImage()">
+                    Analyze Image
+                </button>
+            </div>
+        </div>
+
+        <!-- 8. HOSPITALS / CLINICS SCREEN -->
+        <div id="hospitals-screen" class="screen">
+            <header class="header minimal">
+                <h2>Nearby Clinics</h2>
+                <span class="sub-indicator green-text">📍 GPS Proximity Enabled</span>
+            </header>
+            
+            <div class="padding-horizontal-20">
+                <!-- Search & Filters -->
+                <div class="search-filter-row margin-top-12">
+                    <div class="search-container flex-1">
+                        <span class="material-icons-round search-icon">search</span>
+                        <input type="text" id="hospital-search" placeholder="Search hospitals..." oninput="app.filterHospitals()">
+                    </div>
+                    <button class="filter-green-btn">
+                        <span class="material-icons-round">tune</span>
+                    </button>
+                </div>
+
+                <!-- Hospital listing -->
+                <div class="hospital-list margin-top-16" id="hospital-list-container">
+                    <!-- Dynamic hospitals list -->
+                </div>
+            </div>
+        </div>
+
+        <!-- 9. DOCTOR DETAILS / APPOINTMENT BOOKING SCREEN -->
+        <div id="doctor-screen" class="screen">
+            <header class="header minimal">
+                <button class="back-circle bg-slate-100" onclick="app.backToHospitals()"><span class="material-icons-round">arrow_back</span></button>
+                <h2>Doctor Profile</h2>
+                <div style="width: 40px;"></div>
+            </header>
+
+            <div class="padding-20 flex-1 scroll-y" id="doctor-profile-content">
+                <!-- Dynamic profile contents -->
+            </div>
+        </div>
+
+        <!-- 10. VISITS / HEALTH HISTORY SCREEN -->
+        <div id="visits-screen" class="screen">
+            <header class="header minimal">
+                <h2>Visits & History</h2>
+                <p class="subtitle-muted">Your scheduled clinic appointments & symptoms checks logs</p>
+            </header>
+
+            <div class="padding-20">
+                <div class="history-list" id="history-list-container">
+                    <!-- Dynamic logs -->
+                </div>
+            </div>
+        </div>
+
+        <!-- 11. PROFILE SCREEN -->
+        <div id="profile-screen" class="screen">
+            <!-- Curved curved header -->
+            <div class="profile-curved-header">
+                <div class="profile-header-actions">
+                    <h2>Profile</h2>
+                    <span class="material-icons-round font-22 text-white pointer">settings</span>
+                </div>
+                
+                <div class="profile-user-block margin-top-16">
+                    <img src="https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?auto=format&fit=facearea&facepad=2&w=256&h=256&q=80" class="profile-avatar" alt="Avatar">
+                    <div class="profile-meta-text">
+                        <h3 id="profile-name">Naveen Kumar</h3>
+                        <p id="profile-details">28 Years · Male · Blood: O+</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="padding-20 flex-1 flex-column gap-16" style="margin-top:-30px;">
+                <!-- Stats counter card -->
+                <div class="glass-card profile-stats-card">
+                    <div class="stat-column">
+                        <h4 id="stat-visits-count">12</h4>
+                        <p>Visits</p>
+                    </div>
+                    <div class="stat-column-divider"></div>
+                    <div class="stat-column">
+                        <h4 id="stat-reports-count">5</h4>
+                        <p>Reports</p>
+                    </div>
+                    <div class="stat-column-divider"></div>
+                    <div class="stat-column">
+                        <h4>8</h4>
+                        <p>Prescriptions</p>
+                    </div>
+                </div>
+
+                <!-- Health Vitals Section -->
+                <div>
+                    <h3 class="section-heading-slate">Health Vitals</h3>
+                    <div class="vitals-grid-3 margin-top-8">
+                        <div class="vital-card">
+                            <span class="vital-val">120/80</span>
+                            <span class="vital-lbl">BP (Normal)</span>
+                        </div>
+                        <div class="vital-card">
+                            <span class="vital-val">72 bpm</span>
+                            <span class="vital-lbl">HR (Normal)</span>
+                        </div>
+                        <div class="vital-card">
+                            <span class="vital-val">68 kg</span>
+                            <span class="vital-lbl">BMI 22.4</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Option stack list -->
+                <div class="options-list-stack margin-top-8">
+                    <div class="option-row-item" onclick="app.openHealthReports()">
+                        <div class="item-left">
+                            <span class="material-icons-round text-blue-500 font-18">insert_drive_file</span>
+                            <span>Previous Reports</span>
+                        </div>
+                        <span class="material-icons-round text-slate-300">chevron_right</span>
+                    </div>
+                    <div class="option-row-item" onclick="app.setTab(2)">
+                        <div class="item-left">
+                            <span class="material-icons-round text-purple-500 font-18">favorite</span>
+                            <span>Health History</span>
+                        </div>
+                        <span class="material-icons-round text-slate-300">chevron_right</span>
+                    </div>
+                    <div class="option-row-item">
+                        <div class="item-left">
+                            <span class="material-icons-round text-teal-500 font-18">notifications</span>
+                            <span>Notifications</span>
+                        </div>
+                        <span class="material-icons-round text-slate-300">chevron_right</span>
+                    </div>
+                </div>
+
+                <!-- Logout Button -->
+                <button class="btn secondary-btn margin-top-auto" onclick="app.logoutUser()">Logout</button>
+            </div>
+        </div>
+
+        <!-- 12. HEALTH REPORTS SCREEN -->
+        <div id="health-reports-screen" class="screen">
+            <header class="header minimal">
+                <button class="back-circle bg-slate-100" onclick="app.backToDashboard()"><span class="material-icons-round">arrow_back</span></button>
+                <h2>Health Reports</h2>
+                <div style="width:40px;"></div>
+            </header>
+
+            <div class="padding-horizontal-20 flex-1 flex-column gap-16">
+                <!-- Search & Filters -->
+                <div class="search-filter-row">
+                    <div class="search-container flex-1">
+                        <span class="material-icons-round search-icon">search</span>
+                        <input type="text" id="report-search" placeholder="Search reports..." oninput="app.filterReports()">
+                    </div>
+                    <button class="filter-green-btn">
+                        <span class="material-icons-round">tune</span>
+                    </button>
+                </div>
+
+                <!-- Stats counter row -->
+                <div class="reports-stats-row">
+                    <div class="stat-box-mini">
+                        <span class="val">12</span>
+                        <span class="lbl">Total</span>
+                    </div>
+                    <div class="stat-box-mini">
+                        <span class="val">8</span>
+                        <span class="lbl">Lab Reports</span>
+                    </div>
+                    <div class="stat-box-mini">
+                        <span class="val">4</span>
+                        <span class="lbl">Imaging</span>
+                    </div>
+                </div>
+
+                <!-- Recent Reports list -->
+                <div class="flex-1 scroll-y">
+                    <h3 class="section-heading-slate">Recent Reports</h3>
+                    <div class="reports-list-stack margin-top-8" id="reports-list-container">
+                        <!-- Dynamic reports list files -->
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- 13. EMERGENCY SOS MODE SCREEN -->
+        <div id="emergency-screen" class="screen emergency-mode">
+            <div class="emergency-content">
+                <div class="sos-alert-ring">
+                    <span class="material-icons-round warning-icon pulse">warning</span>
+                </div>
+                <h2>Emergency Warning</h2>
+                <p>Severe cardiac or breathing distress warning detected. Please contact ambulance immediately.</p>
+                
+                <div class="emergency-actions">
+                    <a href="tel:108" class="btn primary-btn red-btn">
+                        <span class="material-icons-round">call</span> Call Ambulance (108)
+                    </a>
+                    <button class="btn secondary-btn" onclick="alert('Routing to nearest emergency room...')">
+                        <span class="material-icons-round">directions</span> Nearest Govt. Hospital
+                    </button>
+                    <button class="btn text-btn" onclick="app.showScreen('home-screen')">Cancel & Back</button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Booking Success Ticket Modal -->
+        <div id="booking-success-modal" class="modal hidden">
+            <div class="modal-content glass-card ticket-modal">
+                <div class="modal-header text-center">
+                    <span class="material-icons-round success-check">check_circle</span>
+                    <h3>Booking Confirmed!</h3>
+                    <p class="subtitle-muted">Your clinic registration ticket is generated below</p>
+                </div>
+                
+                <div class="ticket-wrapper" id="ticket-content">
+                    <!-- Dynamic ticket fields -->
+                </div>
+
+                <button class="btn primary-btn margin-top-16" onclick="app.closeSuccessModal()">
+                    Got It
+                </button>
+            </div>
+        </div>
+
+        <!-- BOTTOM APP TAB BAR NAVIGATION -->
+        <nav class="bottom-nav-bar hidden" id="app-bottom-nav">
+            <div class="nav-item active" onclick="app.setTab(0)">
+                <span class="material-icons-round">home</span>
+                <span>Home</span>
+            </div>
+            <div class="nav-item" onclick="app.setTab(1)">
+                <span class="material-icons-round">local_hospital</span>
+                <span>Clinics</span>
+            </div>
+            <div class="nav-item" onclick="app.setTab(2)">
+                <span class="material-icons-round">history</span>
+                <span>Visits</span>
+            </div>
+            <div class="nav-item" onclick="app.setTab(3)">
+                <span class="material-icons-round">person</span>
+                <span>Profile</span>
+            </div>
+        </nav>
+
+    </div>
+
+    <!-- Notification toast -->
+    <div id="toast-notification" class="toast-toast hidden"></div>
+
+    <script src="app.js"></script>
+</body>
+</html>

@@ -1,0 +1,13 @@
+[
+  {
+    "id": "rep-1780026585306-90",
+    "type": "symptom",
+    "date": "29/5/2026",
+    "time": "09:19 am",
+    "userId": "uid-ODY4ODA4",
+    "symptoms": "Fever, Headache, Cough, Sore throat",
+    "condition": "Viral Pharyngitis (Throat Infection)",
+    "severity": "medium",
+    "specialist": "ENT Specialist"
+  }
+]

@@ -1,0 +1,34 @@
+[
+  {
+    "id": "apt-1780026368077-98",
+    "type": "appointment",
+    "token": "TK-100",
+    "userId": "uid-OTg3NjU0",
+    "date": "Mon 12",
+    "time": "10:30 AM",
+    "clinicName": "Apollo Hospitals",
+    "doctorName": "Dr. Priya Sharma",
+    "specialist": "ENT Specialist",
+    "patientName": "Arogya User",
+    "patientPhone": "9876543210",
+    "fee": "₹400",
+    "address": "Apollo Hospitals, Near Rural Main Road",
+    "createdAt": "2026-05-29T03:46:08.078Z"
+  },
+  {
+    "id": "apt-1780026653176-77",
+    "type": "appointment",
+    "token": "TK-101",
+    "userId": "uid-ODY4ODA4",
+    "date": "Thu 15",
+    "time": "11:00 AM",
+    "clinicName": "Apollo Hospitals",
+    "doctorName": "Dr. Priya Sharma",
+    "specialist": "ENT Specialist",
+    "patientName": "Naveen",
+    "patientPhone": "8688086015",
+    "fee": "₹400",
+    "address": "Apollo Hospitals, Near Rural Main Road",
+    "createdAt": "2026-05-29T03:50:53.176Z"
+  }
+]

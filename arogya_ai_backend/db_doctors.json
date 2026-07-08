@@ -1,0 +1,146 @@
+{
+  "doc-1": {
+    "id": "doc-1",
+    "hospitalId": "hosp-1",
+    "name": "Dr. Priya Sharma",
+    "specialist": "ENT Specialist",
+    "degree": "MBBS, MS (ENT)",
+    "exp": "12 yrs exp",
+    "patients": "2.5k+",
+    "rating": 4.9,
+    "about": "Dr. Priya Sharma is a senior ENT consultant at Apollo Hospitals with over 12 years of experience.",
+    "availableSlots": [
+      "09:00 AM",
+      "10:30 AM",
+      "11:00 AM",
+      "02:00 PM",
+      "04:30 PM"
+    ]
+  },
+  "doc-2": {
+    "id": "doc-2",
+    "hospitalId": "hosp-2",
+    "name": "Dr. Mary Joseph",
+    "specialist": "Cardiologist",
+    "degree": "MBBS, MD, DM (Cardio)",
+    "exp": "15 yrs exp",
+    "patients": "3.2k+",
+    "rating": 4.6,
+    "about": "Dr. Mary Joseph is an expert in interventional cardiology and preventive cardiovascular wellness.",
+    "availableSlots": [
+      "10:00 AM",
+      "11:30 AM",
+      "12:00 PM",
+      "03:00 PM",
+      "05:00 PM"
+    ]
+  },
+  "doc-3": {
+    "id": "doc-3",
+    "hospitalId": "hosp-3",
+    "name": "Dr. Vinay Gowda",
+    "specialist": "General Physician",
+    "degree": "MBBS, MD (Gen Med)",
+    "exp": "8 yrs exp",
+    "patients": "1.8k+",
+    "rating": 4.4,
+    "about": "Dr. Vinay Gowda provides outpatient treatment for systemic infections and family wellness.",
+    "availableSlots": [
+      "09:30 AM",
+      "10:00 AM",
+      "11:30 AM",
+      "02:30 PM",
+      "04:00 PM"
+    ]
+  },
+  "doc-4": {
+    "id": "doc-4",
+    "hospitalId": "hosp-4",
+    "name": "Dr. Ramesh Chandra",
+    "specialist": "General Physician",
+    "degree": "MBBS",
+    "exp": "10 yrs exp",
+    "patients": "5.0k+",
+    "rating": 4.2,
+    "about": "Primary healthcare services funded by the government, offering free immunizations and consultations.",
+    "availableSlots": [
+      "09:00 AM",
+      "10:00 AM",
+      "11:00 AM",
+      "12:00 PM",
+      "02:00 PM"
+    ]
+  },
+  "doc-chennai-1": {
+    "id": "doc-chennai-1",
+    "hospitalId": "hosp-chennai-1",
+    "name": "Dr. Priya Sharma",
+    "specialist": "ENT Specialist",
+    "degree": "MBBS, MS (ENT)",
+    "exp": "12 yrs exp",
+    "patients": "2.5k+",
+    "rating": 4.9,
+    "about": "Dr. Priya Sharma is a senior ENT consultant at Apollo Greams Road with over 12 years of experience.",
+    "availableSlots": [
+      "09:00 AM",
+      "10:30 AM",
+      "11:00 AM",
+      "02:00 PM",
+      "04:30 PM"
+    ]
+  },
+  "doc-chennai-2": {
+    "id": "doc-chennai-2",
+    "hospitalId": "hosp-chennai-2",
+    "name": "Dr. Mary Joseph",
+    "specialist": "Cardiologist",
+    "degree": "MBBS, MD, DM (Cardio)",
+    "exp": "15 yrs exp",
+    "patients": "3.2k+",
+    "rating": 4.6,
+    "about": "Dr. Mary Joseph is an expert in interventional cardiology and preventive cardiovascular wellness.",
+    "availableSlots": [
+      "10:00 AM",
+      "11:30 AM",
+      "12:00 PM",
+      "03:00 PM",
+      "05:00 PM"
+    ]
+  },
+  "doc-chennai-3": {
+    "id": "doc-chennai-3",
+    "hospitalId": "hosp-chennai-3",
+    "name": "Dr. Vinay Gowda",
+    "specialist": "General Physician",
+    "degree": "MBBS, MD (Gen Med)",
+    "exp": "8 yrs exp",
+    "patients": "1.8k+",
+    "rating": 4.4,
+    "about": "Dr. Vinay Gowda provides outpatient treatment for systemic infections and family wellness.",
+    "availableSlots": [
+      "09:30 AM",
+      "10:00 AM",
+      "11:30 AM",
+      "02:30 PM",
+      "04:00 PM"
+    ]
+  },
+  "doc-chennai-4": {
+    "id": "doc-chennai-4",
+    "hospitalId": "hosp-chennai-4",
+    "name": "Dr. Ramesh Chandra",
+    "specialist": "General Physician",
+    "degree": "MBBS",
+    "exp": "10 yrs exp",
+    "patients": "5.0k+",
+    "rating": 4.2,
+    "about": "Primary healthcare services funded by the government, offering free immunizations and consultations.",
+    "availableSlots": [
+      "09:00 AM",
+      "10:00 AM",
+      "11:00 AM",
+      "12:00 PM",
+      "02:00 PM"
+    ]
+  }
+}

@@ -1,0 +1,32 @@
+# Ignore everything by default in this test-data folder
+*
+
+# Allow the specific project directories
+!arogya_ai_backend/
+!arogya_ai_flutter/
+!arogya_ai_web/
+
+# Allow .gitignore itself
+!.gitignore
+
+# Keep gitignore rules inside the projects
+!**/arogya_ai_backend/**
+!**/arogya_ai_flutter/**
+!**/arogya_ai_web/**
+
+# Exclude large binaries, logs, secrets, and build outputs
+**/node_modules/
+**/*.apk
+**/*.aab
+**/*.log
+**/*_log.txt
+**/*error.txt
+**/build/
+**/build_old*/
+**/build_old**/
+**/.gradle/
+**/intermediates/
+**/.dart_tool/
+**/.idea/
+**/.env
+**/local.properties

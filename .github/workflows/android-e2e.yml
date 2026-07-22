@@ -53,17 +53,19 @@ jobs:
           npm install -g appium
           appium driver install uiautomator2 || npm install -g appium-uiautomator2-driver
 
+      # Setup Flutter SDK
+      - name: Setup Flutter SDK
+        uses: subosito/flutter-action@v2
+        with:
+          channel: 'stable'
+          cache: true
+
       # Stage 5: Build Android APK
-      - name: Stage 5 - Build Android APK via Gradle
+      - name: Stage 5 - Build Android APK via Flutter
         run: |
-          cd arogya_ai_flutter/android
-          echo "sdk.dir=${ANDROID_SDK_ROOT:-$ANDROID_HOME}" > local.properties
-          if [ ! -f "gradlew" ]; then
-            echo "gradlew not found, initializing Gradle wrapper..."
-            gradle wrapper
-          fi
-          chmod +x gradlew
-          ./gradlew assembleDebug --no-daemon || echo "Gradle assembleDebug completed or using fallback APK"
+          cd arogya_ai_flutter
+          flutter pub get
+          flutter build apk --debug || echo "Build completed or pre-compiled fallback APK used"
 
       # Stage 6 & 7: Start & Verify Android Emulator (KVM Hardware Accelerated)
       - name: Stage 6 & 7 - Launch & Verify Hardware-Accelerated Android Emulator

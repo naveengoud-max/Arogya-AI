@@ -48,9 +48,10 @@ jobs:
       - name: Install Appium & NPM Packages
         run: |
           cd arogya_ai_flutter/automation
-          npm install
+          npm config set legacy-peer-deps true
+          npm install --legacy-peer-deps
           npm install -g appium
-          appium driver install uiautomator2
+          appium driver install uiautomator2 || npm install -g appium-uiautomator2-driver
 
       # Stage 5: Build Android APK
       - name: Stage 5 - Build Android APK via Gradle

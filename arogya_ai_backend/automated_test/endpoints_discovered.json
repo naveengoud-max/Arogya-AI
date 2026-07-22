@@ -1,0 +1,140 @@
+[
+  {
+    "method": "POST",
+    "path": "/login",
+    "auth": "none",
+    "description": "Root login proxy"
+  },
+  {
+    "method": "POST",
+    "path": "/register",
+    "auth": "none",
+    "description": "Root register proxy"
+  },
+  {
+    "method": "POST",
+    "path": "/symptom-analysis",
+    "auth": "none",
+    "description": "AI symptom analysis (public)"
+  },
+  {
+    "method": "GET",
+    "path": "/hospital-search",
+    "auth": "none",
+    "description": "Public hospital search"
+  },
+  {
+    "method": "POST",
+    "path": "/chatbot",
+    "auth": "none",
+    "description": "Chatbot (public)"
+  },
+  {
+    "method": "POST",
+    "path": "/api/auth/send-otp",
+    "auth": "none",
+    "description": "Send OTP to phone"
+  },
+  {
+    "method": "POST",
+    "path": "/api/auth/verify-otp",
+    "auth": "none",
+    "description": "Verify OTP and login"
+  },
+  {
+    "method": "POST",
+    "path": "/api/auth/profile",
+    "auth": "required",
+    "description": "Update user profile"
+  },
+  {
+    "method": "GET",
+    "path": "/api/hospitals",
+    "auth": "none",
+    "description": "Get hospitals list"
+  },
+  {
+    "method": "GET",
+    "path": "/api/hospital-search",
+    "auth": "none",
+    "description": "Search hospitals by location"
+  },
+  {
+    "method": "GET",
+    "path": "/api/appointments",
+    "auth": "required",
+    "description": "Get user's appointments"
+  },
+  {
+    "method": "POST",
+    "path": "/api/appointments",
+    "auth": "required",
+    "description": "Book appointment"
+  },
+  {
+    "method": "GET",
+    "path": "/api/appointments/{id}",
+    "auth": "required",
+    "description": "Get appointment details (IDOR vector)"
+  },
+  {
+    "method": "PUT",
+    "path": "/api/appointments/{id}",
+    "auth": "required",
+    "description": "Update appointment"
+  },
+  {
+    "method": "DELETE",
+    "path": "/api/appointments/{id}",
+    "auth": "required",
+    "description": "Cancel appointment"
+  },
+  {
+    "method": "POST",
+    "path": "/api/ai/analyze-symptoms",
+    "auth": "required",
+    "description": "Analyze symptoms with AI"
+  },
+  {
+    "method": "POST",
+    "path": "/api/ai/symptom-analysis",
+    "auth": "required",
+    "description": "Symptom analysis"
+  },
+  {
+    "method": "POST",
+    "path": "/api/ai/chatbot",
+    "auth": "required",
+    "description": "Chatbot response"
+  },
+  {
+    "method": "GET",
+    "path": "/api/emergency/contacts",
+    "auth": "required",
+    "description": "Get emergency contacts"
+  },
+  {
+    "method": "POST",
+    "path": "/api/emergency/contacts",
+    "auth": "required",
+    "description": "Add emergency contact"
+  },
+  {
+    "method": "DELETE",
+    "path": "/api/emergency/contacts/{id}",
+    "auth": "required",
+    "description": "Delete emergency contact (IDOR vector)"
+  },
+  {
+    "method": "POST",
+    "path": "/api/emergency/sos",
+    "auth": "required",
+    "description": "Trigger SOS alert"
+  },
+  {
+    "method": "GET",
+    "path": "/api/emergency/nearby",
+    "auth": "required",
+    "description": "Find nearby hospitals (emergency)"
+  }
+]

@@ -1,0 +1,7 @@
+{
+  "baseUrl": "http://localhost:5000",
+  "admin": "admin-token-here",
+  "doctor": "doctor-token-here",
+  "user": "user-token-here",
+  "anonymous": ""
+}

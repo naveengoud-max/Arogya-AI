@@ -26,6 +26,7 @@
   "license": "ISC",
   "dependencies": {
     "appium": "^2.11.2",
+    "appium-uiautomator2-driver": "^3.7.0",
     "chai": "^4.3.10",
     "dotenv": "^16.4.5",
     "exceljs": "^4.4.0",

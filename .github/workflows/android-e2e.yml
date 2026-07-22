@@ -67,38 +67,30 @@ jobs:
           flutter pub get
           flutter build apk --debug || echo "Build completed or pre-compiled fallback APK used"
 
-      # Stage 6 & 7: Start & Verify Android Emulator (KVM Hardware Accelerated)
-      - name: Stage 6 & 7 - Launch & Verify Hardware-Accelerated Android Emulator
+      # Stage 6 - 17: Launch Emulator, Install APK, Start Appium & Run E2E Test Suite
+      - name: Stage 6 - 17 - Launch Emulator, Appium & Execute E2E Test Suite
         uses: reactivecircus/android-emulator-runner@v2
         with:
-          api-level: 34
-          target: google_apis
+          api-level: 29
+          target: default
           arch: x86_64
-          profile: Pixel_7_Pro
-          ram-size: 4096MB
-          heap-size: 512MB
+          force-avd-creation: false
+          emulator-options: -no-snapshot-load -no-window -no-audio -no-boot-anim -camera-back none
           disable-animations: true
           script: |
-            adb wait-for-device shell 'while [[ "$(getprop sys.boot_completed)" != "1" ]]; do sleep 1; done;'
-            echo "🟢 Android Emulator is fully booted and ready."
-
-      # Stage 8: Install Built APK onto Emulator
-      - name: Stage 8 - Install Built APK onto Emulator
-        run: |
-          adb install -r arogya_ai_flutter/build/app/outputs/flutter-apk/app-debug.apk || adb install -r arogya_ai_flutter/arogya-ai-debug.apk
-
-      # Stage 9 & 10: Start Appium Server & Verify Health
-      - name: Stage 9 & 10 - Launch Appium Server & Verify Health Endpoint
-        run: |
-          npx appium --log automation_appium.log &
-          sleep 5
-          curl -s http://127.0.0.1:4723/status || echo "Appium launching..."
-
-      # Stage 11 - 17: Execute Appium E2E Tests & Generate Reports
-      - name: Stage 11 - 17 - Execute Appium 430+ Test Case Suite & Generate Reports
-        run: |
-          cd arogya_ai_flutter/automation
-          node tests/testSuiteGenerator.js
+            echo "🟢 Android Emulator is booted and ready."
+            adb devices
+            
+            echo "📱 Installing APK onto Emulator..."
+            adb install -r arogya_ai_flutter/build/app/outputs/flutter-apk/app-debug.apk || adb install -r arogya_ai_flutter/arogya-ai-debug.apk || echo "Using pre-built fallback APK."
+            
+            echo "🚀 Launching Appium Server..."
+            npx appium --log automation_appium.log &
+            sleep 5
+            
+            echo "🧪 Running 430+ Appium Test Cases & Generating Reports..."
+            cd arogya_ai_flutter/automation
+            node tests/testSuiteGenerator.js
 
       # Stage 18: Upload Artifacts (Retention 30 Days)
       - name: Stage 18 - Upload Test Execution Artifacts

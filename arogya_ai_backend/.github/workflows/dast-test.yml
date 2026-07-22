@@ -1,0 +1,191 @@
+name: DAST Security Assessment
+
+on:
+  push:
+    branches: [ main, develop ]
+  pull_request:
+    branches: [ main, develop ]
+  schedule:
+    # Run daily at 2 AM UTC
+    - cron: '0 2 * * *'
+
+jobs:
+  dast-testing:
+    runs-on: ubuntu-latest
+    
+    services:
+      # Start the API for testing
+      api:
+        image: python:3.11-slim
+        options: >-
+          --health-cmd "curl -f http://localhost:5000/api/health || exit 1"
+          --health-interval 10s
+          --health-timeout 5s
+          --health-retries 5
+        ports:
+          - 5000:5000
+        steps:
+          - uses: actions/checkout@v3
+          - run: |
+              pip install -r requirements.txt
+              python -m uvicorn app.main:app --host 0.0.0.0 --port 5000 &
+    
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v3
+      
+      - name: Set up Python
+        uses: actions/setup-python@v4
+        with:
+          python-version: '3.11'
+      
+      - name: Install dependencies
+        run: |
+          python -m pip install --upgrade pip
+          pip install requests
+          pip install -r requirements.txt 2>/dev/null || true
+      
+      - name: Wait for API to be ready
+        run: |
+          for i in {1..30}; do
+            if curl -f http://localhost:5000/api/health -s > /dev/null; then
+              echo "✓ API is ready"
+              exit 0
+            fi
+            echo "Waiting for API... ($i/30)"
+            sleep 2
+          done
+          echo "✗ API failed to start"
+          exit 1
+      
+      - name: Create DAST test input configuration
+        run: |
+          mkdir -p automated_test
+          cat > automated_test/input.json << 'EOF'
+          {
+            "baseUrl": "http://localhost:5000/api",
+            "admin": "",
+            "doctor": "",
+            "user": "",
+            "anonymous": ""
+          }
+          EOF
+      
+      - name: Run DAST Security Tests
+        working-directory: automated_test
+        run: |
+          echo "Starting DAST Security Assessment..."
+          python run_all_tests.py 2>&1 | tee dast_output.log
+        continue-on-error: true
+      
+      - name: Upload DAST Report
+        if: always()
+        uses: actions/upload-artifact@v3
+        with:
+          name: dast-report
+          path: |
+            automated_test/report.json
+            automated_test/endpoints_discovered.json
+            automated_test/test_results_*.json
+            automated_test/dast_output.log
+          retention-days: 30
+      
+      - name: Check for Critical Findings
+        working-directory: automated_test
+        run: |
+          if [ -f report.json ]; then
+            CRITICAL=$(python -c "import json; r=json.load(open('report.json')); print(r['summary']['findings_by_severity'].get('CRITICAL', 0))")
+            HIGH=$(python -c "import json; r=json.load(open('report.json')); print(r['summary']['findings_by_severity'].get('HIGH', 0))")
+            
+            echo "## Security Assessment Results" >> $GITHUB_STEP_SUMMARY
+            echo "" >> $GITHUB_STEP_SUMMARY
+            echo "- 🔴 CRITICAL: $CRITICAL" >> $GITHUB_STEP_SUMMARY
+            echo "- 🟠 HIGH: $HIGH" >> $GITHUB_STEP_SUMMARY
+            echo "" >> $GITHUB_STEP_SUMMARY
+            
+            if [ "$CRITICAL" -gt 0 ]; then
+              echo "❌ DAST found CRITICAL security issues!" >> $GITHUB_STEP_SUMMARY
+              exit 1
+            elif [ "$HIGH" -gt 2 ]; then
+              echo "⚠️  DAST found multiple HIGH severity issues" >> $GITHUB_STEP_SUMMARY
+              exit 0
+            else
+              echo "✅ DAST passed with no critical issues" >> $GITHUB_STEP_SUMMARY
+            fi
+          fi
+      
+      - name: Comment PR with Results
+        if: github.event_name == 'pull_request' && always()
+        uses: actions/github-script@v6
+        with:
+          script: |
+            const fs = require('fs');
+            if (fs.existsSync('automated_test/report.json')) {
+              const report = JSON.parse(fs.readFileSync('automated_test/report.json', 'utf8'));
+              const summary = report.summary;
+              
+              let comment = `## 🔒 DAST Security Assessment\n\n`;
+              comment += `**Tests Executed**: ${summary.total_tests}\n`;
+              comment += `**Security Findings**: ${summary.total_findings}\n`;
+              comment += `**Pass Rate**: ${summary.pass_rate}\n\n`;
+              comment += `### Findings by Severity\n`;
+              comment += `- 🔴 CRITICAL: ${summary.findings_by_severity.CRITICAL}\n`;
+              comment += `- 🟠 HIGH: ${summary.findings_by_severity.HIGH}\n`;
+              comment += `- 🟡 MEDIUM: ${summary.findings_by_severity.MEDIUM}\n`;
+              comment += `- 🔵 LOW: ${summary.findings_by_severity.LOW}\n\n`;
+              comment += `[Download full report](${process.env.GITHUB_SERVER_URL}/${process.env.GITHUB_REPOSITORY}/actions/runs/${process.env.GITHUB_RUN_ID})`;
+              
+              github.rest.issues.createComment({
+                issue_number: context.issue.number,
+                owner: context.repo.owner,
+                repo: context.repo.repo,
+                body: comment
+              });
+            }
+
+  # Separate job for full DAST against deployed instance (optional)
+  dast-production:
+    runs-on: ubuntu-latest
+    if: github.event_name == 'schedule'
+    
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v3
+      
+      - name: Set up Python
+        uses: actions/setup-python@v4
+        with:
+          python-version: '3.11'
+      
+      - name: Install dependencies
+        run: |
+          python -m pip install --upgrade pip
+          pip install requests
+      
+      - name: Create DAST test input for production
+        run: |
+          mkdir -p automated_test
+          cat > automated_test/input.json << 'EOF'
+          {
+            "baseUrl": "${{ secrets.PROD_API_URL }}",
+            "admin": "",
+            "doctor": "",
+            "user": "",
+            "anonymous": ""
+          }
+          EOF
+      
+      - name: Run DAST against Production
+        working-directory: automated_test
+        run: |
+          echo "Starting Production DAST Assessment..."
+          python run_all_tests.py || true
+        continue-on-error: true
+      
+      - name: Upload Production DAST Report
+        if: always()
+        uses: actions/upload-artifact@v3
+        with:
+          name: dast-prod-report
+          path: automated_test/report.json
+          retention-days: 90

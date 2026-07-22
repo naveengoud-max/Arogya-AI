@@ -5,17 +5,14 @@
 !.github/
 !**/.github/**
 !arogya_ai_backend/
+!arogya_ai_backend/**
 !arogya_ai_flutter/
+!arogya_ai_flutter/**
 !arogya_ai_web/
+!arogya_ai_web/**
 
 # Allow .gitignore itself
 !.gitignore
-
-# Keep gitignore rules inside the projects
-!**/.github/**
-!**/arogya_ai_backend/**
-!**/arogya_ai_flutter/**
-!**/arogya_ai_web/**
 
 # Exclude large binaries, logs, secrets, and build outputs
 **/node_modules/

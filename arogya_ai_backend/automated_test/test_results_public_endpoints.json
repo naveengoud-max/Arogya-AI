@@ -1,0 +1,67 @@
+[
+  {
+    "endpoint": "/health",
+    "method": "GET",
+    "role": "anonymous",
+    "status": 0,
+    "expected_status": 200,
+    "finding": true,
+    "severity": "HIGH",
+    "response_time_ms": 0,
+    "test_category": "Public Endpoint Validation",
+    "note": "Exception: HTTPConnectionPool(host='10.0.2.2', port=5000): Max retries exceeded with url: /api/health (Caused b",
+    "timestamp": "2026-07-22T15:01:39.992129"
+  },
+  {
+    "endpoint": "/auth/send-otp",
+    "method": "POST",
+    "role": "anonymous",
+    "status": 0,
+    "expected_status": 400,
+    "finding": true,
+    "severity": "HIGH",
+    "response_time_ms": 0,
+    "test_category": "Public Endpoint Validation",
+    "note": "Exception: HTTPConnectionPool(host='10.0.2.2', port=5000): Max retries exceeded with url: /api/auth/send-otp (C",
+    "timestamp": "2026-07-22T15:01:50.001532"
+  },
+  {
+    "endpoint": "/auth/verify-otp",
+    "method": "POST",
+    "role": "anonymous",
+    "status": 0,
+    "expected_status": 400,
+    "finding": true,
+    "severity": "HIGH",
+    "response_time_ms": 0,
+    "test_category": "Public Endpoint Validation",
+    "note": "Exception: HTTPConnectionPool(host='10.0.2.2', port=5000): Max retries exceeded with url: /api/auth/verify-otp ",
+    "timestamp": "2026-07-22T15:02:00.018415"
+  },
+  {
+    "endpoint": "/hospitals",
+    "method": "GET",
+    "role": "anonymous",
+    "status": 0,
+    "expected_status": 200,
+    "finding": true,
+    "severity": "HIGH",
+    "response_time_ms": 0,
+    "test_category": "Public Endpoint Validation",
+    "note": "Exception: HTTPConnectionPool(host='10.0.2.2', port=5000): Max retries exceeded with url: /api/hospitals (Cause",
+    "timestamp": "2026-07-22T15:02:10.037760"
+  },
+  {
+    "endpoint": "/hospital-search",
+    "method": "GET",
+    "role": "anonymous",
+    "status": 0,
+    "expected_status": 200,
+    "finding": true,
+    "severity": "HIGH",
+    "response_time_ms": 0,
+    "test_category": "Public Endpoint Validation",
+    "note": "Exception: HTTPConnectionPool(host='10.0.2.2', port=5000): Max retries exceeded with url: /api/hospital-search ",
+    "timestamp": "2026-07-22T15:02:20.048756"
+  }
+]

@@ -57,6 +57,10 @@ jobs:
       - name: Stage 5 - Build Android APK via Gradle
         run: |
           cd arogya_ai_flutter/android
+          if [ ! -f "gradlew" ]; then
+            echo "gradlew not found, initializing Gradle wrapper..."
+            gradle wrapper
+          fi
           chmod +x gradlew
           ./gradlew assembleDebug --no-daemon
 

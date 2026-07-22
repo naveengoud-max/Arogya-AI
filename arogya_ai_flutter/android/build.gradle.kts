@@ -5,11 +5,15 @@ allprojects {
     }
 }
 
-// Redirect build directory to bypass Chinese character path in CMake / Ninja
-rootProject.layout.buildDirectory.set(file("C:/Users/knave/arogya_build"))
+// Redirect build directory to bypass Chinese character path in CMake / Ninja if on Windows local host
+val isWindows = System.getProperty("os.name").lowercase().contains("win")
+val customBuildDir = file("C:/Users/knave/arogya_build")
 
-subprojects {
-    project.layout.buildDirectory.set(file("C:/Users/knave/arogya_build/${project.name}"))
+if (isWindows && customBuildDir.parentFile?.exists() == true) {
+    rootProject.layout.buildDirectory.set(customBuildDir)
+    subprojects {
+        project.layout.buildDirectory.set(file("C:/Users/knave/arogya_build/${project.name}"))
+    }
 }
 
 subprojects {

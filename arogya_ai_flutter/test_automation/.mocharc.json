@@ -1,0 +1,18 @@
+{
+  "require": [
+    "dotenv/config",
+    "test/helpers/setup.js"
+  ],
+  "timeout": 120000,
+  "slow": 10000,
+  "reporter": "mochawesome",
+  "reporter-option": [
+    "reportDir=reports/mochawesome",
+    "reportFilename=index",
+    "quiet=true",
+    "json=true",
+    "html=true",
+    "overwrite=true",
+    "timestamp=longDate"
+  ]
+}

@@ -1,0 +1,85 @@
+name: Flutter Android E2E Appium Test Automation
+
+on:
+  push:
+    branches: [ main, master, develop ]
+  pull_request:
+    branches: [ main, master ]
+  workflow_dispatch:
+
+jobs:
+  e2e-automation:
+    runs-on: ubuntu-latest
+    timeout-minutes: 60
+
+    steps:
+      - name: 1. Checkout Repository
+        uses: actions/checkout@v4
+
+      - name: 2. Setup Node.js Environment
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+          cache: 'npm'
+          cache-dependency-path: 'arogya_ai_flutter/test_automation/package-lock.json'
+
+      - name: 3. Setup Java 17 Development Kit
+        uses: actions/setup-java@v4
+        with:
+          distribution: 'temurin'
+          java-version: '17'
+
+      - name: 4. Setup Android SDK & Command Line Tools
+        uses: android-actions/setup-android@v3
+
+      - name: 5. Install Appium 2.x & Drivers
+        run: |
+          npm install -g appium@latest
+          appium driver install uiautomator2
+          appium driver list
+
+      - name: 6. Install Framework Node Dependencies
+        working-directory: ./arogya_ai_flutter/test_automation
+        run: npm ci || npm install
+
+      - name: 7. Run E2E Tests on Android Emulator
+        uses: reactivecircus/android-emulator-runner@v2
+        with:
+          api-level: 33
+          target: google_apis
+          arch: x86_64
+          profile: Pixel_6
+          script: |
+            # Start Appium Server in background
+            appium --log appium.log &
+            sleep 10
+            
+            # Navigate to test folder and run test suite
+            cd arogya_ai_flutter/test_automation
+            npm test || true
+
+      - name: 8. Generate Excel Report Fallback / Verify Artifacts
+        if: always()
+        working-directory: ./arogya_ai_flutter/test_automation
+        run: npm run report:excel || true
+
+      - name: 9. Upload Excel Report Artifact
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: Flutter_E2E_Excel_Report
+          path: arogya_ai_flutter/test_automation/reports/Flutter_E2E_Report.xlsx
+
+      - name: 10. Upload Mochawesome HTML Report Artifact
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: Mochawesome_HTML_Report
+          path: arogya_ai_flutter/test_automation/reports/mochawesome/
+
+      - name: 11. Upload Failure Artifacts (Screenshots, Logs & Widget Trees)
+        if: failure()
+        uses: actions/upload-artifact@v4
+        with:
+          name: Failure_Artifacts_Screenshots_Logs
+          path: arogya_ai_flutter/test_automation/reports/failures/

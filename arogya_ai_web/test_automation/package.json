@@ -1,0 +1,36 @@
+{
+  "name": "arogya-ai-web-selenium-automation",
+  "version": "1.0.0",
+  "description": "Production-grade Selenium WebDriver E2E web automation framework for Arogya AI Web Application using Node.js, Mocha, Chai, ExcelJS, Winston, and Chrome/Edge Driver",
+  "main": "src/driver/driverFactory.js",
+  "scripts": {
+    "test": "mocha --config .mocharc.json test/specs/**/*.spec.js",
+    "test:e2e": "mocha --config .mocharc.json test/specs/endToEndWeb.spec.js",
+    "test:auth": "mocha --config .mocharc.json test/specs/auth.spec.js",
+    "test:symptoms": "mocha --config .mocharc.json test/specs/symptomChecker.spec.js",
+    "test:appointments": "mocha --config .mocharc.json test/specs/appointments.spec.js",
+    "report:excel": "node -e \"const ExcelReporter = require('./src/utils/excelReporter'); ExcelReporter.generateSampleReport();\""
+  },
+  "keywords": [
+    "selenium",
+    "webdriver",
+    "web",
+    "automation",
+    "mocha",
+    "chai",
+    "exceljs",
+    "winston",
+    "arogya-ai"
+  ],
+  "author": "Arogya AI QA Architecture Team",
+  "license": "ISC",
+  "dependencies": {
+    "chai": "^4.3.10",
+    "dotenv": "^16.4.5",
+    "exceljs": "^4.4.0",
+    "mocha": "^10.4.0",
+    "mochawesome": "^7.1.3",
+    "selenium-webdriver": "^4.21.0",
+    "winston": "^3.13.0"
+  }
+}

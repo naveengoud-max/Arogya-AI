@@ -1,7 +1,9 @@
 # Ignore everything by default in this test-data folder
 *
 
-# Allow the specific project directories
+# Allow the specific project directories & GitHub workflows
+!.github/
+!**/.github/**
 !arogya_ai_backend/
 !arogya_ai_flutter/
 !arogya_ai_web/
@@ -10,6 +12,7 @@
 !.gitignore
 
 # Keep gitignore rules inside the projects
+!**/.github/**
 !**/arogya_ai_backend/**
 !**/arogya_ai_flutter/**
 !**/arogya_ai_web/**

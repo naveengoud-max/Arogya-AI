@@ -1,0 +1,34 @@
+name: Deploy Appium Test Reports to GitHub Pages
+
+on:
+  workflow_run:
+    workflows: ["Android Appium E2E Automation & CI/CD Pipeline"]
+    types: [completed]
+  workflow_dispatch:
+
+permissions:
+  contents: write
+  pages: write
+  id-token: write
+
+jobs:
+  deploy-reports:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v4
+
+      - name: Download Reports Artifacts
+        uses: actions/download-artifact@v4
+        with:
+          pattern: arogya-ai-appium-e2e-reports-*
+          merge-multiple: true
+          path: public_reports/
+
+      - name: Deploy Latest Reports to GitHub Pages
+        uses: peaceiris/actions-gh-pages@v3
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          publish_dir: ./public_reports/HTML
+          destination_dir: reports/latest/
+          keep_files: true

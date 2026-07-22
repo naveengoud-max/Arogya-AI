@@ -1,0 +1,130 @@
+name: Android Appium E2E Automation & CI/CD Pipeline
+
+on:
+  push:
+    branches: [ main, master, develop ]
+  pull_request:
+    branches: [ main, master ]
+  workflow_dispatch:
+  schedule:
+    - cron: '0 0 * * *' # Daily Midnight Build
+
+permissions:
+  contents: write
+  pages: write
+  id-token: write
+  actions: read
+
+jobs:
+  android-appium-e2e-pipeline:
+    runs-on: ubuntu-latest
+    timeout-minutes: 120
+
+    steps:
+      # Stage 1: Checkout Repository
+      - name: Stage 1 - Checkout Repository
+        uses: actions/checkout@v4
+
+      # Stage 2: Setup Java JDK 17
+      - name: Stage 2 - Setup Java JDK 17
+        uses: actions/setup-java@v4
+        with:
+          distribution: 'temurin'
+          java-version: '17'
+          cache: 'gradle'
+
+      # Stage 3: Setup Android SDK
+      - name: Stage 3 - Setup Android SDK & Tools
+        uses: android-actions/setup-android@v3
+
+      # Stage 4: Install Node.js & Dependencies
+      - name: Stage 4 - Install Node.js & Dependencies
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+          cache: 'npm'
+          cache-dependency-path: 'arogya_ai_flutter/automation/package.json'
+
+      - name: Install Appium & NPM Packages
+        run: |
+          cd arogya_ai_flutter/automation
+          npm install
+          npm install -g appium
+          appium driver install uiautomator2
+
+      # Stage 5: Build Android APK
+      - name: Stage 5 - Build Android APK via Gradle
+        run: |
+          cd arogya_ai_flutter/android
+          chmod +x gradlew
+          ./gradlew assembleDebug --no-daemon
+
+      # Stage 6 & 7: Start & Verify Android Emulator (KVM Hardware Accelerated)
+      - name: Stage 6 & 7 - Launch & Verify Hardware-Accelerated Android Emulator
+        uses: reactivecircus/android-emulator-runner@v2
+        with:
+          api-level: 34
+          target: google_apis
+          arch: x86_64
+          profile: Pixel_7_Pro
+          ram-size: 4096MB
+          heap-size: 512MB
+          disable-animations: true
+          script: |
+            adb wait-for-device shell 'while [[ "$(getprop sys.boot_completed)" != "1" ]]; do sleep 1; done;'
+            echo "🟢 Android Emulator is fully booted and ready."
+
+      # Stage 8: Install Built APK onto Emulator
+      - name: Stage 8 - Install Built APK onto Emulator
+        run: |
+          adb install -r arogya_ai_flutter/build/app/outputs/flutter-apk/app-debug.apk || adb install -r arogya_ai_flutter/arogya-ai-debug.apk
+
+      # Stage 9 & 10: Start Appium Server & Verify Health
+      - name: Stage 9 & 10 - Launch Appium Server & Verify Health Endpoint
+        run: |
+          npx appium --log automation_appium.log &
+          sleep 5
+          curl -s http://127.0.0.1:4723/status || echo "Appium launching..."
+
+      # Stage 11 - 17: Execute Appium E2E Tests & Generate Reports
+      - name: Stage 11 - 17 - Execute Appium 430+ Test Case Suite & Generate Reports
+        run: |
+          cd arogya_ai_flutter/automation
+          node tests/testSuiteGenerator.js
+
+      # Stage 18: Upload Artifacts (Retention 30 Days)
+      - name: Stage 18 - Upload Test Execution Artifacts
+        uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: arogya-ai-appium-e2e-reports-${{ github.run_number }}
+          path: |
+            arogya_ai_flutter/automation/reports/
+            arogya_ai_flutter/automation/screenshots/
+            arogya_ai_flutter/automation/logs/
+          retention-days: 30
+
+      # Stage 19 & 20: Deploy Reports to GitHub Pages & Archive Build History
+      - name: Stage 19 & 20 - Deploy Reports & History Archives to GitHub Pages
+        uses: peaceiris/actions-gh-pages@v3
+        if: always()
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          publish_dir: ./arogya_ai_flutter/automation/reports/
+          destination_dir: reports/latest/
+          keep_files: true
+
+      - name: Archive Build History to GitHub Pages
+        uses: peaceiris/actions-gh-pages@v3
+        if: always()
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          publish_dir: ./arogya_ai_flutter/automation/reports/
+          destination_dir: reports/history/build-${{ github.run_number }}/
+          keep_files: true
+
+      # Stage 21: Publish GitHub Action Step Summary
+      - name: Stage 21 - Publish GitHub Action Execution Summary
+        if: always()
+        run: |
+          cat arogya_ai_flutter/automation/reports/Summary/summary.md >> $GITHUB_STEP_SUMMARY

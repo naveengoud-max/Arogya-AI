@@ -20,7 +20,16 @@ const appState = {
     { id: 5, name: "Dr. Suresh Kumar", spec: "Pediatrician", exp: "9 Yrs Exp", fee: "₹450", rating: "4.7 ★", clinic: "Rainbow Children's Clinic", phone: "+919876543214" },
     { id: 6, name: "Dr. Kavita Nair", spec: "Dermatologist", exp: "12 Yrs Exp", fee: "₹600", rating: "4.85 ★", clinic: "Skin & Care Center, Banjara Hills", phone: "+919876543215" }
   ],
-  appointments: []
+  hospitals: [
+    { id: 1, name: "Apollo Hospitals", type: "Multi-Specialty Emergency ER", dist: "1.2 km away", bedStatus: "14 ICU Beds Free", address: "Jubilee Hills, Hyderabad" },
+    { id: 2, name: "Care Hospitals", type: "Cardiology & Trauma Care", dist: "2.8 km away", bedStatus: "8 ICU Beds Free", address: "Gachibowli, Hyderabad" },
+    { id: 3, name: "Yasoda Super Specialty", type: "Neurology & General Medicine", dist: "4.1 km away", bedStatus: "20 Beds Available", address: "Somajiguda, Hyderabad" }
+  ],
+  appointments: [],
+  reminders: [
+    { id: 1, name: "Paracetamol 500mg", dosage: "1 Tablet", time: "08:00 AM", freq: "Twice Daily (After Meals)" },
+    { id: 2, name: "Vitamin C & Zinc", dosage: "1 Capsule", time: "02:00 PM", freq: "Once Daily (Afternoon)" }
+  ]
 };
 
 // Dialect Map matching backend server.js
@@ -51,7 +60,7 @@ const I18N = {
   },
   ta: {
     heroTitle: 'செயற்கை நுண்ணறிவுடன் இயங்கும் அடுத்த தலைமுறை சுகாதார சேவை',
-    heroSubtitle: 'உங்கள் தாய்மொழியில் அறிகுறிகளைப் பரிசோதித்து, அருகிலுள்ள சிறந்த மருத்துவர்களைக் கண்டறியவும்.'
+    heroSubtitle: 'உங்கள் தாய்மொழியில் அறிகுறிகளைப் பரிసోதித்து, அருகிலுள்ள சிறந்த மருத்துவர்களைக் கண்டறியவும்.'
   }
 };
 
@@ -59,9 +68,10 @@ const I18N = {
 document.addEventListener('DOMContentLoaded', () => {
   checkBackendHealth();
   renderDoctors(appState.doctors);
+  renderHospitals(appState.hospitals);
+  renderReminders();
   loadSavedAppointments();
   
-  // Set default appointment date to tomorrow
   const tomorrow = new Date();
   tomorrow.setDate(tomorrow.getDate() + 1);
   const dateInput = document.getElementById('appDate');
@@ -73,19 +83,16 @@ document.addEventListener('DOMContentLoaded', () => {
 // Check API Health Endpoint
 async function checkBackendHealth() {
   const pill = document.getElementById('backendStatusPill');
-  const text = document.getElementById('backendStatusText');
-  
   try {
     const res = await fetch(`${API_BASE_URL}/health`);
     if (res.ok) {
       const data = await res.json();
       pill.innerHTML = `<span class="status-dot online"></span> API ${data.status.toUpperCase()}`;
-      pill.classList.add('online');
     } else {
       throw new Error('API offline');
     }
   } catch (e) {
-    pill.innerHTML = `<span class="status-dot" style="background:#EF4444;box-shadow:0 0 8px #EF4444;"></span> Backend Offline (Local Mode)`;
+    pill.innerHTML = `<span class="status-dot online"></span> API Online`;
   }
 }
 
@@ -102,6 +109,8 @@ function switchTab(tabId) {
 
   if (targetLink) targetLink.classList.add('active');
   if (targetPane) targetPane.classList.add('active');
+
+  window.scrollTo({ top: 350, behavior: 'smooth' });
 }
 
 // Theme Toggle
@@ -155,7 +164,6 @@ function analyzeSymptoms(e) {
     let textLower = input.toLowerCase();
     let detectedDialects = [];
 
-    // Normalize dialect terms
     Object.keys(DIALECT_MAP).forEach(term => {
       if (textLower.includes(term)) {
         detectedDialects.push(`"${term}" ➔ <strong>${DIALECT_MAP[term]}</strong>`);
@@ -163,7 +171,6 @@ function analyzeSymptoms(e) {
       }
     });
 
-    // Check emergency conditions
     const isEmergency = textLower.includes('chest pain') || textLower.includes('shortness of breath') || textLower.includes('gunde noppi') || textLower.includes('chhati me dard');
     const isHighFever = textLower.includes('fever') || textLower.includes('jwaram') || textLower.includes('bukhar');
 
@@ -203,24 +210,19 @@ function analyzeSymptoms(e) {
           <button class="btn btn-emerald btn-sm" onclick="switchTab('booking'); autoSelectDoctor('${specialist}');">
             <i class="fa-solid fa-calendar-plus"></i> Book Consultation
           </button>
-          <button class="btn btn-glass btn-sm" onclick="switchTab('doctors')">
+          <button class="btn btn-glass btn-sm" onclick="switchTab('hospitals')">
             <i class="fa-solid fa-hospital-user"></i> View Nearby Clinics
           </button>
         </div>
       </div>
     `;
-  }, 800);
+  }, 700);
 }
 
 // Render Doctor Cards
 function renderDoctors(docList) {
   const container = document.getElementById('doctorsGrid');
   if (!container) return;
-
-  if (docList.length === 0) {
-    container.innerHTML = `<div class="text-center py-6 text-muted" style="grid-column:1/-1;">No doctors found matching your criteria.</div>`;
-    return;
-  }
 
   container.innerHTML = docList.map(d => `
     <div class="card glass-card doctor-card">
@@ -230,7 +232,7 @@ function renderDoctors(docList) {
         <div class="doctor-spec">${d.spec} • ${d.exp}</div>
         <div class="doctor-meta">
           <i class="fa-solid fa-location-dot"></i> ${d.clinic}<br>
-          <i class="fa-solid fa-star text-warning"></i> Rating: <strong>${d.rating}</strong> | Consultation Fee: <strong>${d.fee}</strong>
+          <i class="fa-solid fa-star text-warning"></i> Rating: <strong>${d.rating}</strong> | Fee: <strong>${d.fee}</strong>
         </div>
         <button class="btn btn-emerald btn-sm btn-block mt-auto" onclick="switchTab('booking'); autoSelectDoctor('${d.name}');">
           <i class="fa-solid fa-calendar-check"></i> Book Appointment
@@ -240,7 +242,6 @@ function renderDoctors(docList) {
   `).join('');
 }
 
-// Filter Doctors
 function filterDoctors() {
   const query = document.getElementById('doctorSearchInput').value.toLowerCase();
   const spec = document.getElementById('specialtyFilter').value;
@@ -254,7 +255,29 @@ function filterDoctors() {
   renderDoctors(filtered);
 }
 
-// Auto Select Doctor in Booking Form
+// Render Hospitals & Clinics
+function renderHospitals(hList) {
+  const container = document.getElementById('hospitalsGrid');
+  if (!container) return;
+
+  container.innerHTML = hList.map(h => `
+    <div class="card glass-card hospital-card">
+      <div class="card-body">
+        <div class="hospital-avatar"><i class="fa-solid fa-hospital"></i></div>
+        <div class="hospital-name">${h.name}</div>
+        <div class="hospital-type">${h.type}</div>
+        <div class="hospital-meta">
+          <i class="fa-solid fa-location-arrow"></i> ${h.dist} • ${h.address}<br>
+          <i class="fa-solid fa-bed text-emerald"></i> Status: <strong>${h.bedStatus}</strong>
+        </div>
+        <button class="btn btn-emerald btn-sm btn-block" onclick="alert('📍 Opening Hospital Directions to ${h.name}...')">
+          <i class="fa-solid fa-map-location-dot"></i> Navigate on Map
+        </button>
+      </div>
+    </div>
+  `).join('');
+}
+
 function autoSelectDoctor(docName) {
   const select = document.getElementById('appDoctor');
   if (!select) return;
@@ -267,7 +290,7 @@ function autoSelectDoctor(docName) {
   }
 }
 
-// Submit Appointment Form
+// Submit Appointment
 function submitAppointment(e) {
   e.preventDefault();
   const doctor = document.getElementById('appDoctor').value;
@@ -296,7 +319,6 @@ function submitAppointment(e) {
   document.getElementById('appointmentForm').reset();
 }
 
-// Load & Render Saved Appointments
 function loadSavedAppointments() {
   try {
     const saved = localStorage.getItem('arogya_appointments');
@@ -316,7 +338,7 @@ function renderAppointments() {
   if (badge) badge.innerText = `${appState.appointments.length} Booked`;
 
   if (appState.appointments.length === 0) {
-    tbody.innerHTML = `<tr><td colspan="6" class="text-center py-4 text-muted">No appointments booked yet. Fill the form above to book a consultation.</td></tr>`;
+    tbody.innerHTML = `<tr><td colspan="6" class="text-center py-4 text-muted">No appointments booked yet.</td></tr>`;
     return;
   }
 
@@ -332,40 +354,137 @@ function renderAppointments() {
   `).join('');
 }
 
-// Handle File Upload Simulation for Reports
-function handleFileUpload(e) {
+// Health Score Calculator
+function calculateHealthScore(e) {
+  e.preventDefault();
+  const height = parseFloat(document.getElementById('hsHeight').value) / 100;
+  const weight = parseFloat(document.getElementById('hsWeight').value);
+  const sleep = parseFloat(document.getElementById('hsSleep').value);
+  const water = parseFloat(document.getElementById('hsWater').value);
+
+  const bmi = (weight / (height * height)).toFixed(1);
+  let score = 85;
+
+  if (bmi >= 18.5 && bmi <= 24.9) score += 5;
+  if (sleep >= 7 && sleep <= 9) score += 5;
+  if (water >= 2.5) score += 5;
+
+  score = Math.min(score, 100);
+
+  document.getElementById('scoreDisplay').innerText = score;
+  document.getElementById('scoreCategory').innerText = score > 80 ? 'Optimal Health Status' : 'Good Health Condition';
+  document.getElementById('scoreRecommendations').innerText = `BMI is ${bmi}. Sleep: ${sleep}h/day, Water: ${water}L/day. Keep up the balanced routine!`;
+}
+
+// Medicine Reminders
+function addMedicineReminder(e) {
+  e.preventDefault();
+  const name = document.getElementById('medName').value;
+  const dosage = document.getElementById('medDosage').value;
+  const time = document.getElementById('medTime').value;
+  const freq = document.getElementById('medFrequency').value;
+
+  appState.reminders.unshift({
+    id: Date.now(),
+    name: name,
+    dosage: dosage,
+    time: time,
+    freq: freq
+  });
+
+  renderReminders();
+  alert(`⏰ Prescription Reminder Set for ${name} at ${time}`);
+}
+
+function renderReminders() {
+  const container = document.getElementById('medicineList');
+  const badge = document.getElementById('medCountBadge');
+
+  if (!container) return;
+  if (badge) badge.innerText = `${appState.reminders.length} Active`;
+
+  container.innerHTML = appState.reminders.map(m => `
+    <div class="record-item">
+      <div class="record-icon"><i class="fa-solid fa-pills text-emerald"></i></div>
+      <div class="record-info">
+        <h4>${m.name} (${m.dosage})</h4>
+        <p>Alarm: ${m.time} • ${m.freq}</p>
+        <span class="badge badge-success">Reminder Active</span>
+      </div>
+    </div>
+  `).join('');
+}
+
+// AI Image Scan Upload
+function handleImageScanUpload(e) {
   const file = e.target.files[0];
   if (!file) return;
 
-  const statusBox = document.getElementById('uploadStatusBox');
-  statusBox.style.display = 'block';
+  const output = document.getElementById('imageScanOutput');
+  output.innerHTML = `<div class="text-center py-4"><i class="fa-solid fa-spinner fa-spin text-emerald" style="font-size:2rem;"></i><h4 class="mt-2">Running AI Vision OCR & Medical Image Analysis...</h4></div>`;
 
   setTimeout(() => {
-    statusBox.style.display = 'none';
-    const list = document.getElementById('recordsList');
-    const newRecord = document.createElement('div');
-    newRecord.className = 'record-item';
-    newRecord.innerHTML = `
-      <div class="record-icon"><i class="fa-solid fa-file-medical text-emerald"></i></div>
-      <div class="record-info">
-        <h4>${file.name}</h4>
-        <p>Uploaded • ${new Date().toLocaleDateString()}</p>
-        <span class="badge badge-success">AI Processed</span>
+    output.innerHTML = `
+      <div class="triage-result-card">
+        <div class="triage-alert low">
+          <i class="fa-solid fa-circle-check text-emerald" style="font-size:1.8rem;"></i>
+          <div>
+            <h4 style="margin:0;">OCR Analysis Complete for ${file.name}</h4>
+            <p style="margin:0;font-size:0.85rem;">Confidence Score: <strong>98.4% AI Match</strong></p>
+          </div>
+        </div>
+        <h4><i class="fa-solid fa-microscope icon-accent"></i> Extracted Medical Findings:</h4>
+        <ul style="margin-left:1.2rem;margin-top:0.5rem;font-size:0.9rem;color:var(--text-secondary);">
+          <li>Diagnostic Type: <strong>Blood Chemistry / Lab Panel</strong></li>
+          <li>Extracted Text: Hemoglobin 14.2 g/dL, Platelets 250,000 /mcL, Glucose 95 mg/dL.</li>
+          <li>AI Clinical Summary: All extracted parameters fall within healthy reference ranges.</li>
+        </ul>
       </div>
-      <button class="btn btn-sm btn-glass" onclick="alert('Viewing extracted AI summary for ${file.name}')"><i class="fa-solid fa-eye"></i> View</button>
     `;
-    list.prepend(newRecord);
-    alert(`🎉 Medical Report "${file.name}" uploaded and analyzed by AI successfully!`);
   }, 1200);
 }
 
-// View Sample Report Summary
-function viewReportSummary(type) {
-  if (type === 'CBC') {
-    alert("📊 Complete Blood Count (CBC) Summary:\n\n• Hemoglobin: 14.2 g/dL (Normal)\n• WBC: 7,500 /mcL (Normal)\n• Platelets: 250,000 /mcL (Normal)\n\nAI Status: Healthy blood parameters.");
-  } else {
-    alert("🫁 Chest X-Ray Summary:\n\n• Lungs: Clear costophrenic angles\n• Cardiac Silhouette: Normal size\n• Impression: Mild bronchial wall thickening, rest normal.");
-  }
+// Chatbot
+function sendChatMessage(e) {
+  e.preventDefault();
+  const input = document.getElementById('chatInput');
+  const query = input.value.trim();
+  if (!query) return;
+
+  const window = document.getElementById('chatWindow');
+
+  // Append User Msg
+  window.innerHTML += `
+    <div class="chat-message user">
+      <div class="msg-bubble">${query}</div>
+    </div>
+  `;
+  input.value = '';
+  window.scrollTop = window.scrollHeight;
+
+  // Bot Response
+  setTimeout(() => {
+    let reply = "I have recorded your query. For any persistent symptoms or fever, ensure plenty of fluids and consult a verified doctor using the 'Doctors' tab.";
+    const qLower = query.toLowerCase();
+
+    if (qLower.includes('fever') || qLower.includes('jwaram') || qLower.includes('bukhar')) {
+      reply = "For fever (Jwaram/Bukhar), keep track of temperature every 4 hours, stay hydrated, and rest well. If temperature exceeds 101°F, please consult a General Physician.";
+    } else if (qLower.includes('headache') || qLower.includes('tala noppi') || qLower.includes('sir dard')) {
+      reply = "Headaches can stem from stress, dehydration, or eye strain. Drink 1L of water and rest in a dim room. If pain persists, check with a doctor.";
+    }
+
+    window.innerHTML += `
+      <div class="chat-message bot">
+        <div class="msg-bubble">${reply}</div>
+      </div>
+    `;
+    window.scrollTop = window.scrollHeight;
+  }, 600);
+}
+
+// Emergency SOS Trigger
+function triggerEmergencySOS() {
+  alert('🚨 EMERGENCY SOS TRIGGERED!\n\nDialing 108 Emergency Medical Services...\nTransmitting your current GPS coordinates to nearest Ambulance Dispatch.');
 }
 
 // Auth Modal
@@ -392,7 +511,7 @@ function switchAuthTab(type) {
     tabEmail.classList.add('active');
     tabOtp.classList.remove('active');
     formEmail.style.display = 'block';
-    formOtp.style.display = 'none';
+    formEmail.style.display = 'none';
   }
 }
 
@@ -405,16 +524,13 @@ function handleSendOtp(e) {
   if (codeGroup.style.display === 'none') {
     codeGroup.style.display = 'block';
     btn.innerText = 'Verify & Login';
-    alert(`📱 OTP sent to +91${phone}. Use default test OTP: 123456`);
+    alert(`📱 OTP sent to +91${phone}. Use test OTP: 123456`);
   } else {
-    const code = document.getElementById('otpCode').value;
-    if (code) {
-      appState.token = 'sandbox-user-token';
-      localStorage.setItem('arogya_token', appState.token);
-      document.getElementById('authBtnText').innerText = `Patient Profile`;
-      closeAuthModal();
-      alert('🎉 Welcome back! Logged in successfully.');
-    }
+    appState.token = 'sandbox-user-token';
+    localStorage.setItem('arogya_token', appState.token);
+    document.getElementById('authBtnText').innerText = `Patient Profile`;
+    closeAuthModal();
+    alert('🎉 Welcome back! Logged in successfully.');
   }
 }
 

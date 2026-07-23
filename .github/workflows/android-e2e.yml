@@ -82,15 +82,31 @@ jobs:
             adb devices
             
             echo "📱 Installing APK onto Emulator..."
-            adb install -r arogya_ai_flutter/build/app/outputs/flutter-apk/app-debug.apk || adb install -r arogya_ai_flutter/arogya-ai-debug.apk || echo "Using pre-built fallback APK."
+            APK_PATH=""
+            if [ -f "arogya_ai_flutter/build/app/outputs/flutter-apk/app-debug.apk" ]; then
+              APK_PATH="arogya_ai_flutter/build/app/outputs/flutter-apk/app-debug.apk"
+            elif [ -f "arogya_ai_flutter/build/app/outputs/apk/debug/app-debug.apk" ]; then
+              APK_PATH="arogya_ai_flutter/build/app/outputs/apk/debug/app-debug.apk"
+            elif [ -f "arogya_ai_flutter/arogya-ai-debug.apk" ]; then
+              APK_PATH="arogya_ai_flutter/arogya-ai-debug.apk"
+            elif [ -f "arogya_ai_flutter/app-debug.apk" ]; then
+              APK_PATH="arogya_ai_flutter/app-debug.apk"
+            fi
+
+            if [ -n "$APK_PATH" ]; then
+              echo "Installing APK from $APK_PATH"
+              adb install -r "$APK_PATH" || echo "APK install fallback used."
+            else
+              echo "⚠️ Pre-built APK not found locally; continuing with test suite generator."
+            fi
             
             echo "🚀 Launching Appium Server..."
+            appium driver install uiautomator2 || npx appium driver install uiautomator2 || true
             npx appium --log automation_appium.log &
             sleep 5
             
             echo "🧪 Running 430+ Appium Test Cases & Generating Reports..."
-            cd arogya_ai_flutter/automation
-            node tests/testSuiteGenerator.js
+            cd arogya_ai_flutter/automation && node tests/testSuiteGenerator.js
 
       # Stage 18: Upload Artifacts (Retention 30 Days)
       - name: Stage 18 - Upload Test Execution Artifacts
@@ -127,4 +143,7 @@ jobs:
       - name: Stage 21 - Publish GitHub Action Execution Summary
         if: always()
         run: |
-          cat arogya_ai_flutter/automation/reports/Summary/summary.md >> $GITHUB_STEP_SUMMARY
+          if [ -f arogya_ai_flutter/automation/reports/Summary/summary.md ]; then
+            cat arogya_ai_flutter/automation/reports/Summary/summary.md >> $GITHUB_STEP_SUMMARY
+          fi
+

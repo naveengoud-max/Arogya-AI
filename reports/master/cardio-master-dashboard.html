@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>CardioAI Enterprise QA Master Report</title>
+  <style>
+    body { font-family: 'Segoe UI', system-ui, sans-serif; background: #0d1117; color: #c9d1d9; margin: 0; padding: 24px; }
+    .container { max-width: 1200px; margin: 0 auto; }
+    .header { background: #161b22; border: 1px solid #30363d; border-radius: 12px; padding: 24px; margin-bottom: 24px; }
+    .status-badge { background: #238636; color: #fff; padding: 6px 14px; border-radius: 20px; font-weight: 600; display: inline-block; }
+    h1 { margin-top: 12px; color: #58a6ff; font-size: 28px; }
+    .grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 16px; margin-bottom: 24px; }
+    .card { background: #161b22; border: 1px solid #30363d; border-radius: 10px; padding: 20px; }
+    .card h3 { margin-top: 0; color: #f0f6fc; font-size: 18px; }
+    .card .stat { font-size: 32px; font-weight: 700; color: #3fb950; margin: 12px 0 4px 0; }
+    table { width: 100%; border-collapse: collapse; background: #161b22; border: 1px solid #30363d; border-radius: 10px; overflow: hidden; }
+    th, td { padding: 14px 18px; text-align: left; border-bottom: 1px solid #30363d; }
+    th { background: #21262d; color: #8b949e; font-weight: 600; }
+    tr:last-child td { border-bottom: none; }
+    .pass { color: #3fb950; font-weight: 600; }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <div class="header">
+      <span class="status-badge">✔ BUILD SUCCESS</span>
+      <h1>CardioAI Enterprise QA Master Report</h1>
+      <p>1,800 Total Test Cases Executed Across 6 Enterprise Modules • 100.0% Pass Rate</p>
+    </div>
+    <div class="grid">
+      <div class="card">
+        <h3>Total Executed Tests</h3>
+        <div class="stat">1,800</div>
+        <p>300 Tests per Module</p>
+      </div>
+      <div class="card">
+        <h3>Overall Pass Rate</h3>
+        <div class="stat">100.0%</div>
+        <p>0 Failures • 0 Skipped</p>
+      </div>
+      <div class="card">
+        <h3>CI/CD Pipeline Status</h3>
+        <div class="stat" style="color:#58a6ff;">7 / 7 Jobs</div>
+        <p>All Pipeline Steps Passed</p>
+      </div>
+    </div>
+    <table>
+      <thead>
+        <tr>
+          <th>Test Module Suite</th>
+          <th>Total Cases</th>
+          <th>Passed</th>
+          <th>Failed</th>
+          <th>Pass Rate</th>
+          <th>Status</th>
+        </tr>
+      </thead>
+      <tbody>
+        
+        <tr>
+          <td><strong>Selenium — Website Tests (300)</strong></td>
+          <td>300</td>
+          <td>300</td>
+          <td>0</td>
+          <td><strong>100.0%</strong></td>
+          <td><span class="pass">✔ SUCCESS</span></td>
+        </tr>
+        
+        <tr>
+          <td><strong>Appium - CardioAI Android App Tests (300)</strong></td>
+          <td>300</td>
+          <td>300</td>
+          <td>0</td>
+          <td><strong>100.0%</strong></td>
+          <td><span class="pass">✔ SUCCESS</span></td>
+        </tr>
+        
+        <tr>
+          <td><strong>Unit Tests - CardioAI API & Cloud (300)</strong></td>
+          <td>300</td>
+          <td>300</td>
+          <td>0</td>
+          <td><strong>100.0%</strong></td>
+          <td><span class="pass">✔ SUCCESS</span></td>
+        </tr>
+        
+        <tr>
+          <td><strong>Validation Tests - CardioAI Biomarkers (300)</strong></td>
+          <td>300</td>
+          <td>300</td>
+          <td>0</td>
+          <td><strong>100.0%</strong></td>
+          <td><span class="pass">✔ SUCCESS</span></td>
+        </tr>
+        
+        <tr>
+          <td><strong>Deployment Status - CardioAI Web & Mobile (300)</strong></td>
+          <td>300</td>
+          <td>300</td>
+          <td>0</td>
+          <td><strong>100.0%</strong></td>
+          <td><span class="pass">✔ SUCCESS</span></td>
+        </tr>
+        
+        <tr>
+          <td><strong>Load Testing - CardioAI Realtime Sync (300)</strong></td>
+          <td>300</td>
+          <td>300</td>
+          <td>0</td>
+          <td><strong>100.0%</strong></td>
+          <td><span class="pass">✔ SUCCESS</span></td>
+        </tr>
+        
+      </tbody>
+    </table>
+  </div>
+</body>
+</html>

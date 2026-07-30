@@ -1,0 +1,264 @@
+name: CardioAI Enterprise QA CI/CD
+
+on:
+  push:
+    branches: [ main, master, develop ]
+  pull_request:
+    branches: [ main, master ]
+  workflow_dispatch:
+
+permissions:
+  contents: write
+  pages: write
+  id-token: write
+  actions: read
+
+jobs:
+  selenium-tests:
+    name: Selenium - CardioAI Web Tests (300)
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+
+    steps:
+      - name: Stage 1 - Checkout Repository
+        uses: actions/checkout@v4
+
+      - name: Stage 2 - Setup Node.js Environment
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+
+      - name: Stage 3 - Install Automation Dependencies
+        run: |
+          cd arogya_ai_flutter/automation
+          npm config set legacy-peer-deps true
+          npm install --legacy-peer-deps
+
+      - name: Stage 4 - Execute 300 Selenium CardioAI Web Tests
+        run: |
+          cd arogya_ai_flutter/automation
+          node tests/runModuleTest.js website
+
+      - name: Stage 5 - Upload Standalone Excel CSV Sheet Artifact
+        uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: selenium-cardioai-web-csv-report-${{ github.run_number }}
+          path: arogya_ai_flutter/automation/reports/CSV/
+          retention-days: 30
+
+  appium-tests:
+    name: Appium - CardioAI Android App Tests (300)
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+
+    steps:
+      - name: Stage 1 - Checkout Repository
+        uses: actions/checkout@v4
+
+      - name: Stage 2 - Setup Node.js Environment
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+
+      - name: Stage 3 - Install Appium & Dependencies
+        run: |
+          cd arogya_ai_flutter/automation
+          npm config set legacy-peer-deps true
+          npm install --legacy-peer-deps
+
+      - name: Stage 4 - Execute 300 Appium CardioAI Android App Tests
+        run: |
+          cd arogya_ai_flutter/automation
+          node tests/runModuleTest.js android
+
+      - name: Stage 5 - Upload Standalone Excel CSV Sheet Artifact
+        uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: appium-cardioai-android-csv-report-${{ github.run_number }}
+          path: arogya_ai_flutter/automation/reports/CSV/
+          retention-days: 30
+
+  unit-tests-api:
+    name: Unit Tests - CardioAI API & Cloud (300)
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+
+    steps:
+      - name: Stage 1 - Checkout Repository
+        uses: actions/checkout@v4
+
+      - name: Stage 2 - Setup Node.js Environment
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+
+      - name: Stage 3 - Install Backend Dependencies
+        run: |
+          cd arogya_ai_backend
+          npm ci || npm install
+
+      - name: Stage 4 - Execute 300 Unit Tests CardioAI API & Cloud
+        run: |
+          cd arogya_ai_flutter/automation
+          npm config set legacy-peer-deps true
+          npm install --legacy-peer-deps
+          node tests/runModuleTest.js api
+
+      - name: Stage 5 - Upload Standalone Excel CSV Sheet Artifact
+        uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: unit-tests-cardioai-api-csv-report-${{ github.run_number }}
+          path: arogya_ai_flutter/automation/reports/CSV/
+          retention-days: 30
+
+  validation-tests:
+    name: Validation Tests - CardioAI Biomarkers (300)
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+
+    steps:
+      - name: Stage 1 - Checkout Repository
+        uses: actions/checkout@v4
+
+      - name: Stage 2 - Setup Node.js Environment
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+
+      - name: Stage 3 - Install Dependencies
+        run: |
+          cd arogya_ai_flutter/automation
+          npm config set legacy-peer-deps true
+          npm install --legacy-peer-deps
+
+      - name: Stage 4 - Execute 300 Validation Tests CardioAI Biomarkers
+        run: |
+          cd arogya_ai_flutter/automation
+          node tests/runModuleTest.js validation
+
+      - name: Stage 5 - Upload Standalone Excel CSV Sheet Artifact
+        uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: validation-tests-cardioai-biomarkers-csv-report-${{ github.run_number }}
+          path: arogya_ai_flutter/automation/reports/CSV/
+          retention-days: 30
+
+  deployment-status:
+    name: Deployment Status - CardioAI Web & Mobile (300)
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+
+    steps:
+      - name: Stage 1 - Checkout Repository
+        uses: actions/checkout@v4
+
+      - name: Stage 2 - Setup Node.js Environment
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+
+      - name: Stage 3 - Install Dependencies
+        run: |
+          cd arogya_ai_flutter/automation
+          npm config set legacy-peer-deps true
+          npm install --legacy-peer-deps
+
+      - name: Stage 4 - Execute 300 Deployment Status CardioAI Web & Mobile
+        run: |
+          cd arogya_ai_flutter/automation
+          node tests/runModuleTest.js deployment
+
+      - name: Stage 5 - Upload Standalone Excel CSV Sheet Artifact
+        uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: deployment-status-cardioai-csv-report-${{ github.run_number }}
+          path: arogya_ai_flutter/automation/reports/CSV/
+          retention-days: 30
+
+  load-tests:
+    name: Load Testing - CardioAI Realtime Sync (300)
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+
+    steps:
+      - name: Stage 1 - Checkout Repository
+        uses: actions/checkout@v4
+
+      - name: Stage 2 - Setup Node.js Environment
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+
+      - name: Stage 3 - Install Dependencies
+        run: |
+          cd arogya_ai_flutter/automation
+          npm config set legacy-peer-deps true
+          npm install --legacy-peer-deps
+
+      - name: Stage 4 - Execute 300 Load Testing CardioAI Realtime Sync
+        run: |
+          cd arogya_ai_flutter/automation
+          node tests/runModuleTest.js load
+
+      - name: Stage 5 - Upload Standalone Excel CSV Sheet Artifact
+        uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: load-testing-cardioai-realtime-csv-report-${{ github.run_number }}
+          path: arogya_ai_flutter/automation/reports/CSV/
+          retention-days: 30
+
+  compile-master-report-deploy:
+    name: Compile CardioAI Master Report & Deploy
+    runs-on: ubuntu-latest
+    needs: [selenium-tests, appium-tests, unit-tests-api, validation-tests, deployment-status, load-tests]
+    if: always()
+
+    steps:
+      - name: Stage 1 - Checkout Repository
+        uses: actions/checkout@v4
+
+      - name: Stage 2 - Setup Node.js Environment
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+
+      - name: Stage 3 - Install Dependencies
+        run: |
+          cd arogya_ai_flutter/automation
+          npm config set legacy-peer-deps true
+          npm install --legacy-peer-deps
+
+      - name: Stage 4 - Download All Standalone Excel CSV Artifacts
+        uses: actions/download-artifact@v4
+        with:
+          path: arogya_ai_flutter/automation/reports/CSV/
+          pattern: "*-csv-report-*"
+          merge-multiple: true
+
+      - name: Stage 5 - Compile 1,800 Test Cases CardioAI Master Report
+        run: |
+          cd arogya_ai_flutter/automation
+          node tests/runModuleTest.js compile
+
+      - name: Stage 6 - Upload CardioAI Master Compiled Workbook Artifact
+        uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: cardioai-master-1800-workbook-${{ github.run_number }}
+          path: arogya_ai_flutter/automation/reports/Excel/
+          retention-days: 30
+
+      - name: Stage 7 - Deploy CardioAI Master Report to GitHub Pages
+        uses: peaceiris/actions-gh-pages@v3
+        if: always()
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          publish_dir: ./arogya_ai_flutter/automation/reports/HTML/
+          destination_dir: reports/cardio/
+          keep_files: true

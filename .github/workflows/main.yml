@@ -1,0 +1,269 @@
+name: Arogya AI QA Enterprise CI/CD
+
+on:
+  push:
+    branches: [ main, master, develop ]
+  pull_request:
+    branches: [ main, master ]
+  workflow_dispatch:
+
+permissions:
+  contents: write
+  pages: write
+  id-token: write
+  actions: read
+
+jobs:
+  selenium-tests:
+    name: Selenium — Website Tests (300)
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+
+    steps:
+      - name: Stage 1 - Checkout Repository
+        uses: actions/checkout@v4
+
+      - name: Stage 2 - Setup Node.js Environment
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+
+      - name: Stage 3 - Install Automation Dependencies
+        run: |
+          cd arogya_ai_flutter/automation
+          npm config set legacy-peer-deps true
+          npm install --legacy-peer-deps
+
+      - name: Stage 4 - Execute 300 Selenium Website Tests
+        run: |
+          cd arogya_ai_flutter/automation
+          node tests/runModuleTest.js website
+
+      - name: Stage 5 - Upload Selenium Test Artifacts
+        uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: selenium-website-reports-${{ github.run_number }}
+          path: arogya_ai_flutter/automation/reports/
+          retention-days: 30
+
+  appium-tests:
+    name: Appium — Android Tests (300)
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+
+    steps:
+      - name: Stage 1 - Checkout Repository
+        uses: actions/checkout@v4
+
+      - name: Stage 2 - Setup Node.js Environment
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+
+      - name: Stage 3 - Install Appium & Dependencies
+        run: |
+          cd arogya_ai_flutter/automation
+          npm config set legacy-peer-deps true
+          npm install --legacy-peer-deps
+
+      - name: Stage 4 - Execute 300 Appium Android E2E Tests
+        run: |
+          cd arogya_ai_flutter/automation
+          node tests/runModuleTest.js android
+
+      - name: Stage 5 - Upload Appium Android Test Artifacts
+        uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: appium-android-reports-${{ github.run_number }}
+          path: arogya_ai_flutter/automation/reports/
+          retention-days: 30
+
+  unit-tests-api:
+    name: Unit Tests — API (300)
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+
+    steps:
+      - name: Stage 1 - Checkout Repository
+        uses: actions/checkout@v4
+
+      - name: Stage 2 - Setup Node.js & Python Environment
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+
+      - name: Stage 3 - Install Backend Dependencies
+        run: |
+          cd arogya_ai_backend
+          npm ci || npm install
+
+      - name: Stage 4 - Start Arogya AI Backend Server & Health Check
+        run: |
+          cd arogya_ai_backend
+          node server.js &
+          sleep 3
+
+      - name: Stage 5 - Execute 300 REST API Unit & Security Tests
+        run: |
+          cd arogya_ai_flutter/automation
+          npm config set legacy-peer-deps true
+          npm install --legacy-peer-deps
+          node tests/runModuleTest.js api
+
+      - name: Stage 6 - Upload Unit Test API Artifacts
+        uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: unit-tests-api-reports-${{ github.run_number }}
+          path: arogya_ai_flutter/automation/reports/
+          retention-days: 30
+
+  validation-tests:
+    name: Validation Tests (300)
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+
+    steps:
+      - name: Stage 1 - Checkout Repository
+        uses: actions/checkout@v4
+
+      - name: Stage 2 - Setup Node.js Environment
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+
+      - name: Stage 3 - Install Dependencies
+        run: |
+          cd arogya_ai_flutter/automation
+          npm config set legacy-peer-deps true
+          npm install --legacy-peer-deps
+
+      - name: Stage 4 - Execute 300 Input Schema & Form Validation Tests
+        run: |
+          cd arogya_ai_flutter/automation
+          node tests/runModuleTest.js validation
+
+      - name: Stage 5 - Upload Validation Test Artifacts
+        uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: validation-tests-reports-${{ github.run_number }}
+          path: arogya_ai_flutter/automation/reports/
+          retention-days: 30
+
+  deployment-status:
+    name: Deployment Status (300)
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+
+    steps:
+      - name: Stage 1 - Checkout Repository
+        uses: actions/checkout@v4
+
+      - name: Stage 2 - Setup Node.js Environment
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+
+      - name: Stage 3 - Install Dependencies
+        run: |
+          cd arogya_ai_flutter/automation
+          npm config set legacy-peer-deps true
+          npm install --legacy-peer-deps
+
+      - name: Stage 4 - Execute 300 Infrastructure & Deployment Checks
+        run: |
+          cd arogya_ai_flutter/automation
+          node tests/runModuleTest.js deployment
+
+      - name: Stage 5 - Upload Deployment Status Artifacts
+        uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: deployment-status-reports-${{ github.run_number }}
+          path: arogya_ai_flutter/automation/reports/
+          retention-days: 30
+
+  load-tests:
+    name: Load Testing — Performance (300)
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+
+    steps:
+      - name: Stage 1 - Checkout Repository
+        uses: actions/checkout@v4
+
+      - name: Stage 2 - Setup Node.js Environment
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+
+      - name: Stage 3 - Install Backend Dependencies
+        run: |
+          cd arogya_ai_backend
+          npm ci || npm install
+
+      - name: Stage 4 - Start Arogya AI Backend Server
+        run: |
+          cd arogya_ai_backend
+          node server.js &
+          sleep 3
+
+      - name: Stage 5 - Execute 300 VUs Load & Performance Benchmark
+        run: |
+          cd arogya_ai_flutter/automation
+          npm config set legacy-peer-deps true
+          npm install --legacy-peer-deps
+          node tests/runModuleTest.js load
+
+      - name: Stage 6 - Upload Load Testing Artifacts
+        uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: load-testing-reports-${{ github.run_number }}
+          path: arogya_ai_flutter/automation/reports/
+          retention-days: 30
+
+  compile-master-report-deploy:
+    name: Compile Master Report & Deploy
+    runs-on: ubuntu-latest
+    needs: [selenium-tests, appium-tests, unit-tests-api, validation-tests, deployment-status, load-tests]
+    if: always()
+
+    steps:
+      - name: Stage 1 - Checkout Repository
+        uses: actions/checkout@v4
+
+      - name: Stage 2 - Setup Node.js Environment
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+
+      - name: Stage 3 - Install Dependencies
+        run: |
+          cd arogya_ai_flutter/automation
+          npm config set legacy-peer-deps true
+          npm install --legacy-peer-deps
+
+      - name: Stage 4 - Download All Test Artifacts
+        uses: actions/download-artifact@v4
+        with:
+          path: arogya_ai_flutter/automation/reports/JSON/
+          pattern: "*-reports-*"
+          merge-multiple: true
+
+      - name: Stage 5 - Compile 1,800 Test Cases Master Report
+        run: |
+          cd arogya_ai_flutter/automation
+          node tests/runModuleTest.js compile
+
+      - name: Stage 6 - Deploy Master QA Report to GitHub Pages
+        uses: peaceiris/actions-gh-pages@v3
+        if: always()
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          publish_dir: ./arogya_ai_flutter/automation/reports/HTML/
+          destination_dir: reports/master/
+          keep_files: true

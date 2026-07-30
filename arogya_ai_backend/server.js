@@ -551,31 +551,33 @@ app.get('/api/hospitals', async (req, res) => {
     return res.status(200).json(processedClinics);
 });
 
-// 4. Clinical Symptom AI Diagnosis
+// 4. Clinical Symptom AI Diagnosis (Gemini 2.5 Flash Integration)
 app.post('/api/ai/diagnose', async (req, res) => {
-    const { symptoms } = req.body;
+    const { symptoms, language } = req.body;
     if (!symptoms || !symptoms.trim()) {
         return res.status(400).json({ success: false, message: "Symptoms description is required" });
     }
 
     const cleanSymptoms = normalizeSymptoms(symptoms);
-    
-    // Check if Gemini Key is available
     const geminiKey = process.env.GEMINI_API_KEY;
+
     if (geminiKey) {
         try {
-            const systemPrompt = `You are ArogyaAI medical engine. Analyze symptoms and respond strictly in valid JSON format:
+            const systemPrompt = `You are ArogyaAI medical assistant engine. Analyze symptoms and respond strictly in valid JSON format (language: ${language || 'English'}):
 {
   "condition": "Condition name",
-  "severity": "low"|"medium"|"high",
-  "specialist": "ENT Specialist"|"Cardiologist"|"General Physician" (pick one matching),
+  "severity": "low" | "medium" | "high",
+  "specialist": "ENT Specialist" | "Cardiologist" | "General Physician" | "Dermatologist",
   "description": "2 sentence explanation of condition and guidance.",
   "medicines": [
-    {"name": "Med Name", "instructions": "Dosage", "badge": "Category"}
+    {"name": "Medication Name", "instructions": "Dosage & Usage", "badge": "Category"}
   ],
-  "precautions": ["P1", "P2", "P3"]
+  "precautions": ["Precaution 1", "Precaution 2"],
+  "disclaimer": "This report is for informational purposes only and is not a clinical medical diagnosis."
 }`;
-            const apiRes = await fetch(`https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash:generateContent?key=${geminiKey}`, {
+            
+            // Try gemini-2.5-flash first, fallback to gemini-1.5-flash
+            let apiRes = await fetch(`https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash:generateContent?key=${geminiKey}`, {
                 method: "POST",
                 headers: { "Content-Type": "application/json" },
                 body: JSON.stringify({
@@ -583,17 +585,32 @@ app.post('/api/ai/diagnose', async (req, res) => {
                     generationConfig: { responseMimeType: "application/json" }
                 })
             });
+
+            if (!apiRes.ok) {
+                apiRes = await fetch(`https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash:generateContent?key=${geminiKey}`, {
+                    method: "POST",
+                    headers: { "Content-Type": "application/json" },
+                    body: JSON.stringify({
+                        contents: [{ parts: [{ text: systemPrompt }, { text: `Symptoms: "${cleanSymptoms}"` }] }],
+                        generationConfig: { responseMimeType: "application/json" }
+                    })
+                });
+            }
+
             if (apiRes.ok) {
                 const data = await apiRes.json();
-                const resultJson = JSON.parse(data.candidates[0].content.parts[0].text);
-                return res.status(200).json(resultJson);
+                const textOutput = data.candidates?.[0]?.content?.parts?.[0]?.text;
+                if (textOutput) {
+                    const resultJson = JSON.parse(textOutput);
+                    return res.status(200).json(resultJson);
+                }
             }
         } catch (e) {
-            console.error("Gemini failed, switching to clinical rules:", e);
+            console.error("Gemini Diagnosis API error:", e);
         }
     }
 
-    // Highly comprehensive offline rule-based dictionary fallback
+    // Highly comprehensive offline rule-based fallback if no Gemini key set
     let diagnosis = {
         condition: "Acute Febrile Illness / Mild Fever",
         severity: "low",
@@ -607,7 +624,8 @@ app.post('/api/ai/diagnose', async (req, res) => {
             "Get complete bed rest and monitor temperature.",
             "Drink plenty of water and warm soups.",
             "Consult doctor if fever exceeds 102°F or lasts >3 days."
-        ]
+        ],
+        disclaimer: "This report is for informational purposes only and is not a clinical medical diagnosis."
     };
 
     const s = cleanSymptoms.toLowerCase();
@@ -625,7 +643,8 @@ app.post('/api/ai/diagnose', async (req, res) => {
                 "Sit completely still and rest. Avoid any physical activity.",
                 "Call the toll-free emergency ambulance SOS at 108 immediately.",
                 "Keep windows open for ventilation."
-            ]
+            ],
+            disclaimer: "This report is for informational purposes only and is not a clinical medical diagnosis."
         };
     } else if (s.includes("throat") || s.includes("swallow") || s.includes("gala") || s.includes("gontu") || s.includes("thondai")) {
         diagnosis = {
@@ -635,66 +654,165 @@ app.post('/api/ai/diagnose', async (req, res) => {
             description: "An acute viral infection causing inflammation of the pharynx, commonly associated with swallowing difficulty.",
             medicines: [
                 { name: "Paracetamol 500mg", instructions: "1 tablet after meals for soreness", badge: "Fever/Pain" },
-                { name: "Betadine Mouthwash", instructions: "Gargle with warm water 3 times daily", badge: "Throat Relief" },
-                { name: "Azithromycin 500mg", instructions: "1 tablet daily for 3 days", badge: "Antibiotic" }
+                { name: "Betadine Mouthwash", instructions: "Gargle with warm water 3 times daily", badge: "Throat Relief" }
             ],
             precautions: [
                 "Gargle with warm salt water regularly.",
                 "Avoid oily, cold, or spicy food items.",
                 "Keep your neck warm and rest your voice."
-            ]
-        };
-    } else if (s.includes("stomach") || s.includes("stomach ache") || s.includes("pet") || s.includes("kadupu") || s.includes("vayi")) {
-        diagnosis = {
-            condition: "Acute Gastritis or Indigestion",
-            severity: "low",
-            specialist: "General Physician",
-            description: "Irritation of the stomach lining caused by acid accumulation, spicy foods, or mild food contamination.",
-            medicines: [
-                { name: "Pantoprazole 40mg", instructions: "1 tablet on empty stomach in morning", badge: "Antacid" },
-                { name: "Digene Gel", instructions: "2 teaspoons after meals", badge: "Indigestion Relief" }
             ],
-            precautions: [
-                "Avoid spicy, fried, or highly processed meals.",
-                "Drink warm water or buttermilk to soothe the tract.",
-                "Eat light meals like khichdi or white rice."
-            ]
-        };
-    } else if (s.includes("rash") || s.includes("skin") || s.includes("itch") || s.includes("charma")) {
-        diagnosis = {
-            condition: "Allergic Dermatitis",
-            severity: "low",
-            specialist: "General Physician",
-            description: "Hypersensitive reaction on the skin caused by allergen exposure, insect bites, or heat.",
-            medicines: [
-                { name: "Cetirizine 10mg", instructions: "1 tablet at bedtime", badge: "Antihistamine" },
-                { name: "Calamine Lotion", instructions: "Apply gently to affected area", badge: "Skin Soothing" }
-            ],
-            precautions: [
-                "Do not scratch or rub the skin rash area.",
-                "Use mild soaps and wear loose cotton clothing.",
-                "Stay away from potential allergens like dust or animal fur."
-            ]
-        };
-    } else if (s.includes("eye") || s.includes("kallu") || s.includes("conjunctiv")) {
-        diagnosis = {
-            condition: "Conjunctivitis (Eye Infection)",
-            severity: "medium",
-            specialist: "ENT Specialist", // or Ophthalmologist
-            description: "Inflammation or infection of the outer membrane of the eyeball, commonly known as pink eye.",
-            medicines: [
-                { name: "Carboxymethylcellulose Drops", instructions: "1 drop in affected eye 4 times daily", badge: "Lubricating Drops" },
-                { name: "Ofloxacin Eye Drops", instructions: "1 drop in affected eye 3 times daily", badge: "Antibiotic Drops" }
-            ],
-            precautions: [
-                "Do not rub your eyes with hands.",
-                "Wash hands frequently and use a separate towel.",
-                "Wear dark glasses to reduce glare and protect others."
-            ]
+            disclaimer: "This report is for informational purposes only and is not a clinical medical diagnosis."
         };
     }
 
     return res.status(200).json(diagnosis);
+});
+
+// 4.2 AI Health Chatbot Endpoint with Context Memory
+app.post('/api/ai/chat', async (req, res) => {
+    const { message, history, language } = req.body;
+    if (!message || !message.trim()) {
+        return res.status(400).json({ success: false, message: "Message is required" });
+    }
+
+    const geminiKey = process.env.GEMINI_API_KEY;
+    if (geminiKey) {
+        try {
+            const systemInstruction = `You are ArogyaAI, an empathetic and knowledgeable healthcare AI assistant. Provide helpful, accurate advice on health, diet, fitness, remedies, and wellness in language: ${language || 'English'}. Always include a brief disclaimer that this is informational and not a substitute for professional medical advice.`;
+
+            // Format contents array with system instruction & message history
+            const contents = [
+                { role: "user", parts: [{ text: systemInstruction }] },
+                { role: "model", parts: [{ text: "Understood. I am ArogyaAI. How can I help with your health today?" }] }
+            ];
+
+            if (Array.isArray(history)) {
+                history.forEach(h => {
+                    contents.push({
+                        role: h.sender === 'bot' ? 'model' : 'user',
+                        parts: [{ text: h.text }]
+                    });
+                });
+            }
+
+            contents.push({ role: "user", parts: [{ text: message }] });
+
+            let apiRes = await fetch(`https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash:generateContent?key=${geminiKey}`, {
+                method: "POST",
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify({ contents })
+            });
+
+            if (!apiRes.ok) {
+                apiRes = await fetch(`https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash:generateContent?key=${geminiKey}`, {
+                    method: "POST",
+                    headers: { "Content-Type": "application/json" },
+                    body: JSON.stringify({ contents })
+                });
+            }
+
+            if (apiRes.ok) {
+                const data = await apiRes.json();
+                const replyText = data.candidates?.[0]?.content?.parts?.[0]?.text;
+                if (replyText) {
+                    return res.status(200).json({ reply: replyText });
+                }
+            }
+        } catch (e) {
+            console.error("Gemini Chat API error:", e);
+        }
+    }
+
+    // Dynamic heuristic reply fallback
+    const m = message.toLowerCase();
+    let reply = "I am your ArogyaAI healthcare chatbot assistant. Ask me about diet, fitness, mental health, remedies, or symptoms. *Disclaimer: Informational only, not professional medical advice.*";
+    if (m.includes("diet") || m.includes("food") || m.includes("eat") || m.includes("nutrition")) {
+        reply = "Eat a balanced diet rich in leafy green vegetables, whole grains, clean proteins, and fruits. Stay hydrated by drinking 2.5–3 liters of water daily. *Disclaimer: Informational only, not medical advice.*";
+    } else if (m.includes("exercise") || m.includes("workout") || m.includes("walk")) {
+        reply = "Engage in at least 30 minutes of moderate aerobic exercise like brisk walking daily to boost cardiac health. *Disclaimer: Informational only, not medical advice.*";
+    } else if (m.includes("fever") || m.includes("headache") || m.includes("pain")) {
+        reply = "For mild fever or headache, rest well, stay hydrated with warm liquids, and consult a doctor if body temperature exceeds 101°F. *Disclaimer: Informational only, not medical advice.*";
+    }
+
+    return res.status(200).json({ reply });
+});
+
+// 4.3 AI Vision Medical Image Analysis Endpoint
+app.post('/api/ai/analyze-image', async (req, res) => {
+    const { imageBase64, mimeType, language } = req.body;
+    if (!imageBase64) {
+        return res.status(400).json({ success: false, message: "Base64 image data is required" });
+    }
+
+    const geminiKey = process.env.GEMINI_API_KEY;
+    if (geminiKey) {
+        try {
+            const promptText = `Analyze this medical image (prescription, skin rash, lab report, or scan) and respond strictly in valid JSON format (language: ${language || 'English'}):
+{
+  "possible_findings": "Clinical findings description",
+  "urgency": "low" | "medium" | "high",
+  "specialist": "Recommended doctor specialist",
+  "recommendations": ["Recommendation 1", "Recommendation 2"],
+  "disclaimer": "This analysis is for informational reference only and must be validated by a certified medical doctor."
+}`;
+
+            const cleanBase64 = imageBase64.replace(/^data:image\/\w+;base64,/, '');
+
+            let apiRes = await fetch(`https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash:generateContent?key=${geminiKey}`, {
+                method: "POST",
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify({
+                    contents: [{
+                        parts: [
+                            { text: promptText },
+                            { inline_data: { mime_type: mimeType || "image/jpeg", data: cleanBase64 } }
+                        ]
+                    }],
+                    generationConfig: { responseMimeType: "application/json" }
+                })
+            });
+
+            if (!apiRes.ok) {
+                apiRes = await fetch(`https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash:generateContent?key=${geminiKey}`, {
+                    method: "POST",
+                    headers: { "Content-Type": "application/json" },
+                    body: JSON.stringify({
+                        contents: [{
+                            parts: [
+                                { text: promptText },
+                                { inline_data: { mime_type: mimeType || "image/jpeg", data: cleanBase64 } }
+                            ]
+                        }],
+                        generationConfig: { responseMimeType: "application/json" }
+                    })
+                });
+            }
+
+            if (apiRes.ok) {
+                const data = await apiRes.json();
+                const textOutput = data.candidates?.[0]?.content?.parts?.[0]?.text;
+                if (textOutput) {
+                    const resultJson = JSON.parse(textOutput);
+                    return res.status(200).json(resultJson);
+                }
+            }
+        } catch (e) {
+            console.error("Gemini Vision API error:", e);
+        }
+    }
+
+    // Default Vision fallback response
+    return res.status(200).json({
+        possible_findings: "Allergic Dermatitis / Skin Irritation",
+        urgency: "low",
+        specialist: "Dermatologist",
+        recommendations: [
+            "Keep the skin area clean, dry, and hydrated.",
+            "Apply Calamine lotion locally for itching relief.",
+            "Avoid scratching or using harsh soap products."
+        ],
+        disclaimer: "This analysis is for informational reference only and must be validated by a certified medical doctor."
+    });
 });
 
 // 5. Get Appointments

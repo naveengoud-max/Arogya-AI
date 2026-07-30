@@ -49,14 +49,7 @@ jobs:
           target: google_apis
           arch: x86_64
           profile: Pixel_6
-          script: |
-            # Start Appium Server in background
-            appium driver install uiautomator2 || npx appium driver install uiautomator2 || true
-            appium --log appium.log &
-            sleep 10
-            
-            # Navigate to test folder and run test suite
-            cd arogya_ai_flutter/test_automation && npm test || true
+          script: appium driver install uiautomator2 || true; appium --log appium.log & sleep 5; cd arogya_ai_flutter/test_automation && npm test || true
 
       - name: 8. Generate Excel Report Fallback / Verify Artifacts
         if: always()

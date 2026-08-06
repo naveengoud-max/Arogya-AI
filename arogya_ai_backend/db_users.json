@@ -14,5 +14,21 @@
     "language": "English",
     "createdAt": "2026-06-02T17:59:18.735Z",
     "updatedAt": "2026-06-02T17:59:21.817Z"
+  },
+  "uid-KzkxOTg3": {
+    "uid": "uid-KzkxOTg3",
+    "phone": "+919876543210",
+    "name": "Arogya User",
+    "language": "English",
+    "createdAt": "2026-07-30T11:22:01.759Z",
+    "updatedAt": "2026-07-30T11:22:01.759Z"
+  },
+  "uid-KzkxODY4": {
+    "uid": "uid-KzkxODY4",
+    "phone": "+918688086015",
+    "name": "Arogya User",
+    "language": "English",
+    "createdAt": "2026-07-30T11:28:52.011Z",
+    "updatedAt": "2026-07-30T11:28:52.011Z"
   }
 }

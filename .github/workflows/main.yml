@@ -15,7 +15,7 @@ permissions:
 
 jobs:
   selenium-tests:
-    name: Selenium — Website Tests (300)
+    name: Selenium - Website Tests (300)
     runs-on: ubuntu-latest
     timeout-minutes: 30
 
@@ -48,7 +48,7 @@ jobs:
           retention-days: 30
 
   appium-tests:
-    name: Appium — Android Tests (300)
+    name: Appium - Android Tests (300)
     runs-on: ubuntu-latest
     timeout-minutes: 30
 
@@ -81,7 +81,7 @@ jobs:
           retention-days: 30
 
   unit-tests-api:
-    name: Unit Tests — API (300)
+    name: Unit Tests - API (300)
     runs-on: ubuntu-latest
     timeout-minutes: 30
 
@@ -187,7 +187,7 @@ jobs:
           retention-days: 30
 
   load-tests:
-    name: Load Testing — Performance (300)
+    name: Load Testing - Performance (300)
     runs-on: ubuntu-latest
     timeout-minutes: 30
 
@@ -214,8 +214,6 @@ jobs:
       - name: Stage 5 - Execute 300 VUs Load & Performance Benchmark
         run: |
           cd arogya_ai_flutter/automation
-          npm config set legacy-peer-deps true
-          npm install --legacy-peer-deps
           node tests/runModuleTest.js load
 
       - name: Stage 6 - Upload Load Testing Artifacts

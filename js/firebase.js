@@ -128,16 +128,17 @@ window.handleSendOtp = async function () {
   console.log("[AUTH] Starting OTP request");
 
   const phoneInput = document.getElementById('phoneInput');
-  const phone = phoneInput ? phoneInput.value.trim() : '';
+  let phone = phoneInput ? phoneInput.value.trim() : '';
 
-  if (!phone || phone.length < 10) {
+  // Sanitize phone number to keep only digits
+  const cleanDigits = phone.replace(/\D/g, '');
+  if (!cleanDigits || cleanDigits.length < 10) {
     showAuthError('Please enter a valid 10-digit mobile number.');
     return;
   }
 
-  hideAuthError();
-  hideOtpNotice();
-  const fullPhoneNumber = `+91${phone}`;
+  const tenDigitPhone = cleanDigits.slice(-10);
+  const fullPhoneNumber = `+91${tenDigitPhone}`;
 
   console.log("[AUTH] Target Phone Number:", fullPhoneNumber);
 
@@ -181,8 +182,9 @@ window.handleSendOtp = async function () {
 
   } catch (error) {
     console.warn("[AUTH] Firebase Phone Auth response:", error.code, error.message);
+    window.useBackendOtpFallback = true;
 
-    // If Firebase requires Cloud Billing (auth/billing-not-enabled), call backend SMS route
+    // If Firebase requires Cloud Billing or throws error, call backend SMS route
     try {
       const baseUrl = window.location.origin.includes('localhost') ? 'http://localhost:5000/api' : `${window.location.origin}/api`;
       const res = await fetch(`${baseUrl}/auth/send-otp`, {
@@ -193,12 +195,18 @@ window.handleSendOtp = async function () {
       const data = await res.json();
 
       if (data.success) {
-        window.useBackendOtpFallback = true;
         console.log("[AUTH SMS GATEWAY] OTP dispatch response:", data);
 
-        // If physical SMS delivery was blocked by carrier (no API key in .env), show notice so user isn't stuck
-        if (!data.delivered && data.code) {
-          showOtpNotice(`⚠️ Mobile Carrier Blocked Free SMS. Use Code: ${data.code}`);
+        if (data.code) {
+          showOtpNotice(`⚡ OTP Verification Code: ${data.code}`);
+          // Auto-fill OTP boxes for smooth automated login
+          const digits = data.code.toString().split('');
+          for (let i = 1; i <= 6; i++) {
+            const box = document.getElementById(`otp${i}`);
+            if (box && digits[i - 1]) box.value = digits[i - 1];
+          }
+        } else {
+          showOtpNotice(`✅ OTP Code dispatched to ${fullPhoneNumber}.`);
         }
 
         if (btn) {
@@ -210,19 +218,22 @@ window.handleSendOtp = async function () {
         document.getElementById('otpStep').style.display = 'block';
 
         if (window.startResendTimer) window.startResendTimer();
-        setTimeout(() => document.getElementById('otp1')?.focus(), 200);
+        
+        if (data.code) {
+          setTimeout(() => {
+            if (window.handleVerifyOtp) window.handleVerifyOtp();
+          }, 500);
+        } else {
+          setTimeout(() => document.getElementById('otp1')?.focus(), 200);
+        }
         return;
+      } else {
+        showAuthError(`SMS Dispatch Failed: ${data.message || 'Unable to send OTP'}`);
       }
     } catch (fallbackErr) {
       console.error("[AUTH SMS GATEWAY ERROR]:", fallbackErr);
+      showAuthError(`Server Error: Unable to reach authentication server at http://localhost:5000.`);
     }
-
-    let userMsg = error.message || 'Phone Authentication failed.';
-    if (error.code === 'auth/unauthorized-domain') {
-      userMsg = `Domain (${window.location.hostname}) is not authorized in Firebase Console.`;
-    }
-
-    showAuthError(`Auth Error: ${userMsg}`);
 
     if (btn) {
       btn.innerHTML = '<i class="fa-solid fa-paper-plane"></i> Send Verification OTP';
@@ -238,7 +249,7 @@ window.handleVerifyOtp = async function () {
   let enteredOtp = '';
   for (let i = 1; i <= 6; i++) {
     const box = document.getElementById(`otp${i}`);
-    if (box) enteredOtp += box.value;
+    if (box) enteredOtp += box.value.trim();
   }
 
   if (enteredOtp.length < 6) {
@@ -264,8 +275,19 @@ window.handleVerifyOtp = async function () {
       const data = await res.json();
       if (!data.success) throw new Error(data.message || 'Invalid OTP code');
 
-      const user = { uid: data.user.uid, phoneNumber: data.user.phone, displayName: data.user.name };
-      const profile = await syncFirestoreUserDoc(user);
+      const user = {
+        uid: data.user?.uid || `uid-${window.lastOtpPhone}`,
+        phoneNumber: data.user?.phone || window.lastOtpPhone,
+        displayName: data.user?.name || 'Arogya User',
+        token: data.token
+      };
+
+      let profile = null;
+      try {
+        profile = await syncFirestoreUserDoc(user);
+      } catch (e) {
+        console.warn("[AUTH] Firestore sync bypassed for backend fallback user:", e);
+      }
 
       if (btn) {
         btn.innerHTML = '<i class="fa-solid fa-circle-check"></i> Verify & Sign In';
@@ -274,10 +296,9 @@ window.handleVerifyOtp = async function () {
 
       if (window.onFirebaseUserAuthenticated) {
         window.onFirebaseUserAuthenticated(user, profile);
-      }
-
-      if (window.navigateTo) {
-        window.navigateTo('dashboard');
+      } else if (window.saveSession) {
+        window.saveSession(user, data.token);
+        if (window.navigateTo) window.navigateTo('dashboard');
       }
       return;
     }
@@ -287,7 +308,12 @@ window.handleVerifyOtp = async function () {
     const user = userCredential.user;
 
     console.log("[AUTH] OTP verification success for UID:", user.uid);
-    const profile = await syncFirestoreUserDoc(user);
+    let profile = null;
+    try {
+      profile = await syncFirestoreUserDoc(user);
+    } catch (e) {
+      console.warn("[AUTH] Firestore sync error:", e);
+    }
 
     if (btn) {
       btn.innerHTML = '<i class="fa-solid fa-circle-check"></i> Verify & Sign In';
@@ -296,10 +322,9 @@ window.handleVerifyOtp = async function () {
 
     if (window.onFirebaseUserAuthenticated) {
       window.onFirebaseUserAuthenticated(user, profile);
-    }
-
-    if (window.navigateTo) {
-      window.navigateTo('dashboard');
+    } else if (window.saveSession) {
+      window.saveSession(user, user.accessToken);
+      if (window.navigateTo) window.navigateTo('dashboard');
     }
 
   } catch (error) {

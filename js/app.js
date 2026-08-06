@@ -90,6 +90,7 @@ document.addEventListener('DOMContentLoaded', () => {
   initSession();
   initWebSpeechApi();
   loadRemindersFromStorage();
+  initOtpListeners();
 
   // Route automatically based on auth state
   setTimeout(() => {
@@ -100,6 +101,37 @@ document.addEventListener('DOMContentLoaded', () => {
     }
   }, 1200);
 });
+
+function initOtpListeners() {
+  for (let i = 1; i <= 6; i++) {
+    const box = document.getElementById(`otp${i}`);
+    if (box) {
+      box.addEventListener('paste', (e) => {
+        e.preventDefault();
+        const pasted = (e.clipboardData || window.clipboardData).getData('text').trim().replace(/\D/g, '');
+        if (pasted.length >= 6) {
+          for (let j = 1; j <= 6; j++) {
+            const digitBox = document.getElementById(`otp${j}`);
+            if (digitBox) digitBox.value = pasted[j - 1] || '';
+          }
+          document.getElementById('otp6')?.focus();
+          if (window.handleVerifyOtp) window.handleVerifyOtp();
+        }
+      });
+      box.addEventListener('keydown', (e) => {
+        if (e.key === 'Backspace' && !box.value && i > 1) {
+          const prevBox = document.getElementById(`otp${i - 1}`);
+          if (prevBox) {
+            prevBox.focus();
+            prevBox.value = '';
+          }
+        } else if (e.key === 'Enter') {
+          if (window.handleVerifyOtp) window.handleVerifyOtp();
+        }
+      });
+    }
+  }
+}
 
 /* ── FIREBASE INITIALIZATION & AUTH OBSERVER ── */
 function initFirebase() {
@@ -192,6 +224,24 @@ function saveSession(user, token) {
   }
   updateUserHeaderBadge();
 }
+window.saveSession = saveSession;
+
+window.onFirebaseUserAuthenticated = function (user, profile) {
+  console.log("[AUTH] Global onFirebaseUserAuthenticated triggered for user:", user);
+  const currentUserObj = {
+    uid: user.uid || (user.phoneNumber ? `uid-${user.phoneNumber}` : 'uid-user'),
+    phone: user.phoneNumber || user.phone || '',
+    name: profile?.displayName || user.displayName || user.name || 'Arogya User',
+    language: profile?.language || state.selectedLanguage || 'English',
+    profileCompleted: profile?.profileCompleted || false,
+    photoURL: user.photoURL || ''
+  };
+  saveSession(currentUserObj, user.token || state.authToken || 'session-token');
+  syncUserDataFromFirestore();
+  if (window.navigateTo) {
+    window.navigateTo('dashboard');
+  }
+};
 
 function updateUserHeaderBadge() {
   const badge = document.getElementById('userProfileBadge');
@@ -251,6 +301,7 @@ function navigateTo(viewId) {
 
   window.scrollTo({ top: 0, behavior: 'smooth' });
 }
+window.navigateTo = navigateTo;
 
 /* ── MULTILINGUAL LOCALIZATION ENGINE ── */
 function setAppLanguage(lang) {

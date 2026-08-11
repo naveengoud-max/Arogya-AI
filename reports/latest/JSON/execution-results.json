@@ -1,8 +1,8 @@
 {
   "metadata": {
     "suiteName": "Arogya AI Android Appium E2E Automation",
-    "buildNumber": "BUILD-39",
-    "executionDate": "2026-08-10T01:20:41.994Z",
+    "buildNumber": "BUILD-40",
+    "executionDate": "2026-08-11T01:18:22.358Z",
     "environment": {
       "deviceName": "Pixel_7_Pro_API_34",
       "androidVersion": "14.0",
@@ -31,7 +31,7 @@
       "expectedResult": "Screen element renders successfully with 200 OK state",
       "actualResult": "Successfully verified state",
       "status": "PASSED",
-      "duration": 717,
+      "duration": 762,
       "reason": null,
       "screenshot": null
     },
@@ -47,7 +47,7 @@
       "expectedResult": "Screen element renders successfully with 200 OK state",
       "actualResult": "Successfully verified state",
       "status": "PASSED",
-      "duration": 702,
+      "duration": 356,
       "reason": null,
       "screenshot": null
     },
@@ -63,7 +63,7 @@
       "expectedResult": "Screen element renders successfully with 200 OK state",
       "actualResult": "Successfully verified state",
       "status": "PASSED",
-      "duration": 692,
+      "duration": 809,
       "reason": null,
       "screenshot": null
     },
@@ -79,7 +79,7 @@
       "expectedResult": "Screen element renders successfully with 200 OK state",
       "actualResult": "Successfully verified state",
       "status": "PASSED",
-      "duration": 614,
+      "duration": 628,
       "reason": null,
       "screenshot": null
     },
@@ -95,7 +95,7 @@
       "expectedResult": "Screen element renders successfully with 200 OK state",
       "actualResult": "Successfully verified state",
       "status": "PASSED",
-      "duration": 763,
+      "duration": 436,
       "reason": null,
       "screenshot": null
     },
@@ -111,7 +111,7 @@
       "expectedResult": "Screen element renders successfully with 200 OK state",
       "actualResult": "Successfully verified state",
       "status": "PASSED",
-      "duration": 930,
+      "duration": 658,
       "reason": null,
       "screenshot": null
     },
@@ -127,7 +127,7 @@
       "expectedResult": "Screen element renders successfully with 200 OK state",
       "actualResult": "Successfully verified state",
       "status": "PASSED",
-      "duration": 437,
+      "duration": 879,
       "reason": null,
       "screenshot": null
     },
@@ -143,7 +143,7 @@
       "expectedResult": "Screen element renders successfully with 200 OK state",
       "actualResult": "Successfully verified state",
       "status": "PASSED",
-      "duration": 995,
+      "duration": 489,
       "reason": null,
       "screenshot": null
     },
@@ -159,7 +159,7 @@
       "expectedResult": "Screen element renders successfully with 200 OK state",
       "actualResult": "Successfully verified state",
       "status": "PASSED",
-      "duration": 708,
+      "duration": 777,
       "reason": null,
       "screenshot": null
     },
@@ -175,7 +175,7 @@
       "expectedResult": "Screen element renders successfully with 200 OK state",
       "actualResult": "Successfully verified state",
       "status": "PASSED",
-      "duration": 427,
+      "duration": 996,
       "reason": null,
       "screenshot": null
     },
@@ -191,7 +191,7 @@
       "expectedResult": "Screen element renders successfully with 200 OK state",
       "actualResult": "Successfully verified state",
       "status": "PASSED",
-      "duration": 798,
+      "duration": 450,
       "reason": null,
       "screenshot": null
     },
@@ -207,7 +207,7 @@
       "expectedResult": "Screen element renders successfully with 200 OK state",
       "actualResult": "Successfully verified state",
       "status": "PASSED",
-      "duration": 985,
+      "duration": 303,
       "reason": null,
       "screenshot": null
     },
@@ -223,7 +223,7 @@
       "expectedResult": "Screen element renders successfully with 200 OK state",
       "actualResult": "Successfully verified state",
       "status": "PASSED",
-      "duration": 844,
+      "duration": 904,
       "reason": null,
       "screenshot": null
     },
@@ -239,7 +239,7 @@
       "expectedResult": "Screen element renders successfully with 200 OK state",
       "actualResult": "Successfully verified state",
       "status": "PASSED",
-      "duration": 750,
+      "duration": 318,
       "reason": null,
       "screenshot": null
     },
@@ -255,7 +255,7 @@
       "expectedResult": "Screen element renders successfully with 200 OK state",
       "actualResult": "Assertion Error: Expected element locator visible but timed out after 10000ms",
       "status": "FAILED",
-      "duration": 413,
+      "duration": 754,
       "reason": "UiAutomator2 Element Locator Timeout for payload TC_AUTH_15",
       "screenshot": "screenshots/TC_AUTH_015.png"
     },
@@ -271,7 +271,7 @@
       "expectedResult": "Screen element renders successfully with 200 OK state",
       "actualResult": "Successfully verified state",
       "status": "PASSED",
-      "duration": 758,
+      "duration": 771,
       "reason": null,
       "screenshot": null
     },
@@ -287,7 +287,7 @@
       "expectedResult": "Screen element renders successfully with 200 OK state",
       "actualResult": "Successfully verified state",
       "status": "PASSED",
-      "duration": 592,
+      "duration": 322,
       "reason": null,
       "screenshot": null
     },
@@ -303,7 +303,7 @@
       "expectedResult": "Screen element renders successfully with 200 OK state",
       "actualResult": "Successfully verified state",
       "status": "PASSED",
-      "duration": 403,
+      "duration": 629,
       "reason": null,
       "screenshot": null
     },
@@ -319,7 +319,7 @@
       "expectedResult": "Screen element renders successfully with 200 OK state",
       "actualResult": "Successfully verified state",
       "status": "PASSED",
-      "duration": 536,
+      "duration": 991,
       "reason": null,
       "screenshot": null
     },
@@ -335,7 +335,7 @@
       "expectedResult": "Screen element renders successfully with 200 OK state",
       "actualResult": "Successfully verified state",
       "status": "PASSED",
-      "duration": 614,
+      "duration": 275,
       "reason": null,
       "screenshot": null
     },
@@ -351,7 +351,7 @@
       "expectedResult": "Screen element renders successfully with 200 OK state",
       "actualResult": "Successfully verified state",
       "status": "PASSED",
-      "duration": 647,
+      "duration": 341,
       "reason": null,
       "screenshot": null
     },
@@ -367,7 +367,7 @@
       "expectedResult": "Screen element renders successfully with 200 OK state",
       "actualResult": "Successfully verified state",
       "status": "PASSED",
-      "duration": 248,
+      "duration": 332,
       "reason": null,
       "screenshot": null
     },
@@ -383,7 +383,7 @@
       "expectedResult": "Screen element renders successfully with 200 OK state",
       "actualResult": "Successfully verified state",
       "status": "PASSED",
-      "duration": 905,
+      "duration": 969,
       "reason": null,
       "screenshot": null
     },
@@ -399,7 +399,7 @@
       "expectedResult": "Screen element renders successfully with 200 OK state",
       "actualResult": "Successfully verified state",
       "status": "PASSED",
-      "duration": 706,
+      "duration": 801,
       "reason": null,
       "screenshot": null
     },
@@ -415,7 +415,7 @@
       "expectedResult": "Screen element renders successfully with 200 OK state",
       "actualResult": "Successfully verified state",
       "status": "PASSED",
-      "duration": 602,
+      "duration": 880,
       "reason": null,
       "screenshot": null
     },
@@ -431,7 +431,7 @@
       "expectedResult": "Screen element renders successfully with 200 OK state",
       "actualResult": "Successfully verified state",
       "status": "PASSED",
-      "duration": 655,
+      "duration": 769,
       "reason": null,
       "screenshot": null
     },
@@ -447,7 +447,7 @@
       "expectedResult": "Screen element renders successfully with 200 OK state",
       "actualResult": "Successfully verified state",
       "status": "PASSED",
-      "duration": 316,
+      "duration": 597,
       "reason": null,
       "screenshot": null
     },
@@ -463,7 +463,7 @@
       "expectedResult": "Screen element renders successfully with 200 OK state",
       "actualResult": "Successfully verified state",
       "status": "PASSED",
-      "duration": 545,
+      "duration": 337,
       "reason": null,
       "screenshot": null
     },
@@ -479,7 +479,7 @@
       "expectedResult": "Screen element renders successfully with 200 OK state",
       "actualResult": "Successfully verified state",
       "status": "PASSED",
-      "duration": 984,
+      "duration": 863,
       "reason": null,
       "screenshot": null
     },
@@ -495,7 +495,7 @@
       "expectedResult": "Screen element renders successfully with 200 OK state",
       "actualResult": "Successfully verified state",
       "status": "PASSED",
-      "duration": 505,
+      "duration": 913,
       "reason": null,
       "screenshot": null
     },
@@ -511,7 +511,7 @@
       "expectedResult": "Screen element renders successfully with 200 OK state",
       "actualResult": "Successfully verified state",
       "status": "PASSED",
-      "duration": 511,
+      "duration": 854,
       "reason": null,
       "screenshot": null
     },
@@ -527,7 +527,7 @@
       "expectedResult": "Screen element renders successfully with 200 OK state",
       "actualResult": "Successfully verified state",
       "status": "PASSED",
-      "duration": 529,
+      "duration": 688,
       "reason": null,
       "screenshot": null
     },
@@ -543,7 +543,7 @@
       "expectedResult": "Screen element renders successfully with 200 OK state",
       "actualResult": "Successfully verified state",
       "status": "PASSED",
-      "duration": 784,
+      "duration": 305,
       "reason": null,
       "screenshot": null
     },
@@ -559,7 +559,7 @@
       "expectedResult": "Screen element renders successfully with 200 OK state",
       "actualResult": "Successfully verified state",
       "status": "PASSED",
-      "duration": 940,
+      "duration": 716,
       "reason": null,
       "screenshot": null
     },
@@ -575,7 +575,7 @@
       "expectedResult": "Screen element renders successfully with 200 OK state",
       "actualResult": "Successfully verified state",
       "status": "PASSED",
-      "duration": 811,
+      "duration": 764,
       "reason": null,
       "screenshot": null
     },
@@ -591,7 +591,7 @@
       "expectedResult": "Screen element renders successfully with 200 OK state",
       "actualResult": "Successfully verified state",
       "status": "PASSED",
-      "duration": 477,
+      "duration": 296,
       "reason": null,
       "screenshot": null
     },
@@ -607,7 +607,7 @@
       "expectedResult": "Screen element renders successfully with 200 OK state",
       "actualResult": "Successfully verified state",
       "status": "PASSED",
-      "duration": 799,
+      "duration": 317,
       "reason": null,
       "screenshot": null
     },
@@ -623,7 +623,7 @@
       "expectedResult": "Screen element renders successfully with 200 OK state",
       "actualResult": "Successfully verified state",
       "status": "PASSED",
-      "duration": 583,
+      "duration": 665,
       "reason": null,
       "screenshot": null
     },
@@ -639,7 +639,7 @@
       "expectedResult": "Screen element renders successfully with 200 OK state",
       "actualResult": "Successfully verified state",
       "status": "PASSED",
-      "duration": 319,
+      "duration": 823,
       "reason": null,
       "screenshot": null
     },
@@ -655,7 +655,7 @@
       "expectedResult": "Screen element renders successfully with 200 OK state",
       "actualResult": "Successfully verified state",
       "status": "PASSED",
-      "duration": 795,
+      "duration": 719,
       "reason": null,
       "screenshot": null
     },
@@ -671,7 +671,7 @@
       "expectedResult": "Screen element renders successfully with 200 OK state",
       "actualResult": "Successfully verified state",
       "status": "PASSED",
-      "duration": 348,
+      "duration": 676,
       "reason": null,
       "screenshot": null
     },
@@ -687,7 +687,7 @@
       "expectedResult": "Screen element renders successfully with 200 OK state",
       "actualResult": "Successfully verified state",
       "status": "PASSED",
-      "duration": 757,
+      "duration": 669,
       "reason": null,
       "screenshot": null
     },
@@ -703,7 +703,7 @@
       "expectedResult": "Screen element renders successfully with 200 OK state",
       "actualResult": "Successfully verified state",
       "status": "PASSED",
-      "duration": 924,
+      "duration": 401,
       "reason": null,
       "screenshot": null
     },
@@ -719,7 +719,7 @@
       "expectedResult": "Screen element renders successfully with 200 OK state",
       "actualResult": "Successfully verified state",
       "status": "PASSED",
-      "duration": 555,
+      "duration": 449,
       "reason": null,
       "screenshot": null
     },
@@ -735,7 +735,7 @@
       "expectedResult": "Screen element renders successfully with 200 OK state",
       "actualResult": "Successfully verified state",
       "status": "PASSED",
-      "duration": 873,
+      "duration": 879,
       "reason": null,
       "screenshot": null
     },
@@ -751,7 +751,7 @@
       "expectedResult": "Screen element renders successfully with 200 OK state",
       "actualResult": "Successfully verified state",
       "status": "PASSED",
-      "duration": 349,
+      "duration": 292,
       "reason": null,
       "screenshot": null
     },
@@ -767,7 +767,7 @@
       "expectedResult": "Screen element renders successfully with 200 OK state",
       "actualResult": "Successfully verified state",
       "status": "PASSED",
-      "duration": 671,
+      "duration": 217,
       "reason": null,
       "screenshot": null
     },
@@ -783,7 +783,7 @@
       "expectedResult": "Screen element renders successfully with 200 OK state",
       "actualResult": "Successfully verified state",
       "status": "PASSED",
-      "duration": 217,
+      "duration": 704,
       "reason": null,
       "screenshot": null
     },
@@ -799,7 +799,7 @@
       "expectedResult": "Screen element renders successfully with 200 OK state",
       "actualResult": "Successfully verified state",
       "status": "PASSED",
-      "duration": 500,
+      "duration": 272,
       "reason": null,
       "screenshot": null
     },
@@ -815,7 +815,7 @@
       "expectedResult": "Screen element renders successfully with 200 OK state",
       "actualResult": "Successfully verified state",
       "status": "PASSED",
-      "duration": 548,
+      "duration": 419,
       "reason": null,
       "screenshot": null
     },
@@ -831,7 +831,7 @@
       "expectedResult": "Screen element renders successfully with 200 OK state",
       "actualResult": "Successfully verified state",
       "status": "PASSED",
-      "duration": 767,
+      "duration": 426,
       "reason": null,
       "screenshot": null
     },
@@ -847,7 +847,7 @@
       "expectedResult": "Screen element renders successfully with 200 OK state",
       "actualResult": "Successfully verified state",
       "status": "PASSED",
-      "duration": 628,
+      "duration": 806,
       "reason": null,
       "screenshot": null
     },
@@ -863,7 +863,7 @@
       "expectedResult": "Screen element renders successfully with 200 OK state",
       "actualResult": "Successfully verified state",
       "status": "PASSED",
-      "duration": 979,
+      "duration": 898,
       "reason": null,
       "screenshot": null
     },
@@ -879,7 +879,7 @@
       "expectedResult": "Screen element renders successfully with 200 OK state",
       "actualResult": "Successfully verified state",
       "status": "PASSED",
-      "duration": 723,
+      "duration": 329,
       "reason": null,
       "screenshot": null
     },
@@ -895,7 +895,7 @@
       "expectedResult": "Screen element renders successfully with 200 OK state",
       "actualResult": "Successfully verified state",
       "status": "PASSED",
-      "duration": 596,
+      "duration": 265,
       "reason": null,
       "screenshot": null
     },
@@ -911,7 +911,7 @@
       "expectedResult": "Screen element renders successfully with 200 OK state",
       "actualResult": "Successfully verified state",
       "status": "PASSED",
-      "duration": 914,
+      "duration": 372,
       "reason": null,
       "screenshot": null
     },
@@ -927,7 +927,7 @@
       "expectedResult": "Screen element renders successfully with 200 OK state",
       "actualResult": "Successfully verified state",
       "status": "PASSED",
-      "duration": 906,
+      "duration": 349,
       "reason": null,
       "screenshot": null
     },
@@ -943,7 +943,7 @@
       "expectedResult": "Screen element renders successfully with 200 OK state",
       "actualResult": "Successfully verified state",
       "status": "PASSED",
-      "duration": 336,
+      "duration": 424,
       "reason": null,
       "screenshot": null
     },
@@ -959,7 +959,7 @@
       "expectedResult": "Screen element renders successfully with 200 OK state",
       "actualResult": "Successfully verified state",
       "status": "PASSED",
-      "duration": 351,
+      "duration": 733,
       "reason": null,
       "screenshot": null
     },
@@ -975,7 +975,7 @@
       "expectedResult": "Screen element renders successfully with 200 OK state",
       "actualResult": "Successfully verified state",
       "status": "PASSED",
-      "duration": 212,
+      "duration": 958,
       "reason": null,
       "screenshot": null
     },
@@ -991,7 +991,7 @@
       "expectedResult": "Screen element renders successfully with 200 OK state",
       "actualResult": "Successfully verified state",
       "status": "PASSED",
-      "duration": 692,
+      "duration": 414,
       "reason": null,
       "screenshot": null
     },
@@ -1007,7 +1007,7 @@
       "expectedResult": "Screen element renders successfully with 200 OK state",
       "actualResult": "Successfully verified state",
       "status": "PASSED",
-      "duration": 755,
+      "duration": 397,
       "reason": null,
       "screenshot": null
     },
@@ -1023,7 +1023,7 @@
       "expectedResult": "Screen element renders successfully with 200 OK state",
       "actualResult": "Successfully verified state",
       "status": "PASSED",
-      "duration": 238,
+      "duration": 411,
       "reason": null,
       "screenshot": null
     },
@@ -1039,7 +1039,7 @@
       "expectedResult": "Screen element renders successfully with 200 OK state",
       "actualResult": "Successfully verified state",
       "status": "PASSED",
-      "duration": 736,
+      "duration": 398,
       "reason": null,
       "screenshot": null
     },
@@ -1055,7 +1055,7 @@
       "expectedResult": "Screen element renders successfully with 200 OK state",
       "actualResult": "Successfully verified state",
       "status": "PASSED",
-      "duration": 797,
+      "duration": 359,
       "reason": null,
       "screenshot": null
     },
@@ -1071,7 +1071,7 @@
       "expectedResult": "Screen element renders successfully with 200 OK state",
       "actualResult": "Successfully verified state",
       "status": "PASSED",
-      "duration": 242,
+      "duration": 687,
       "reason": null,
       "screenshot": null
     },
@@ -1087,7 +1087,7 @@
       "expectedResult": "Screen element renders successfully with 200 OK state",
       "actualResult": "Successfully verified state",
       "status": "PASSED",
-      "duration": 318,
+      "duration": 313,
       "reason": null,
       "screenshot": null
     },
@@ -1103,7 +1103,7 @@
       "expectedResult": "Screen element renders successfully with 200 OK state",
       "actualResult": "Successfully verified state",
       "status": "PASSED",
-      "duration": 870,
+      "duration": 581,
       "reason": null,
       "screenshot": null
     },
@@ -1119,7 +1119,7 @@
       "expectedResult": "Screen element renders successfully with 200 OK state",
       "actualResult": "Successfully verified state",
       "status": "PASSED",
-      "duration": 522,
+      "duration": 274,
       "reason": null,
       "screenshot": null
     },
@@ -1135,7 +1135,7 @@
       "expectedResult": "Screen element renders successfully with 200 OK state",
       "actualResult": "Successfully verified state",
       "status": "PASSED",
-      "duration": 757,
+      "duration": 324,
       "reason": null,
       "screenshot": null
     },
@@ -1151,7 +1151,7 @@
       "expectedResult": "Screen element renders successfully with 200 OK state",
       "actualResult": "Successfully verified state",
       "status": "PASSED",
-      "duration": 888,
+      "duration": 555,
       "reason": null,
       "screenshot": null
     },
@@ -1167,7 +1167,7 @@
       "expectedResult": "Screen element renders successfully with 200 OK state",
       "actualResult": "Successfully verified state",
       "status": "PASSED",
-      "duration": 464,
+      "duration": 982,
       "reason": null,
       "screenshot": null
     },
@@ -1183,7 +1183,7 @@
       "expectedResult": "Screen element renders successfully with 200 OK state",
       "actualResult": "Successfully verified state",
       "status": "PASSED",
-      "duration": 511,
+      "duration": 946,
       "reason": null,
       "screenshot": null
     },
@@ -1199,7 +1199,7 @@
       "expectedResult": "Screen element renders successfully with 200 OK state",
       "actualResult": "Successfully verified state",
       "status": "PASSED",
-      "duration": 681,
+      "duration": 647,
       "reason": null,
       "screenshot": null
     },
@@ -1215,7 +1215,7 @@
       "expectedResult": "Screen element renders successfully with 200 OK state",
       "actualResult": "Successfully verified state",
       "status": "PASSED",
-      "duration": 710,
+      "duration": 542,
       "reason": null,
       "screenshot": null
     },
@@ -1231,7 +1231,7 @@
       "expectedResult": "Screen element renders successfully with 200 OK state",
       "actualResult": "Successfully verified state",
       "status": "PASSED",
-      "duration": 602,
+      "duration": 549,
       "reason": null,
       "screenshot": null
     },
@@ -1247,7 +1247,7 @@
       "expectedResult": "Screen element renders successfully with 200 OK state",
       "actualResult": "Successfully verified state",
       "status": "PASSED",
-      "duration": 509,
+      "duration": 428,
       "reason": null,
       "screenshot": null
     },
@@ -1263,7 +1263,7 @@
       "expectedResult": "Screen element renders successfully with 200 OK state",
       "actualResult": "Successfully verified state",
       "status": "PASSED",
-      "duration": 279,
+      "duration": 443,
       "reason": null,
       "screenshot": null
     },
@@ -1279,7 +1279,7 @@
       "expectedResult": "Screen element renders successfully with 200 OK state",
       "actualResult": "Successfully verified state",
       "status": "PASSED",
-      "duration": 857,
+      "duration": 917,
       "reason": null,
       "screenshot": null
     },
@@ -1295,7 +1295,7 @@
       "expectedResult": "Screen element renders successfully with 200 OK state",
       "actualResult": "Successfully verified state",
       "status": "PASSED",
-      "duration": 420,
+      "duration": 734,
       "reason": null,
       "screenshot": null
     },
@@ -1311,7 +1311,7 @@
       "expectedResult": "Screen element renders successfully with 200 OK state",
       "actualResult": "Successfully verified state",
       "status": "PASSED",
-      "duration": 841,
+      "duration": 294,
       "reason": null,
       "screenshot": null
     },
@@ -1327,7 +1327,7 @@
       "expectedResult": "Screen element renders successfully with 200 OK state",
       "actualResult": "Successfully verified state",
       "status": "PASSED",
-      "duration": 616,
+      "duration": 665,
       "reason": null,
       "screenshot": null
     },
@@ -1343,7 +1343,7 @@
       "expectedResult": "Screen element renders successfully with 200 OK state",
       "actualResult": "Successfully verified state",
       "status": "PASSED",
-      "duration": 495,
+      "duration": 638,
       "reason": null,
       "screenshot": null
     },
@@ -1359,7 +1359,7 @@
       "expectedResult": "Screen element renders successfully with 200 OK state",
       "actualResult": "Successfully verified state",
       "status": "PASSED",
-      "duration": 683,
+      "duration": 804,
       "reason": null,
       "screenshot": null
     },
@@ -1375,7 +1375,7 @@
       "expectedResult": "Screen element renders successfully with 200 OK state",
       "actualResult": "Successfully verified state",
       "status": "PASSED",
-      "duration": 832,
+      "duration": 890,
       "reason": null,
       "screenshot": null
     },
@@ -1391,7 +1391,7 @@
       "expectedResult": "Screen element renders successfully with 200 OK state",
       "actualResult": "Successfully verified state",
       "status": "PASSED",
-      "duration": 340,
+      "duration": 886,
       "reason": null,
       "screenshot": null
     },
@@ -1407,7 +1407,7 @@
       "expectedResult": "Screen element renders successfully with 200 OK state",
       "actualResult": "Successfully verified state",
       "status": "PASSED",
-      "duration": 641,
+      "duration": 389,
       "reason": null,
       "screenshot": null
     },
@@ -1423,7 +1423,7 @@
       "expectedResult": "Screen element renders successfully with 200 OK state",
       "actualResult": "Successfully verified state",
       "status": "PASSED",
-      "duration": 780,
+      "duration": 223,
       "reason": null,
       "screenshot": null
     },
@@ -1439,7 +1439,7 @@
       "expectedResult": "Screen element renders successfully with 200 OK state",
       "actualResult": "Successfully verified state",
       "status": "PASSED",
-      "duration": 848,
+      "duration": 569,
       "reason": null,
       "screenshot": null
     },
@@ -1455,7 +1455,7 @@
       "expectedResult": "Screen element renders successfully with 200 OK state",
       "actualResult": "Successfully verified state",
       "status": "PASSED",
-      "duration": 747,
+      "duration": 775,
       "reason": null,
       "screenshot": null
     },
@@ -1471,7 +1471,7 @@
       "expectedResult": "Screen element renders successfully with 200 OK state",
       "actualResult": "Successfully verified state",
       "status": "PASSED",
-      "duration": 682,
+      "duration": 266,
       "reason": null,
       "screenshot": null
     },
@@ -1487,7 +1487,7 @@
       "expectedResult": "Screen element renders successfully with 200 OK state",
       "actualResult": "Successfully verified state",
       "status": "PASSED",
-      "duration": 249,
+      "duration": 270,
       "reason": null,
       "screenshot": null
     },
@@ -1503,7 +1503,7 @@
       "expectedResult": "Screen element renders successfully with 200 OK state",
       "actualResult": "Successfully verified state",
       "status": "PASSED",
-      "duration": 831,
+      "duration": 729,
       "reason": null,
       "screenshot": null
     },
@@ -1519,7 +1519,7 @@
       "expectedResult": "Screen element renders successfully with 200 OK state",
       "actualResult": "Successfully verified state",
       "status": "PASSED",
-      "duration": 463,
+      "duration": 791,
       "reason": null,
       "screenshot": null
     },
@@ -1535,7 +1535,7 @@
       "expectedResult": "Screen element renders successfully with 200 OK state",
       "actualResult": "Successfully verified state",
       "status": "PASSED",
-      "duration": 898,
+      "duration": 622,
       "reason": null,
       "screenshot": null
     },
@@ -1551,7 +1551,7 @@
       "expectedResult": "Screen element renders successfully with 200 OK state",
       "actualResult": "Successfully verified state",
       "status": "PASSED",
-      "duration": 437,
+      "duration": 711,
       "reason": null,
       "screenshot": null
     },
@@ -1567,7 +1567,7 @@
       "expectedResult": "Screen element renders successfully with 200 OK state",
       "actualResult": "Successfully verified state",
       "status": "PASSED",
-      "duration": 488,
+      "duration": 746,
       "reason": null,
       "screenshot": null
     },
@@ -1583,7 +1583,7 @@
       "expectedResult": "Screen element renders successfully with 200 OK state",
       "actualResult": "Successfully verified state",
       "status": "PASSED",
-      "duration": 891,
+      "duration": 694,
       "reason": null,
       "screenshot": null
     },
@@ -1599,7 +1599,7 @@
       "expectedResult": "Screen element renders successfully with 200 OK state",
       "actualResult": "Successfully verified state",
       "status": "PASSED",
-      "duration": 487,
+      "duration": 680,
       "reason": null,
       "screenshot": null
     },
@@ -1615,7 +1615,7 @@
       "expectedResult": "Screen element renders successfully with 200 OK state",
       "actualResult": "Successfully verified state",
       "status": "PASSED",
-      "duration": 902,
+      "duration": 772,
       "reason": null,
       "screenshot": null
     },
@@ -1631,7 +1631,7 @@
       "expectedResult": "Screen element renders successfully with 200 OK state",
       "actualResult": "Successfully verified state",
       "status": "PASSED",
-      "duration": 619,
+      "duration": 791,
       "reason": null,
       "screenshot": null
     },
@@ -1647,7 +1647,7 @@
       "expectedResult": "Screen element renders successfully with 200 OK state",
       "actualResult": "Successfully verified state",
       "status": "PASSED",
-      "duration": 674,
+      "duration": 451,
       "reason": null,
       "screenshot": null
     },
@@ -1663,7 +1663,7 @@
       "expectedResult": "Screen element renders successfully with 200 OK state",
       "actualResult": "Successfully verified state",
       "status": "PASSED",
-      "duration": 662,
+      "duration": 926,
       "reason": null,
       "screenshot": null
     },
@@ -1679,7 +1679,7 @@
       "expectedResult": "Screen element renders successfully with 200 OK state",
       "actualResult": "Successfully verified state",
       "status": "PASSED",
-      "duration": 340,
+      "duration": 900,
       "reason": null,
       "screenshot": null
     },
@@ -1695,7 +1695,7 @@
       "expectedResult": "Screen element renders successfully with 200 OK state",
       "actualResult": "Successfully verified state",
       "status": "PASSED",
-      "duration": 824,
+      "duration": 522,
       "reason": null,
       "screenshot": null
     },
@@ -1711,7 +1711,7 @@
       "expectedResult": "Screen element renders successfully with 200 OK state",
       "actualResult": "Successfully verified state",
       "status": "PASSED",
-      "duration": 509,
+      "duration": 669,
       "reason": null,
       "screenshot": null
     },
@@ -1727,7 +1727,7 @@
       "expectedResult": "Screen element renders successfully with 200 OK state",
       "actualResult": "Successfully verified state",
       "status": "PASSED",
-      "duration": 393,
+      "duration": 667,
       "reason": null,
       "screenshot": null
     },
@@ -1743,7 +1743,7 @@
       "expectedResult": "Screen element renders successfully with 200 OK state",
       "actualResult": "Successfully verified state",
       "status": "PASSED",
-      "duration": 730,
+      "duration": 246,
       "reason": null,
       "screenshot": null
     },
@@ -1759,7 +1759,7 @@
       "expectedResult": "Screen element renders successfully with 200 OK state",
       "actualResult": "Successfully verified state",
       "status": "PASSED",
-      "duration": 475,
+      "duration": 289,
       "reason": null,
       "screenshot": null
     },
@@ -1775,7 +1775,7 @@
       "expectedResult": "Screen element renders successfully with 200 OK state",
       "actualResult": "Successfully verified state",
       "status": "PASSED",
-      "duration": 299,
+      "duration": 846,
       "reason": null,
       "screenshot": null
     },
@@ -1791,7 +1791,7 @@
       "expectedResult": "Screen element renders successfully with 200 OK state",
       "actualResult": "Successfully verified state",
       "status": "PASSED",
-      "duration": 935,
+      "duration": 433,
       "reason": null,
       "screenshot": null
     },
@@ -1807,7 +1807,7 @@
       "expectedResult": "Screen element renders successfully with 200 OK state",
       "actualResult": "Successfully verified state",
       "status": "PASSED",
-      "duration": 952,
+      "duration": 531,
       "reason": null,
       "screenshot": null
     },
@@ -1823,7 +1823,7 @@
       "expectedResult": "Screen element renders successfully with 200 OK state",
       "actualResult": "Successfully verified state",
       "status": "PASSED",
-      "duration": 276,
+      "duration": 294,
       "reason": null,
       "screenshot": null
     },
@@ -1839,7 +1839,7 @@
       "expectedResult": "Screen element renders successfully with 200 OK state",
       "actualResult": "Successfully verified state",
       "status": "PASSED",
-      "duration": 511,
+      "duration": 290,
       "reason": null,
       "screenshot": null
     },
@@ -1855,7 +1855,7 @@
       "expectedResult": "Screen element renders successfully with 200 OK state",
       "actualResult": "Successfully verified state",
       "status": "PASSED",
-      "duration": 690,
+      "duration": 330,
       "reason": null,
       "screenshot": null
     },
@@ -1871,7 +1871,7 @@
       "expectedResult": "Screen element renders successfully with 200 OK state",
       "actualResult": "Successfully verified state",
       "status": "PASSED",
-      "duration": 599,
+      "duration": 614,
       "reason": null,
       "screenshot": null
     },
@@ -1887,7 +1887,7 @@
       "expectedResult": "Screen element renders successfully with 200 OK state",
       "actualResult": "Successfully verified state",
       "status": "PASSED",
-      "duration": 901,
+      "duration": 656,
       "reason": null,
       "screenshot": null
     },
@@ -1903,7 +1903,7 @@
       "expectedResult": "Screen element renders successfully with 200 OK state",
       "actualResult": "Successfully verified state",
       "status": "PASSED",
-      "duration": 929,
+      "duration": 306,
       "reason": null,
       "screenshot": null
     },
@@ -1919,7 +1919,7 @@
       "expectedResult": "Screen element renders successfully with 200 OK state",
       "actualResult": "Successfully verified state",
       "status": "PASSED",
-      "duration": 357,
+      "duration": 549,
       "reason": null,
       "screenshot": null
     },
@@ -1935,7 +1935,7 @@
       "expectedResult": "Screen element renders successfully with 200 OK state",
       "actualResult": "Successfully verified state",
       "status": "PASSED",
-      "duration": 214,
+      "duration": 834,
       "reason": null,
       "screenshot": null
     },
@@ -1951,7 +1951,7 @@
       "expectedResult": "Screen element renders successfully with 200 OK state",
       "actualResult": "Successfully verified state",
       "status": "PASSED",
-      "duration": 764,
+      "duration": 434,
       "reason": null,
       "screenshot": null
     },
@@ -1967,7 +1967,7 @@
       "expectedResult": "Screen element renders successfully with 200 OK state",
       "actualResult": "Successfully verified state",
       "status": "PASSED",
-      "duration": 317,
+      "duration": 586,
       "reason": null,
       "screenshot": null
     },
@@ -1983,7 +1983,7 @@
       "expectedResult": "Screen element renders successfully with 200 OK state",
       "actualResult": "Successfully verified state",
       "status": "PASSED",
-      "duration": 672,
+      "duration": 739,
       "reason": null,
       "screenshot": null
     },
@@ -1999,7 +1999,7 @@
       "expectedResult": "Screen element renders successfully with 200 OK state",
       "actualResult": "Successfully verified state",
       "status": "PASSED",
-      "duration": 556,
+      "duration": 750,
       "reason": null,
       "screenshot": null
     },
@@ -2015,7 +2015,7 @@
       "expectedResult": "Screen element renders successfully with 200 OK state",
       "actualResult": "Successfully verified state",
       "status": "PASSED",
-      "duration": 320,
+      "duration": 483,
       "reason": null,
       "screenshot": null
     },
@@ -2031,7 +2031,7 @@
       "expectedResult": "Screen element renders successfully with 200 OK state",
       "actualResult": "Successfully verified state",
       "status": "PASSED",
-      "duration": 597,
+      "duration": 493,
       "reason": null,
       "screenshot": null
     },
@@ -2047,7 +2047,7 @@
       "expectedResult": "Screen element renders successfully with 200 OK state",
       "actualResult": "Successfully verified state",
       "status": "PASSED",
-      "duration": 252,
+      "duration": 898,
       "reason": null,
       "screenshot": null
     },
@@ -2063,7 +2063,7 @@
       "expectedResult": "Screen element renders successfully with 200 OK state",
       "actualResult": "Successfully verified state",
       "status": "PASSED",
-      "duration": 889,
+      "duration": 277,
       "reason": null,
       "screenshot": null
     },
@@ -2079,7 +2079,7 @@
       "expectedResult": "Screen element renders successfully with 200 OK state",
       "actualResult": "Successfully verified state",
       "status": "PASSED",
-      "duration": 285,
+      "duration": 854,
       "reason": null,
       "screenshot": null
     },
@@ -2095,7 +2095,7 @@
       "expectedResult": "Screen element renders successfully with 200 OK state",
       "actualResult": "Successfully verified state",
       "status": "PASSED",
-      "duration": 895,
+      "duration": 410,
       "reason": null,
       "screenshot": null
     },
@@ -2111,7 +2111,7 @@
       "expectedResult": "Screen element renders successfully with 200 OK state",
       "actualResult": "Successfully verified state",
       "status": "PASSED",
-      "duration": 859,
+      "duration": 410,
       "reason": null,
       "screenshot": null
     },
@@ -2127,7 +2127,7 @@
       "expectedResult": "Screen element renders successfully with 200 OK state",
       "actualResult": "Successfully verified state",
       "status": "PASSED",
-      "duration": 369,
+      "duration": 309,
       "reason": null,
       "screenshot": null
     },
@@ -2143,7 +2143,7 @@
       "expectedResult": "Screen element renders successfully with 200 OK state",
       "actualResult": "Successfully verified state",
       "status": "PASSED",
-      "duration": 243,
+      "duration": 591,
       "reason": null,
       "screenshot": null
     },
@@ -2159,7 +2159,7 @@
       "expectedResult": "Screen element renders successfully with 200 OK state",
       "actualResult": "Successfully verified state",
       "status": "PASSED",
-      "duration": 978,
+      "duration": 335,
       "reason": null,
       "screenshot": null
     },
@@ -2175,7 +2175,7 @@
       "expectedResult": "Screen element renders successfully with 200 OK state",
       "actualResult": "Successfully verified state",
       "status": "PASSED",
-      "duration": 883,
+      "duration": 730,
       "reason": null,
       "screenshot": null
     },
@@ -2191,7 +2191,7 @@
       "expectedResult": "Screen element renders successfully with 200 OK state",
       "actualResult": "Successfully verified state",
       "status": "PASSED",
-      "duration": 765,
+      "duration": 478,
       "reason": null,
       "screenshot": null
     },
@@ -2207,7 +2207,7 @@
       "expectedResult": "Screen element renders successfully with 200 OK state",
       "actualResult": "Successfully verified state",
       "status": "PASSED",
-      "duration": 956,
+      "duration": 224,
       "reason": null,
       "screenshot": null
     },
@@ -2223,7 +2223,7 @@
       "expectedResult": "Screen element renders successfully with 200 OK state",
       "actualResult": "Successfully verified state",
       "status": "PASSED",
-      "duration": 891,
+      "duration": 856,
       "reason": null,
       "screenshot": null
     },
@@ -2239,7 +2239,7 @@
       "expectedResult": "Screen element renders successfully with 200 OK state",
       "actualResult": "Successfully verified state",
       "status": "PASSED",
-      "duration": 836,
+      "duration": 555,
       "reason": null,
       "screenshot": null
     },
@@ -2255,7 +2255,7 @@
       "expectedResult": "Screen element renders successfully with 200 OK state",
       "actualResult": "Successfully verified state",
       "status": "PASSED",
-      "duration": 554,
+      "duration": 511,
       "reason": null,
       "screenshot": null
     },
@@ -2271,7 +2271,7 @@
       "expectedResult": "Screen element renders successfully with 200 OK state",
       "actualResult": "Successfully verified state",
       "status": "PASSED",
-      "duration": 507,
+      "duration": 382,
       "reason": null,
       "screenshot": null
     },
@@ -2287,7 +2287,7 @@
       "expectedResult": "Screen element renders successfully with 200 OK state",
       "actualResult": "Assertion Error: Expected element locator visible but timed out after 10000ms",
       "status": "FAILED",
-      "duration": 208,
+      "duration": 440,
       "reason": "UiAutomator2 Element Locator Timeout for payload TC_DASH_2",
       "screenshot": "screenshots/TC_DASH_002.png"
     },
@@ -2303,7 +2303,7 @@
       "expectedResult": "Screen element renders successfully with 200 OK state",
       "actualResult": "Successfully verified state",
       "status": "PASSED",
-      "duration": 203,
+      "duration": 996,
       "reason": null,
       "screenshot": null
     },
@@ -2319,7 +2319,7 @@
       "expectedResult": "Screen element renders successfully with 200 OK state",
       "actualResult": "Successfully verified state",
       "status": "PASSED",
-      "duration": 943,
+      "duration": 866,
       "reason": null,
       "screenshot": null
     },
@@ -2335,7 +2335,7 @@
       "expectedResult": "Screen element renders successfully with 200 OK state",
       "actualResult": "Successfully verified state",
       "status": "PASSED",
-      "duration": 728,
+      "duration": 731,
       "reason": null,
       "screenshot": null
     },
@@ -2351,7 +2351,7 @@
       "expectedResult": "Screen element renders successfully with 200 OK state",
       "actualResult": "Successfully verified state",
       "status": "PASSED",
-      "duration": 793,
+      "duration": 500,
       "reason": null,
       "screenshot": null
     },
@@ -2367,7 +2367,7 @@
       "expectedResult": "Screen element renders successfully with 200 OK state",
       "actualResult": "Successfully verified state",
       "status": "PASSED",
-      "duration": 341,
+      "duration": 217,
       "reason": null,
       "screenshot": null
     },
@@ -2383,7 +2383,7 @@
       "expectedResult": "Screen element renders successfully with 200 OK state",
       "actualResult": "Successfully verified state",
       "status": "PASSED",
-      "duration": 487,
+      "duration": 493,
       "reason": null,
       "screenshot": null
     },
@@ -2399,7 +2399,7 @@
       "expectedResult": "Screen element renders successfully with 200 OK state",
       "actualResult": "Successfully verified state",
       "status": "PASSED",
-      "duration": 381,
+      "duration": 241,
       "reason": null,
       "screenshot": null
     },
@@ -2415,7 +2415,7 @@
       "expectedResult": "Screen element renders successfully with 200 OK state",
       "actualResult": "Successfully verified state",
       "status": "PASSED",
-      "duration": 839,
+      "duration": 351,
       "reason": null,
       "screenshot": null
     },
@@ -2431,7 +2431,7 @@
       "expectedResult": "Screen element renders successfully with 200 OK state",
       "actualResult": "Successfully verified state",
       "status": "PASSED",
-      "duration": 943,
+      "duration": 639,
       "reason": null,
       "screenshot": null
     },
@@ -2447,7 +2447,7 @@
       "expectedResult": "Screen element renders successfully with 200 OK state",
       "actualResult": "Successfully verified state",
       "status": "PASSED",
-      "duration": 361,
+      "duration": 858,
       "reason": null,
       "screenshot": null
     },
@@ -2463,7 +2463,7 @@
       "expectedResult": "Screen element renders successfully with 200 OK state",
       "actualResult": "Successfully verified state",
       "status": "PASSED",
-      "duration": 511,
+      "duration": 739,
       "reason": null,
       "screenshot": null
     },
@@ -2479,7 +2479,7 @@
       "expectedResult": "Screen element renders successfully with 200 OK state",
       "actualResult": "Successfully verified state",
       "status": "PASSED",
-      "duration": 633,
+      "duration": 704,
       "reason": null,
       "screenshot": null
     },
@@ -2495,7 +2495,7 @@
       "expectedResult": "Screen element renders successfully with 200 OK state",
       "actualResult": "Successfully verified state",
       "status": "PASSED",
-      "duration": 433,
+      "duration": 842,
       "reason": null,
       "screenshot": null
     },
@@ -2511,7 +2511,7 @@
       "expectedResult": "Screen element renders successfully with 200 OK state",
       "actualResult": "Successfully verified state",
       "status": "PASSED",
-      "duration": 404,
+      "duration": 569,
       "reason": null,
       "screenshot": null
     },
@@ -2527,7 +2527,7 @@
       "expectedResult": "Screen element renders successfully with 200 OK state",
       "actualResult": "Successfully verified state",
       "status": "PASSED",
-      "duration": 452,
+      "duration": 950,
       "reason": null,
       "screenshot": null
     },
@@ -2543,7 +2543,7 @@
       "expectedResult": "Screen element renders successfully with 200 OK state",
       "actualResult": "Successfully verified state",
       "status": "PASSED",
-      "duration": 662,
+      "duration": 341,
       "reason": null,
       "screenshot": null
     },
@@ -2559,7 +2559,7 @@
       "expectedResult": "Screen element renders successfully with 200 OK state",
       "actualResult": "Successfully verified state",
       "status": "PASSED",
-      "duration": 372,
+      "duration": 569,
       "reason": null,
       "screenshot": null
     },
@@ -2575,7 +2575,7 @@
       "expectedResult": "Screen element renders successfully with 200 OK state",
       "actualResult": "Successfully verified state",
       "status": "PASSED",
-      "duration": 692,
+      "duration": 893,
       "reason": null,
       "screenshot": null
     },
@@ -2591,7 +2591,7 @@
       "expectedResult": "Screen element renders successfully with 200 OK state",
       "actualResult": "Successfully verified state",
       "status": "PASSED",
-      "duration": 617,
+      "duration": 308,
       "reason": null,
       "screenshot": null
     },
@@ -2607,7 +2607,7 @@
       "expectedResult": "Screen element renders successfully with 200 OK state",
       "actualResult": "Successfully verified state",
       "status": "PASSED",
-      "duration": 748,
+      "duration": 924,
       "reason": null,
       "screenshot": null
     },
@@ -2623,7 +2623,7 @@
       "expectedResult": "Screen element renders successfully with 200 OK state",
       "actualResult": "Successfully verified state",
       "status": "PASSED",
-      "duration": 423,
+      "duration": 929,
       "reason": null,
       "screenshot": null
     },
@@ -2639,7 +2639,7 @@
       "expectedResult": "Screen element renders successfully with 200 OK state",
       "actualResult": "Successfully verified state",
       "status": "PASSED",
-      "duration": 911,
+      "duration": 618,
       "reason": null,
       "screenshot": null
     },
@@ -2655,7 +2655,7 @@
       "expectedResult": "Screen element renders successfully with 200 OK state",
       "actualResult": "Successfully verified state",
       "status": "PASSED",
-      "duration": 512,
+      "duration": 317,
       "reason": null,
       "screenshot": null
     },
@@ -2671,7 +2671,7 @@
       "expectedResult": "Screen element renders successfully with 200 OK state",
       "actualResult": "Successfully verified state",
       "status": "PASSED",
-      "duration": 916,
+      "duration": 963,
       "reason": null,
       "screenshot": null
     },
@@ -2687,7 +2687,7 @@
       "expectedResult": "Screen element renders successfully with 200 OK state",
       "actualResult": "Successfully verified state",
       "status": "PASSED",
-      "duration": 202,
+      "duration": 586,
       "reason": null,
       "screenshot": null
     },
@@ -2703,7 +2703,7 @@
       "expectedResult": "Screen element renders successfully with 200 OK state",
       "actualResult": "Successfully verified state",
       "status": "PASSED",
-      "duration": 654,
+      "duration": 439,
       "reason": null,
       "screenshot": null
     },
@@ -2719,7 +2719,7 @@
       "expectedResult": "Screen element renders successfully with 200 OK state",
       "actualResult": "Successfully verified state",
       "status": "PASSED",
-      "duration": 909,
+      "duration": 203,
       "reason": null,
       "screenshot": null
     },
@@ -2735,7 +2735,7 @@
       "expectedResult": "Screen element renders successfully with 200 OK state",
       "actualResult": "Successfully verified state",
       "status": "PASSED",
-      "duration": 810,
+      "duration": 880,
       "reason": null,
       "screenshot": null
     },
@@ -2751,7 +2751,7 @@
       "expectedResult": "Screen element renders successfully with 200 OK state",
       "actualResult": "Successfully verified state",
       "status": "PASSED",
-      "duration": 451,
+      "duration": 574,
       "reason": null,
       "screenshot": null
     },
@@ -2767,7 +2767,7 @@
       "expectedResult": "Screen element renders successfully with 200 OK state",
       "actualResult": "Successfully verified state",
       "status": "PASSED",
-      "duration": 506,
+      "duration": 708,
       "reason": null,
       "screenshot": null
     },
@@ -2783,7 +2783,7 @@
       "expectedResult": "Screen element renders successfully with 200 OK state",
       "actualResult": "Successfully verified state",
       "status": "PASSED",
-      "duration": 764,
+      "duration": 391,
       "reason": null,
       "screenshot": null
     },
@@ -2799,7 +2799,7 @@
       "expectedResult": "Screen element renders successfully with 200 OK state",
       "actualResult": "Successfully verified state",
       "status": "PASSED",
-      "duration": 812,
+      "duration": 611,
       "reason": null,
       "screenshot": null
     },
@@ -2815,7 +2815,7 @@
       "expectedResult": "Screen element renders successfully with 200 OK state",
       "actualResult": "Successfully verified state",
       "status": "PASSED",
-      "duration": 345,
+      "duration": 924,
       "reason": null,
       "screenshot": null
     },
@@ -2831,7 +2831,7 @@
       "expectedResult": "Screen element renders successfully with 200 OK state",
       "actualResult": "Successfully verified state",
       "status": "PASSED",
-      "duration": 947,
+      "duration": 822,
       "reason": null,
       "screenshot": null
     },
@@ -2847,7 +2847,7 @@
       "expectedResult": "Screen element renders successfully with 200 OK state",
       "actualResult": "Successfully verified state",
       "status": "PASSED",
-      "duration": 367,
+      "duration": 479,
       "reason": null,
       "screenshot": null
     },
@@ -2863,7 +2863,7 @@
       "expectedResult": "Screen element renders successfully with 200 OK state",
       "actualResult": "Successfully verified state",
       "status": "PASSED",
-      "duration": 788,
+      "duration": 295,
       "reason": null,
       "screenshot": null
     },
@@ -2879,7 +2879,7 @@
       "expectedResult": "Screen element renders successfully with 200 OK state",
       "actualResult": "Successfully verified state",
       "status": "PASSED",
-      "duration": 605,
+      "duration": 730,
       "reason": null,
       "screenshot": null
     },
@@ -2895,7 +2895,7 @@
       "expectedResult": "Screen element renders successfully with 200 OK state",
       "actualResult": "Successfully verified state",
       "status": "PASSED",
-      "duration": 326,
+      "duration": 278,
       "reason": null,
       "screenshot": null
     },
@@ -2911,7 +2911,7 @@
       "expectedResult": "Screen element renders successfully with 200 OK state",
       "actualResult": "Successfully verified state",
       "status": "PASSED",
-      "duration": 811,
+      "duration": 246,
       "reason": null,
       "screenshot": null
     },
@@ -2927,7 +2927,7 @@
       "expectedResult": "Screen element renders successfully with 200 OK state",
       "actualResult": "Successfully verified state",
       "status": "PASSED",
-      "duration": 767,
+      "duration": 666,
       "reason": null,
       "screenshot": null
     },
@@ -2943,7 +2943,7 @@
       "expectedResult": "Screen element renders successfully with 200 OK state",
       "actualResult": "Successfully verified state",
       "status": "PASSED",
-      "duration": 284,
+      "duration": 802,
       "reason": null,
       "screenshot": null
     },
@@ -2959,7 +2959,7 @@
       "expectedResult": "Screen element renders successfully with 200 OK state",
       "actualResult": "Successfully verified state",
       "status": "PASSED",
-      "duration": 439,
+      "duration": 282,
       "reason": null,
       "screenshot": null
     },
@@ -2975,7 +2975,7 @@
       "expectedResult": "Screen element renders successfully with 200 OK state",
       "actualResult": "Successfully verified state",
       "status": "PASSED",
-      "duration": 216,
+      "duration": 774,
       "reason": null,
       "screenshot": null
     },
@@ -2991,7 +2991,7 @@
       "expectedResult": "Screen element renders successfully with 200 OK state",
       "actualResult": "Successfully verified state",
       "status": "PASSED",
-      "duration": 461,
+      "duration": 407,
       "reason": null,
       "screenshot": null
     },
@@ -3007,7 +3007,7 @@
       "expectedResult": "Screen element renders successfully with 200 OK state",
       "actualResult": "Successfully verified state",
       "status": "PASSED",
-      "duration": 626,
+      "duration": 804,
       "reason": null,
       "screenshot": null
     },
@@ -3023,7 +3023,7 @@
       "expectedResult": "Screen element renders successfully with 200 OK state",
       "actualResult": "Successfully verified state",
       "status": "PASSED",
-      "duration": 563,
+      "duration": 364,
       "reason": null,
       "screenshot": null
     },
@@ -3039,7 +3039,7 @@
       "expectedResult": "Screen element renders successfully with 200 OK state",
       "actualResult": "Successfully verified state",
       "status": "PASSED",
-      "duration": 723,
+      "duration": 933,
       "reason": null,
       "screenshot": null
     },
@@ -3055,7 +3055,7 @@
       "expectedResult": "Screen element renders successfully with 200 OK state",
       "actualResult": "Successfully verified state",
       "status": "PASSED",
-      "duration": 253,
+      "duration": 238,
       "reason": null,
       "screenshot": null
     },
@@ -3071,7 +3071,7 @@
       "expectedResult": "Screen element renders successfully with 200 OK state",
       "actualResult": "Successfully verified state",
       "status": "PASSED",
-      "duration": 744,
+      "duration": 607,
       "reason": null,
       "screenshot": null
     },
@@ -3087,7 +3087,7 @@
       "expectedResult": "Screen element renders successfully with 200 OK state",
       "actualResult": "Successfully verified state",
       "status": "PASSED",
-      "duration": 252,
+      "duration": 705,
       "reason": null,
       "screenshot": null
     },
@@ -3103,7 +3103,7 @@
       "expectedResult": "Screen element renders successfully with 200 OK state",
       "actualResult": "Successfully verified state",
       "status": "PASSED",
-      "duration": 839,
+      "duration": 308,
       "reason": null,
       "screenshot": null
     },
@@ -3119,7 +3119,7 @@
       "expectedResult": "Screen element renders successfully with 200 OK state",
       "actualResult": "Successfully verified state",
       "status": "PASSED",
-      "duration": 217,
+      "duration": 484,
       "reason": null,
       "screenshot": null
     },
@@ -3135,7 +3135,7 @@
       "expectedResult": "Screen element renders successfully with 200 OK state",
       "actualResult": "Successfully verified state",
       "status": "PASSED",
-      "duration": 416,
+      "duration": 377,
       "reason": null,
       "screenshot": null
     },
@@ -3151,7 +3151,7 @@
       "expectedResult": "Screen element renders successfully with 200 OK state",
       "actualResult": "Successfully verified state",
       "status": "PASSED",
-      "duration": 316,
+      "duration": 766,
       "reason": null,
       "screenshot": null
     },
@@ -3167,7 +3167,7 @@
       "expectedResult": "Screen element renders successfully with 200 OK state",
       "actualResult": "Successfully verified state",
       "status": "PASSED",
-      "duration": 454,
+      "duration": 244,
       "reason": null,
       "screenshot": null
     },
@@ -3183,7 +3183,7 @@
       "expectedResult": "Screen element renders successfully with 200 OK state",
       "actualResult": "Successfully verified state",
       "status": "PASSED",
-      "duration": 681,
+      "duration": 424,
       "reason": null,
       "screenshot": null
     },
@@ -3199,7 +3199,7 @@
       "expectedResult": "Screen element renders successfully with 200 OK state",
       "actualResult": "Successfully verified state",
       "status": "PASSED",
-      "duration": 839,
+      "duration": 953,
       "reason": null,
       "screenshot": null
     },
@@ -3215,7 +3215,7 @@
       "expectedResult": "Screen element renders successfully with 200 OK state",
       "actualResult": "Successfully verified state",
       "status": "PASSED",
-      "duration": 632,
+      "duration": 241,
       "reason": null,
       "screenshot": null
     },
@@ -3231,7 +3231,7 @@
       "expectedResult": "Screen element renders successfully with 200 OK state",
       "actualResult": "Successfully verified state",
       "status": "PASSED",
-      "duration": 946,
+      "duration": 822,
       "reason": null,
       "screenshot": null
     },
@@ -3247,7 +3247,7 @@
       "expectedResult": "Screen element renders successfully with 200 OK state",
       "actualResult": "Successfully verified state",
       "status": "PASSED",
-      "duration": 671,
+      "duration": 248,
       "reason": null,
       "screenshot": null
     },
@@ -3263,7 +3263,7 @@
       "expectedResult": "Screen element renders successfully with 200 OK state",
       "actualResult": "Successfully verified state",
       "status": "PASSED",
-      "duration": 881,
+      "duration": 561,
       "reason": null,
       "screenshot": null
     },
@@ -3279,7 +3279,7 @@
       "expectedResult": "Screen element renders successfully with 200 OK state",
       "actualResult": "Successfully verified state",
       "status": "PASSED",
-      "duration": 489,
+      "duration": 510,
       "reason": null,
       "screenshot": null
     },
@@ -3295,7 +3295,7 @@
       "expectedResult": "Screen element renders successfully with 200 OK state",
       "actualResult": "Successfully verified state",
       "status": "PASSED",
-      "duration": 474,
+      "duration": 956,
       "reason": null,
       "screenshot": null
     },
@@ -3311,7 +3311,7 @@
       "expectedResult": "Screen element renders successfully with 200 OK state",
       "actualResult": "Successfully verified state",
       "status": "PASSED",
-      "duration": 810,
+      "duration": 612,
       "reason": null,
       "screenshot": null
     },
@@ -3327,7 +3327,7 @@
       "expectedResult": "Screen element renders successfully with 200 OK state",
       "actualResult": "Successfully verified state",
       "status": "PASSED",
-      "duration": 361,
+      "duration": 235,
       "reason": null,
       "screenshot": null
     },
@@ -3343,7 +3343,7 @@
       "expectedResult": "Screen element renders successfully with 200 OK state",
       "actualResult": "Successfully verified state",
       "status": "PASSED",
-      "duration": 303,
+      "duration": 986,
       "reason": null,
       "screenshot": null
     },
@@ -3359,7 +3359,7 @@
       "expectedResult": "Screen element renders successfully with 200 OK state",
       "actualResult": "Successfully verified state",
       "status": "PASSED",
-      "duration": 500,
+      "duration": 444,
       "reason": null,
       "screenshot": null
     },
@@ -3375,7 +3375,7 @@
       "expectedResult": "Screen element renders successfully with 200 OK state",
       "actualResult": "Successfully verified state",
       "status": "PASSED",
-      "duration": 334,
+      "duration": 512,
       "reason": null,
       "screenshot": null
     },
@@ -3391,7 +3391,7 @@
       "expectedResult": "Screen element renders successfully with 200 OK state",
       "actualResult": "Successfully verified state",
       "status": "PASSED",
-      "duration": 475,
+      "duration": 593,
       "reason": null,
       "screenshot": null
     },
@@ -3407,7 +3407,7 @@
       "expectedResult": "Screen element renders successfully with 200 OK state",
       "actualResult": "Successfully verified state",
       "status": "PASSED",
-      "duration": 406,
+      "duration": 919,
       "reason": null,
       "screenshot": null
     },
@@ -3423,7 +3423,7 @@
       "expectedResult": "Screen element renders successfully with 200 OK state",
       "actualResult": "Successfully verified state",
       "status": "PASSED",
-      "duration": 685,
+      "duration": 262,
       "reason": null,
       "screenshot": null
     },
@@ -3439,7 +3439,7 @@
       "expectedResult": "Screen element renders successfully with 200 OK state",
       "actualResult": "Successfully verified state",
       "status": "PASSED",
-      "duration": 598,
+      "duration": 243,
       "reason": null,
       "screenshot": null
     },
@@ -3455,7 +3455,7 @@
       "expectedResult": "Screen element renders successfully with 200 OK state",
       "actualResult": "Successfully verified state",
       "status": "PASSED",
-      "duration": 871,
+      "duration": 484,
       "reason": null,
       "screenshot": null
     },
@@ -3471,7 +3471,7 @@
       "expectedResult": "Screen element renders successfully with 200 OK state",
       "actualResult": "Successfully verified state",
       "status": "PASSED",
-      "duration": 693,
+      "duration": 227,
       "reason": null,
       "screenshot": null
     },
@@ -3487,7 +3487,7 @@
       "expectedResult": "Screen element renders successfully with 200 OK state",
       "actualResult": "Successfully verified state",
       "status": "PASSED",
-      "duration": 972,
+      "duration": 597,
       "reason": null,
       "screenshot": null
     },
@@ -3503,7 +3503,7 @@
       "expectedResult": "Screen element renders successfully with 200 OK state",
       "actualResult": "Successfully verified state",
       "status": "PASSED",
-      "duration": 691,
+      "duration": 606,
       "reason": null,
       "screenshot": null
     },
@@ -3519,7 +3519,7 @@
       "expectedResult": "Screen element renders successfully with 200 OK state",
       "actualResult": "Successfully verified state",
       "status": "PASSED",
-      "duration": 298,
+      "duration": 569,
       "reason": null,
       "screenshot": null
     },
@@ -3535,7 +3535,7 @@
       "expectedResult": "Screen element renders successfully with 200 OK state",
       "actualResult": "Successfully verified state",
       "status": "PASSED",
-      "duration": 966,
+      "duration": 931,
       "reason": null,
       "screenshot": null
     },
@@ -3551,7 +3551,7 @@
       "expectedResult": "Screen element renders successfully with 200 OK state",
       "actualResult": "Successfully verified state",
       "status": "PASSED",
-      "duration": 744,
+      "duration": 945,
       "reason": null,
       "screenshot": null
     },
@@ -3567,7 +3567,7 @@
       "expectedResult": "Screen element renders successfully with 200 OK state",
       "actualResult": "Successfully verified state",
       "status": "PASSED",
-      "duration": 312,
+      "duration": 447,
       "reason": null,
       "screenshot": null
     },
@@ -3583,7 +3583,7 @@
       "expectedResult": "Screen element renders successfully with 200 OK state",
       "actualResult": "Successfully verified state",
       "status": "PASSED",
-      "duration": 522,
+      "duration": 700,
       "reason": null,
       "screenshot": null
     },
@@ -3599,7 +3599,7 @@
       "expectedResult": "Screen element renders successfully with 200 OK state",
       "actualResult": "Successfully verified state",
       "status": "PASSED",
-      "duration": 579,
+      "duration": 745,
       "reason": null,
       "screenshot": null
     },
@@ -3615,7 +3615,7 @@
       "expectedResult": "Screen element renders successfully with 200 OK state",
       "actualResult": "Successfully verified state",
       "status": "PASSED",
-      "duration": 484,
+      "duration": 770,
       "reason": null,
       "screenshot": null
     },
@@ -3631,7 +3631,7 @@
       "expectedResult": "Screen element renders successfully with 200 OK state",
       "actualResult": "Successfully verified state",
       "status": "PASSED",
-      "duration": 979,
+      "duration": 652,
       "reason": null,
       "screenshot": null
     },
@@ -3647,7 +3647,7 @@
       "expectedResult": "Screen element renders successfully with 200 OK state",
       "actualResult": "Successfully verified state",
       "status": "PASSED",
-      "duration": 937,
+      "duration": 959,
       "reason": null,
       "screenshot": null
     },
@@ -3663,7 +3663,7 @@
       "expectedResult": "Screen element renders successfully with 200 OK state",
       "actualResult": "Successfully verified state",
       "status": "PASSED",
-      "duration": 378,
+      "duration": 775,
       "reason": null,
       "screenshot": null
     },
@@ -3679,7 +3679,7 @@
       "expectedResult": "Screen element renders successfully with 200 OK state",
       "actualResult": "Successfully verified state",
       "status": "PASSED",
-      "duration": 532,
+      "duration": 249,
       "reason": null,
       "screenshot": null
     },
@@ -3695,7 +3695,7 @@
       "expectedResult": "Screen element renders successfully with 200 OK state",
       "actualResult": "Successfully verified state",
       "status": "PASSED",
-      "duration": 964,
+      "duration": 348,
       "reason": null,
       "screenshot": null
     },
@@ -3711,7 +3711,7 @@
       "expectedResult": "Screen element renders successfully with 200 OK state",
       "actualResult": "Successfully verified state",
       "status": "PASSED",
-      "duration": 782,
+      "duration": 399,
       "reason": null,
       "screenshot": null
     },
@@ -3727,7 +3727,7 @@
       "expectedResult": "Screen element renders successfully with 200 OK state",
       "actualResult": "Successfully verified state",
       "status": "PASSED",
-      "duration": 409,
+      "duration": 282,
       "reason": null,
       "screenshot": null
     },
@@ -3743,7 +3743,7 @@
       "expectedResult": "Screen element renders successfully with 200 OK state",
       "actualResult": "Successfully verified state",
       "status": "PASSED",
-      "duration": 281,
+      "duration": 967,
       "reason": null,
       "screenshot": null
     },
@@ -3759,7 +3759,7 @@
       "expectedResult": "Screen element renders successfully with 200 OK state",
       "actualResult": "Successfully verified state",
       "status": "PASSED",
-      "duration": 832,
+      "duration": 522,
       "reason": null,
       "screenshot": null
     },
@@ -3775,7 +3775,7 @@
       "expectedResult": "Screen element renders successfully with 200 OK state",
       "actualResult": "Successfully verified state",
       "status": "PASSED",
-      "duration": 232,
+      "duration": 833,
       "reason": null,
       "screenshot": null
     },
@@ -3791,7 +3791,7 @@
       "expectedResult": "Screen element renders successfully with 200 OK state",
       "actualResult": "Successfully verified state",
       "status": "PASSED",
-      "duration": 795,
+      "duration": 922,
       "reason": null,
       "screenshot": null
     },
@@ -3807,7 +3807,7 @@
       "expectedResult": "Screen element renders successfully with 200 OK state",
       "actualResult": "Successfully verified state",
       "status": "PASSED",
-      "duration": 968,
+      "duration": 573,
       "reason": null,
       "screenshot": null
     },
@@ -3823,7 +3823,7 @@
       "expectedResult": "Screen element renders successfully with 200 OK state",
       "actualResult": "Successfully verified state",
       "status": "PASSED",
-      "duration": 229,
+      "duration": 696,
       "reason": null,
       "screenshot": null
     },
@@ -3839,7 +3839,7 @@
       "expectedResult": "Screen element renders successfully with 200 OK state",
       "actualResult": "Successfully verified state",
       "status": "PASSED",
-      "duration": 507,
+      "duration": 959,
       "reason": null,
       "screenshot": null
     },
@@ -3855,7 +3855,7 @@
       "expectedResult": "Screen element renders successfully with 200 OK state",
       "actualResult": "Successfully verified state",
       "status": "PASSED",
-      "duration": 592,
+      "duration": 626,
       "reason": null,
       "screenshot": null
     },
@@ -3871,7 +3871,7 @@
       "expectedResult": "Screen element renders successfully with 200 OK state",
       "actualResult": "Successfully verified state",
       "status": "PASSED",
-      "duration": 320,
+      "duration": 785,
       "reason": null,
       "screenshot": null
     },
@@ -3887,7 +3887,7 @@
       "expectedResult": "Screen element renders successfully with 200 OK state",
       "actualResult": "Successfully verified state",
       "status": "PASSED",
-      "duration": 301,
+      "duration": 488,
       "reason": null,
       "screenshot": null
     },
@@ -3903,7 +3903,7 @@
       "expectedResult": "Screen element renders successfully with 200 OK state",
       "actualResult": "Successfully verified state",
       "status": "PASSED",
-      "duration": 651,
+      "duration": 445,
       "reason": null,
       "screenshot": null
     },
@@ -3919,7 +3919,7 @@
       "expectedResult": "Screen element renders successfully with 200 OK state",
       "actualResult": "Successfully verified state",
       "status": "PASSED",
-      "duration": 991,
+      "duration": 978,
       "reason": null,
       "screenshot": null
     },
@@ -3935,7 +3935,7 @@
       "expectedResult": "Screen element renders successfully with 200 OK state",
       "actualResult": "Successfully verified state",
       "status": "PASSED",
-      "duration": 871,
+      "duration": 242,
       "reason": null,
       "screenshot": null
     },
@@ -3951,7 +3951,7 @@
       "expectedResult": "Screen element renders successfully with 200 OK state",
       "actualResult": "Successfully verified state",
       "status": "PASSED",
-      "duration": 376,
+      "duration": 599,
       "reason": null,
       "screenshot": null
     },
@@ -3967,7 +3967,7 @@
       "expectedResult": "Screen element renders successfully with 200 OK state",
       "actualResult": "Successfully verified state",
       "status": "PASSED",
-      "duration": 335,
+      "duration": 324,
       "reason": null,
       "screenshot": null
     },
@@ -3983,7 +3983,7 @@
       "expectedResult": "Screen element renders successfully with 200 OK state",
       "actualResult": "Successfully verified state",
       "status": "PASSED",
-      "duration": 667,
+      "duration": 824,
       "reason": null,
       "screenshot": null
     },
@@ -3999,7 +3999,7 @@
       "expectedResult": "Screen element renders successfully with 200 OK state",
       "actualResult": "Successfully verified state",
       "status": "PASSED",
-      "duration": 572,
+      "duration": 981,
       "reason": null,
       "screenshot": null
     },
@@ -4015,7 +4015,7 @@
       "expectedResult": "Screen element renders successfully with 200 OK state",
       "actualResult": "Successfully verified state",
       "status": "PASSED",
-      "duration": 660,
+      "duration": 994,
       "reason": null,
       "screenshot": null
     },
@@ -4031,7 +4031,7 @@
       "expectedResult": "Screen element renders successfully with 200 OK state",
       "actualResult": "Successfully verified state",
       "status": "PASSED",
-      "duration": 684,
+      "duration": 573,
       "reason": null,
       "screenshot": null
     },
@@ -4047,7 +4047,7 @@
       "expectedResult": "Screen element renders successfully with 200 OK state",
       "actualResult": "Successfully verified state",
       "status": "PASSED",
-      "duration": 891,
+      "duration": 969,
       "reason": null,
       "screenshot": null
     },
@@ -4063,7 +4063,7 @@
       "expectedResult": "Screen element renders successfully with 200 OK state",
       "actualResult": "Successfully verified state",
       "status": "PASSED",
-      "duration": 865,
+      "duration": 274,
       "reason": null,
       "screenshot": null
     },
@@ -4079,7 +4079,7 @@
       "expectedResult": "Screen element renders successfully with 200 OK state",
       "actualResult": "Successfully verified state",
       "status": "PASSED",
-      "duration": 531,
+      "duration": 839,
       "reason": null,
       "screenshot": null
     },
@@ -4095,7 +4095,7 @@
       "expectedResult": "Screen element renders successfully with 200 OK state",
       "actualResult": "Successfully verified state",
       "status": "PASSED",
-      "duration": 998,
+      "duration": 821,
       "reason": null,
       "screenshot": null
     },
@@ -4111,7 +4111,7 @@
       "expectedResult": "Screen element renders successfully with 200 OK state",
       "actualResult": "Successfully verified state",
       "status": "PASSED",
-      "duration": 887,
+      "duration": 222,
       "reason": null,
       "screenshot": null
     },
@@ -4127,7 +4127,7 @@
       "expectedResult": "Screen element renders successfully with 200 OK state",
       "actualResult": "Successfully verified state",
       "status": "PASSED",
-      "duration": 270,
+      "duration": 379,
       "reason": null,
       "screenshot": null
     },
@@ -4143,7 +4143,7 @@
       "expectedResult": "Screen element renders successfully with 200 OK state",
       "actualResult": "Successfully verified state",
       "status": "PASSED",
-      "duration": 318,
+      "duration": 606,
       "reason": null,
       "screenshot": null
     },
@@ -4159,7 +4159,7 @@
       "expectedResult": "Screen element renders successfully with 200 OK state",
       "actualResult": "Successfully verified state",
       "status": "PASSED",
-      "duration": 225,
+      "duration": 913,
       "reason": null,
       "screenshot": null
     },
@@ -4175,7 +4175,7 @@
       "expectedResult": "Screen element renders successfully with 200 OK state",
       "actualResult": "Successfully verified state",
       "status": "PASSED",
-      "duration": 502,
+      "duration": 223,
       "reason": null,
       "screenshot": null
     },
@@ -4191,7 +4191,7 @@
       "expectedResult": "Screen element renders successfully with 200 OK state",
       "actualResult": "Successfully verified state",
       "status": "PASSED",
-      "duration": 840,
+      "duration": 599,
       "reason": null,
       "screenshot": null
     },
@@ -4207,7 +4207,7 @@
       "expectedResult": "Screen element renders successfully with 200 OK state",
       "actualResult": "Successfully verified state",
       "status": "PASSED",
-      "duration": 436,
+      "duration": 794,
       "reason": null,
       "screenshot": null
     },
@@ -4223,7 +4223,7 @@
       "expectedResult": "Screen element renders successfully with 200 OK state",
       "actualResult": "Successfully verified state",
       "status": "PASSED",
-      "duration": 977,
+      "duration": 569,
       "reason": null,
       "screenshot": null
     },
@@ -4239,7 +4239,7 @@
       "expectedResult": "Screen element renders successfully with 200 OK state",
       "actualResult": "Successfully verified state",
       "status": "PASSED",
-      "duration": 986,
+      "duration": 462,
       "reason": null,
       "screenshot": null
     },
@@ -4255,7 +4255,7 @@
       "expectedResult": "Screen element renders successfully with 200 OK state",
       "actualResult": "Successfully verified state",
       "status": "PASSED",
-      "duration": 357,
+      "duration": 736,
       "reason": null,
       "screenshot": null
     },
@@ -4271,7 +4271,7 @@
       "expectedResult": "Screen element renders successfully with 200 OK state",
       "actualResult": "Successfully verified state",
       "status": "PASSED",
-      "duration": 644,
+      "duration": 756,
       "reason": null,
       "screenshot": null
     },
@@ -4287,7 +4287,7 @@
       "expectedResult": "Screen element renders successfully with 200 OK state",
       "actualResult": "Successfully verified state",
       "status": "PASSED",
-      "duration": 612,
+      "duration": 950,
       "reason": null,
       "screenshot": null
     },
@@ -4303,7 +4303,7 @@
       "expectedResult": "Screen element renders successfully with 200 OK state",
       "actualResult": "Successfully verified state",
       "status": "PASSED",
-      "duration": 506,
+      "duration": 354,
       "reason": null,
       "screenshot": null
     },
@@ -4319,7 +4319,7 @@
       "expectedResult": "Screen element renders successfully with 200 OK state",
       "actualResult": "Successfully verified state",
       "status": "PASSED",
-      "duration": 443,
+      "duration": 828,
       "reason": null,
       "screenshot": null
     },
@@ -4335,7 +4335,7 @@
       "expectedResult": "Screen element renders successfully with 200 OK state",
       "actualResult": "Successfully verified state",
       "status": "PASSED",
-      "duration": 309,
+      "duration": 247,
       "reason": null,
       "screenshot": null
     },
@@ -4351,7 +4351,7 @@
       "expectedResult": "Screen element renders successfully with 200 OK state",
       "actualResult": "Successfully verified state",
       "status": "PASSED",
-      "duration": 622,
+      "duration": 374,
       "reason": null,
       "screenshot": null
     },
@@ -4367,7 +4367,7 @@
       "expectedResult": "Screen element renders successfully with 200 OK state",
       "actualResult": "Successfully verified state",
       "status": "PASSED",
-      "duration": 597,
+      "duration": 258,
       "reason": null,
       "screenshot": null
     },
@@ -4383,7 +4383,7 @@
       "expectedResult": "Screen element renders successfully with 200 OK state",
       "actualResult": "Successfully verified state",
       "status": "PASSED",
-      "duration": 498,
+      "duration": 357,
       "reason": null,
       "screenshot": null
     },
@@ -4399,7 +4399,7 @@
       "expectedResult": "Screen element renders successfully with 200 OK state",
       "actualResult": "Successfully verified state",
       "status": "PASSED",
-      "duration": 801,
+      "duration": 457,
       "reason": null,
       "screenshot": null
     },
@@ -4415,7 +4415,7 @@
       "expectedResult": "Screen element renders successfully with 200 OK state",
       "actualResult": "Successfully verified state",
       "status": "PASSED",
-      "duration": 431,
+      "duration": 257,
       "reason": null,
       "screenshot": null
     },
@@ -4431,7 +4431,7 @@
       "expectedResult": "Screen element renders successfully with 200 OK state",
       "actualResult": "Successfully verified state",
       "status": "PASSED",
-      "duration": 396,
+      "duration": 905,
       "reason": null,
       "screenshot": null
     },
@@ -4447,7 +4447,7 @@
       "expectedResult": "Screen element renders successfully with 200 OK state",
       "actualResult": "Successfully verified state",
       "status": "PASSED",
-      "duration": 885,
+      "duration": 264,
       "reason": null,
       "screenshot": null
     },
@@ -4463,7 +4463,7 @@
       "expectedResult": "Screen element renders successfully with 200 OK state",
       "actualResult": "Successfully verified state",
       "status": "PASSED",
-      "duration": 951,
+      "duration": 716,
       "reason": null,
       "screenshot": null
     },
@@ -4479,7 +4479,7 @@
       "expectedResult": "Screen element renders successfully with 200 OK state",
       "actualResult": "Successfully verified state",
       "status": "PASSED",
-      "duration": 514,
+      "duration": 744,
       "reason": null,
       "screenshot": null
     },
@@ -4495,7 +4495,7 @@
       "expectedResult": "Screen element renders successfully with 200 OK state",
       "actualResult": "Assertion Error: Expected element locator visible but timed out after 10000ms",
       "status": "FAILED",
-      "duration": 679,
+      "duration": 659,
       "reason": "UiAutomator2 Element Locator Timeout for payload TC_FLTR_20",
       "screenshot": "screenshots/TC_FLTR_020.png"
     },
@@ -4511,7 +4511,7 @@
       "expectedResult": "Screen element renders successfully with 200 OK state",
       "actualResult": "Successfully verified state",
       "status": "PASSED",
-      "duration": 359,
+      "duration": 706,
       "reason": null,
       "screenshot": null
     },
@@ -4527,7 +4527,7 @@
       "expectedResult": "Screen element renders successfully with 200 OK state",
       "actualResult": "Successfully verified state",
       "status": "PASSED",
-      "duration": 503,
+      "duration": 390,
       "reason": null,
       "screenshot": null
     },
@@ -4543,7 +4543,7 @@
       "expectedResult": "Screen element renders successfully with 200 OK state",
       "actualResult": "Successfully verified state",
       "status": "PASSED",
-      "duration": 906,
+      "duration": 313,
       "reason": null,
       "screenshot": null
     },
@@ -4559,7 +4559,7 @@
       "expectedResult": "Screen element renders successfully with 200 OK state",
       "actualResult": "Successfully verified state",
       "status": "PASSED",
-      "duration": 583,
+      "duration": 364,
       "reason": null,
       "screenshot": null
     },
@@ -4575,7 +4575,7 @@
       "expectedResult": "Screen element renders successfully with 200 OK state",
       "actualResult": "Successfully verified state",
       "status": "PASSED",
-      "duration": 530,
+      "duration": 587,
       "reason": null,
       "screenshot": null
     },
@@ -4591,7 +4591,7 @@
       "expectedResult": "Screen element renders successfully with 200 OK state",
       "actualResult": "Successfully verified state",
       "status": "PASSED",
-      "duration": 278,
+      "duration": 728,
       "reason": null,
       "screenshot": null
     },
@@ -4607,7 +4607,7 @@
       "expectedResult": "Screen element renders successfully with 200 OK state",
       "actualResult": "Successfully verified state",
       "status": "PASSED",
-      "duration": 738,
+      "duration": 381,
       "reason": null,
       "screenshot": null
     },
@@ -4623,7 +4623,7 @@
       "expectedResult": "Screen element renders successfully with 200 OK state",
       "actualResult": "Successfully verified state",
       "status": "PASSED",
-      "duration": 813,
+      "duration": 591,
       "reason": null,
       "screenshot": null
     },
@@ -4639,7 +4639,7 @@
       "expectedResult": "Screen element renders successfully with 200 OK state",
       "actualResult": "Successfully verified state",
       "status": "PASSED",
-      "duration": 393,
+      "duration": 839,
       "reason": null,
       "screenshot": null
     },
@@ -4655,7 +4655,7 @@
       "expectedResult": "Screen element renders successfully with 200 OK state",
       "actualResult": "Successfully verified state",
       "status": "PASSED",
-      "duration": 476,
+      "duration": 975,
       "reason": null,
       "screenshot": null
     },
@@ -4671,7 +4671,7 @@
       "expectedResult": "Screen element renders successfully with 200 OK state",
       "actualResult": "Successfully verified state",
       "status": "PASSED",
-      "duration": 315,
+      "duration": 425,
       "reason": null,
       "screenshot": null
     },
@@ -4687,7 +4687,7 @@
       "expectedResult": "Screen element renders successfully with 200 OK state",
       "actualResult": "Successfully verified state",
       "status": "PASSED",
-      "duration": 695,
+      "duration": 476,
       "reason": null,
       "screenshot": null
     },
@@ -4703,7 +4703,7 @@
       "expectedResult": "Screen element renders successfully with 200 OK state",
       "actualResult": "Successfully verified state",
       "status": "PASSED",
-      "duration": 983,
+      "duration": 641,
       "reason": null,
       "screenshot": null
     },
@@ -4719,7 +4719,7 @@
       "expectedResult": "Screen element renders successfully with 200 OK state",
       "actualResult": "Successfully verified state",
       "status": "PASSED",
-      "duration": 422,
+      "duration": 715,
       "reason": null,
       "screenshot": null
     },
@@ -4735,7 +4735,7 @@
       "expectedResult": "Screen element renders successfully with 200 OK state",
       "actualResult": "Successfully verified state",
       "status": "PASSED",
-      "duration": 455,
+      "duration": 701,
       "reason": null,
       "screenshot": null
     },
@@ -4751,7 +4751,7 @@
       "expectedResult": "Screen element renders successfully with 200 OK state",
       "actualResult": "Successfully verified state",
       "status": "PASSED",
-      "duration": 298,
+      "duration": 854,
       "reason": null,
       "screenshot": null
     },
@@ -4767,7 +4767,7 @@
       "expectedResult": "Screen element renders successfully with 200 OK state",
       "actualResult": "Successfully verified state",
       "status": "PASSED",
-      "duration": 931,
+      "duration": 216,
       "reason": null,
       "screenshot": null
     },
@@ -4783,7 +4783,7 @@
       "expectedResult": "Screen element renders successfully with 200 OK state",
       "actualResult": "Successfully verified state",
       "status": "PASSED",
-      "duration": 461,
+      "duration": 866,
       "reason": null,
       "screenshot": null
     },
@@ -4799,7 +4799,7 @@
       "expectedResult": "Screen element renders successfully with 200 OK state",
       "actualResult": "Successfully verified state",
       "status": "PASSED",
-      "duration": 921,
+      "duration": 492,
       "reason": null,
       "screenshot": null
     },
@@ -4815,7 +4815,7 @@
       "expectedResult": "Screen element renders successfully with 200 OK state",
       "actualResult": "Skipped: Feature flag disabled",
       "status": "SKIPPED",
-      "duration": 813,
+      "duration": 693,
       "reason": null,
       "screenshot": null
     },
@@ -4831,7 +4831,7 @@
       "expectedResult": "Screen element renders successfully with 200 OK state",
       "actualResult": "Skipped: Feature flag disabled",
       "status": "SKIPPED",
-      "duration": 235,
+      "duration": 624,
       "reason": null,
       "screenshot": null
     },
@@ -4847,7 +4847,7 @@
       "expectedResult": "Screen element renders successfully with 200 OK state",
       "actualResult": "Successfully verified state",
       "status": "PASSED",
-      "duration": 257,
+      "duration": 739,
       "reason": null,
       "screenshot": null
     },
@@ -4863,7 +4863,7 @@
       "expectedResult": "Screen element renders successfully with 200 OK state",
       "actualResult": "Successfully verified state",
       "status": "PASSED",
-      "duration": 713,
+      "duration": 285,
       "reason": null,
       "screenshot": null
     },
@@ -4879,7 +4879,7 @@
       "expectedResult": "Screen element renders successfully with 200 OK state",
       "actualResult": "Successfully verified state",
       "status": "PASSED",
-      "duration": 325,
+      "duration": 825,
       "reason": null,
       "screenshot": null
     },
@@ -4895,7 +4895,7 @@
       "expectedResult": "Screen element renders successfully with 200 OK state",
       "actualResult": "Successfully verified state",
       "status": "PASSED",
-      "duration": 839,
+      "duration": 422,
       "reason": null,
       "screenshot": null
     },
@@ -4911,7 +4911,7 @@
       "expectedResult": "Screen element renders successfully with 200 OK state",
       "actualResult": "Successfully verified state",
       "status": "PASSED",
-      "duration": 340,
+      "duration": 309,
       "reason": null,
       "screenshot": null
     },
@@ -4927,7 +4927,7 @@
       "expectedResult": "Screen element renders successfully with 200 OK state",
       "actualResult": "Successfully verified state",
       "status": "PASSED",
-      "duration": 746,
+      "duration": 561,
       "reason": null,
       "screenshot": null
     },
@@ -4943,7 +4943,7 @@
       "expectedResult": "Screen element renders successfully with 200 OK state",
       "actualResult": "Successfully verified state",
       "status": "PASSED",
-      "duration": 502,
+      "duration": 830,
       "reason": null,
       "screenshot": null
     },
@@ -4959,7 +4959,7 @@
       "expectedResult": "Screen element renders successfully with 200 OK state",
       "actualResult": "Successfully verified state",
       "status": "PASSED",
-      "duration": 933,
+      "duration": 793,
       "reason": null,
       "screenshot": null
     },
@@ -4975,7 +4975,7 @@
       "expectedResult": "Screen element renders successfully with 200 OK state",
       "actualResult": "Successfully verified state",
       "status": "PASSED",
-      "duration": 945,
+      "duration": 669,
       "reason": null,
       "screenshot": null
     },
@@ -4991,7 +4991,7 @@
       "expectedResult": "Screen element renders successfully with 200 OK state",
       "actualResult": "Successfully verified state",
       "status": "PASSED",
-      "duration": 570,
+      "duration": 723,
       "reason": null,
       "screenshot": null
     },
@@ -5007,7 +5007,7 @@
       "expectedResult": "Screen element renders successfully with 200 OK state",
       "actualResult": "Successfully verified state",
       "status": "PASSED",
-      "duration": 487,
+      "duration": 781,
       "reason": null,
       "screenshot": null
     },
@@ -5023,7 +5023,7 @@
       "expectedResult": "Screen element renders successfully with 200 OK state",
       "actualResult": "Successfully verified state",
       "status": "PASSED",
-      "duration": 498,
+      "duration": 345,
       "reason": null,
       "screenshot": null
     },
@@ -5039,7 +5039,7 @@
       "expectedResult": "Screen element renders successfully with 200 OK state",
       "actualResult": "Successfully verified state",
       "status": "PASSED",
-      "duration": 379,
+      "duration": 586,
       "reason": null,
       "screenshot": null
     },
@@ -5055,7 +5055,7 @@
       "expectedResult": "Screen element renders successfully with 200 OK state",
       "actualResult": "Successfully verified state",
       "status": "PASSED",
-      "duration": 341,
+      "duration": 539,
       "reason": null,
       "screenshot": null
     },
@@ -5071,7 +5071,7 @@
       "expectedResult": "Screen element renders successfully with 200 OK state",
       "actualResult": "Successfully verified state",
       "status": "PASSED",
-      "duration": 211,
+      "duration": 974,
       "reason": null,
       "screenshot": null
     },
@@ -5087,7 +5087,7 @@
       "expectedResult": "Screen element renders successfully with 200 OK state",
       "actualResult": "Successfully verified state",
       "status": "PASSED",
-      "duration": 346,
+      "duration": 846,
       "reason": null,
       "screenshot": null
     },
@@ -5103,7 +5103,7 @@
       "expectedResult": "Screen element renders successfully with 200 OK state",
       "actualResult": "Successfully verified state",
       "status": "PASSED",
-      "duration": 970,
+      "duration": 569,
       "reason": null,
       "screenshot": null
     },
@@ -5119,7 +5119,7 @@
       "expectedResult": "Screen element renders successfully with 200 OK state",
       "actualResult": "Successfully verified state",
       "status": "PASSED",
-      "duration": 441,
+      "duration": 963,
       "reason": null,
       "screenshot": null
     },
@@ -5135,7 +5135,7 @@
       "expectedResult": "Screen element renders successfully with 200 OK state",
       "actualResult": "Successfully verified state",
       "status": "PASSED",
-      "duration": 968,
+      "duration": 339,
       "reason": null,
       "screenshot": null
     },
@@ -5151,7 +5151,7 @@
       "expectedResult": "Screen element renders successfully with 200 OK state",
       "actualResult": "Successfully verified state",
       "status": "PASSED",
-      "duration": 510,
+      "duration": 651,
       "reason": null,
       "screenshot": null
     },
@@ -5167,7 +5167,7 @@
       "expectedResult": "Screen element renders successfully with 200 OK state",
       "actualResult": "Successfully verified state",
       "status": "PASSED",
-      "duration": 401,
+      "duration": 985,
       "reason": null,
       "screenshot": null
     },
@@ -5183,7 +5183,7 @@
       "expectedResult": "Screen element renders successfully with 200 OK state",
       "actualResult": "Successfully verified state",
       "status": "PASSED",
-      "duration": 313,
+      "duration": 670,
       "reason": null,
       "screenshot": null
     },
@@ -5199,7 +5199,7 @@
       "expectedResult": "Screen element renders successfully with 200 OK state",
       "actualResult": "Successfully verified state",
       "status": "PASSED",
-      "duration": 313,
+      "duration": 884,
       "reason": null,
       "screenshot": null
     },
@@ -5215,7 +5215,7 @@
       "expectedResult": "Screen element renders successfully with 200 OK state",
       "actualResult": "Successfully verified state",
       "status": "PASSED",
-      "duration": 452,
+      "duration": 530,
       "reason": null,
       "screenshot": null
     },
@@ -5231,7 +5231,7 @@
       "expectedResult": "Screen element renders successfully with 200 OK state",
       "actualResult": "Successfully verified state",
       "status": "PASSED",
-      "duration": 479,
+      "duration": 917,
       "reason": null,
       "screenshot": null
     },
@@ -5247,7 +5247,7 @@
       "expectedResult": "Screen element renders successfully with 200 OK state",
       "actualResult": "Successfully verified state",
       "status": "PASSED",
-      "duration": 902,
+      "duration": 676,
       "reason": null,
       "screenshot": null
     },
@@ -5263,7 +5263,7 @@
       "expectedResult": "Screen element renders successfully with 200 OK state",
       "actualResult": "Successfully verified state",
       "status": "PASSED",
-      "duration": 855,
+      "duration": 701,
       "reason": null,
       "screenshot": null
     },
@@ -5279,7 +5279,7 @@
       "expectedResult": "Screen element renders successfully with 200 OK state",
       "actualResult": "Successfully verified state",
       "status": "PASSED",
-      "duration": 767,
+      "duration": 458,
       "reason": null,
       "screenshot": null
     },
@@ -5295,7 +5295,7 @@
       "expectedResult": "Screen element renders successfully with 200 OK state",
       "actualResult": "Successfully verified state",
       "status": "PASSED",
-      "duration": 894,
+      "duration": 432,
       "reason": null,
       "screenshot": null
     },
@@ -5311,7 +5311,7 @@
       "expectedResult": "Screen element renders successfully with 200 OK state",
       "actualResult": "Successfully verified state",
       "status": "PASSED",
-      "duration": 360,
+      "duration": 847,
       "reason": null,
       "screenshot": null
     },
@@ -5327,7 +5327,7 @@
       "expectedResult": "Screen element renders successfully with 200 OK state",
       "actualResult": "Successfully verified state",
       "status": "PASSED",
-      "duration": 640,
+      "duration": 770,
       "reason": null,
       "screenshot": null
     },
@@ -5343,7 +5343,7 @@
       "expectedResult": "Screen element renders successfully with 200 OK state",
       "actualResult": "Successfully verified state",
       "status": "PASSED",
-      "duration": 721,
+      "duration": 783,
       "reason": null,
       "screenshot": null
     },
@@ -5359,7 +5359,7 @@
       "expectedResult": "Screen element renders successfully with 200 OK state",
       "actualResult": "Successfully verified state",
       "status": "PASSED",
-      "duration": 367,
+      "duration": 694,
       "reason": null,
       "screenshot": null
     },
@@ -5375,7 +5375,7 @@
       "expectedResult": "Screen element renders successfully with 200 OK state",
       "actualResult": "Successfully verified state",
       "status": "PASSED",
-      "duration": 983,
+      "duration": 300,
       "reason": null,
       "screenshot": null
     },
@@ -5391,7 +5391,7 @@
       "expectedResult": "Screen element renders successfully with 200 OK state",
       "actualResult": "Successfully verified state",
       "status": "PASSED",
-      "duration": 624,
+      "duration": 970,
       "reason": null,
       "screenshot": null
     },
@@ -5407,7 +5407,7 @@
       "expectedResult": "Screen element renders successfully with 200 OK state",
       "actualResult": "Successfully verified state",
       "status": "PASSED",
-      "duration": 983,
+      "duration": 323,
       "reason": null,
       "screenshot": null
     },
@@ -5423,7 +5423,7 @@
       "expectedResult": "Screen element renders successfully with 200 OK state",
       "actualResult": "Successfully verified state",
       "status": "PASSED",
-      "duration": 939,
+      "duration": 469,
       "reason": null,
       "screenshot": null
     },
@@ -5439,7 +5439,7 @@
       "expectedResult": "Screen element renders successfully with 200 OK state",
       "actualResult": "Successfully verified state",
       "status": "PASSED",
-      "duration": 772,
+      "duration": 872,
       "reason": null,
       "screenshot": null
     },
@@ -5455,7 +5455,7 @@
       "expectedResult": "Screen element renders successfully with 200 OK state",
       "actualResult": "Successfully verified state",
       "status": "PASSED",
-      "duration": 756,
+      "duration": 282,
       "reason": null,
       "screenshot": null
     },
@@ -5471,7 +5471,7 @@
       "expectedResult": "Screen element renders successfully with 200 OK state",
       "actualResult": "Successfully verified state",
       "status": "PASSED",
-      "duration": 974,
+      "duration": 934,
       "reason": null,
       "screenshot": null
     },
@@ -5487,7 +5487,7 @@
       "expectedResult": "Screen element renders successfully with 200 OK state",
       "actualResult": "Successfully verified state",
       "status": "PASSED",
-      "duration": 835,
+      "duration": 428,
       "reason": null,
       "screenshot": null
     },
@@ -5503,7 +5503,7 @@
       "expectedResult": "Screen element renders successfully with 200 OK state",
       "actualResult": "Successfully verified state",
       "status": "PASSED",
-      "duration": 567,
+      "duration": 722,
       "reason": null,
       "screenshot": null
     },
@@ -5519,7 +5519,7 @@
       "expectedResult": "Screen element renders successfully with 200 OK state",
       "actualResult": "Successfully verified state",
       "status": "PASSED",
-      "duration": 444,
+      "duration": 599,
       "reason": null,
       "screenshot": null
     },
@@ -5535,7 +5535,7 @@
       "expectedResult": "Screen element renders successfully with 200 OK state",
       "actualResult": "Successfully verified state",
       "status": "PASSED",
-      "duration": 407,
+      "duration": 613,
       "reason": null,
       "screenshot": null
     },
@@ -5551,7 +5551,7 @@
       "expectedResult": "Screen element renders successfully with 200 OK state",
       "actualResult": "Successfully verified state",
       "status": "PASSED",
-      "duration": 693,
+      "duration": 539,
       "reason": null,
       "screenshot": null
     },
@@ -5567,7 +5567,7 @@
       "expectedResult": "Screen element renders successfully with 200 OK state",
       "actualResult": "Successfully verified state",
       "status": "PASSED",
-      "duration": 704,
+      "duration": 832,
       "reason": null,
       "screenshot": null
     },
@@ -5583,7 +5583,7 @@
       "expectedResult": "Screen element renders successfully with 200 OK state",
       "actualResult": "Successfully verified state",
       "status": "PASSED",
-      "duration": 297,
+      "duration": 615,
       "reason": null,
       "screenshot": null
     },
@@ -5599,7 +5599,7 @@
       "expectedResult": "Screen element renders successfully with 200 OK state",
       "actualResult": "Successfully verified state",
       "status": "PASSED",
-      "duration": 536,
+      "duration": 277,
       "reason": null,
       "screenshot": null
     },
@@ -5615,7 +5615,7 @@
       "expectedResult": "Screen element renders successfully with 200 OK state",
       "actualResult": "Successfully verified state",
       "status": "PASSED",
-      "duration": 299,
+      "duration": 606,
       "reason": null,
       "screenshot": null
     },
@@ -5631,7 +5631,7 @@
       "expectedResult": "Screen element renders successfully with 200 OK state",
       "actualResult": "Successfully verified state",
       "status": "PASSED",
-      "duration": 917,
+      "duration": 431,
       "reason": null,
       "screenshot": null
     },
@@ -5647,7 +5647,7 @@
       "expectedResult": "Screen element renders successfully with 200 OK state",
       "actualResult": "Successfully verified state",
       "status": "PASSED",
-      "duration": 286,
+      "duration": 222,
       "reason": null,
       "screenshot": null
     },
@@ -5663,7 +5663,7 @@
       "expectedResult": "Screen element renders successfully with 200 OK state",
       "actualResult": "Successfully verified state",
       "status": "PASSED",
-      "duration": 949,
+      "duration": 603,
       "reason": null,
       "screenshot": null
     },
@@ -5679,7 +5679,7 @@
       "expectedResult": "Screen element renders successfully with 200 OK state",
       "actualResult": "Successfully verified state",
       "status": "PASSED",
-      "duration": 547,
+      "duration": 886,
       "reason": null,
       "screenshot": null
     },
@@ -5695,7 +5695,7 @@
       "expectedResult": "Screen element renders successfully with 200 OK state",
       "actualResult": "Successfully verified state",
       "status": "PASSED",
-      "duration": 944,
+      "duration": 307,
       "reason": null,
       "screenshot": null
     },
@@ -5711,7 +5711,7 @@
       "expectedResult": "Screen element renders successfully with 200 OK state",
       "actualResult": "Successfully verified state",
       "status": "PASSED",
-      "duration": 587,
+      "duration": 418,
       "reason": null,
       "screenshot": null
     },
@@ -5727,7 +5727,7 @@
       "expectedResult": "Screen element renders successfully with 200 OK state",
       "actualResult": "Successfully verified state",
       "status": "PASSED",
-      "duration": 715,
+      "duration": 918,
       "reason": null,
       "screenshot": null
     },
@@ -5743,7 +5743,7 @@
       "expectedResult": "Screen element renders successfully with 200 OK state",
       "actualResult": "Successfully verified state",
       "status": "PASSED",
-      "duration": 967,
+      "duration": 294,
       "reason": null,
       "screenshot": null
     },
@@ -5759,7 +5759,7 @@
       "expectedResult": "Screen element renders successfully with 200 OK state",
       "actualResult": "Successfully verified state",
       "status": "PASSED",
-      "duration": 959,
+      "duration": 972,
       "reason": null,
       "screenshot": null
     },
@@ -5775,7 +5775,7 @@
       "expectedResult": "Screen element renders successfully with 200 OK state",
       "actualResult": "Successfully verified state",
       "status": "PASSED",
-      "duration": 380,
+      "duration": 506,
       "reason": null,
       "screenshot": null
     },
@@ -5791,7 +5791,7 @@
       "expectedResult": "Screen element renders successfully with 200 OK state",
       "actualResult": "Successfully verified state",
       "status": "PASSED",
-      "duration": 247,
+      "duration": 785,
       "reason": null,
       "screenshot": null
     },
@@ -5807,7 +5807,7 @@
       "expectedResult": "Screen element renders successfully with 200 OK state",
       "actualResult": "Successfully verified state",
       "status": "PASSED",
-      "duration": 784,
+      "duration": 773,
       "reason": null,
       "screenshot": null
     },
@@ -5823,7 +5823,7 @@
       "expectedResult": "Screen element renders successfully with 200 OK state",
       "actualResult": "Successfully verified state",
       "status": "PASSED",
-      "duration": 349,
+      "duration": 813,
       "reason": null,
       "screenshot": null
     },
@@ -5839,7 +5839,7 @@
       "expectedResult": "Screen element renders successfully with 200 OK state",
       "actualResult": "Successfully verified state",
       "status": "PASSED",
-      "duration": 596,
+      "duration": 428,
       "reason": null,
       "screenshot": null
     },
@@ -5855,7 +5855,7 @@
       "expectedResult": "Screen element renders successfully with 200 OK state",
       "actualResult": "Successfully verified state",
       "status": "PASSED",
-      "duration": 666,
+      "duration": 292,
       "reason": null,
       "screenshot": null
     },
@@ -5871,7 +5871,7 @@
       "expectedResult": "Screen element renders successfully with 200 OK state",
       "actualResult": "Successfully verified state",
       "status": "PASSED",
-      "duration": 646,
+      "duration": 454,
       "reason": null,
       "screenshot": null
     },
@@ -5887,7 +5887,7 @@
       "expectedResult": "Screen element renders successfully with 200 OK state",
       "actualResult": "Successfully verified state",
       "status": "PASSED",
-      "duration": 550,
+      "duration": 264,
       "reason": null,
       "screenshot": null
     },
@@ -5903,7 +5903,7 @@
       "expectedResult": "Screen element renders successfully with 200 OK state",
       "actualResult": "Successfully verified state",
       "status": "PASSED",
-      "duration": 693,
+      "duration": 830,
       "reason": null,
       "screenshot": null
     },
@@ -5919,7 +5919,7 @@
       "expectedResult": "Screen element renders successfully with 200 OK state",
       "actualResult": "Successfully verified state",
       "status": "PASSED",
-      "duration": 681,
+      "duration": 499,
       "reason": null,
       "screenshot": null
     },
@@ -5935,7 +5935,7 @@
       "expectedResult": "Screen element renders successfully with 200 OK state",
       "actualResult": "Successfully verified state",
       "status": "PASSED",
-      "duration": 602,
+      "duration": 662,
       "reason": null,
       "screenshot": null
     },
@@ -5951,7 +5951,7 @@
       "expectedResult": "Screen element renders successfully with 200 OK state",
       "actualResult": "Successfully verified state",
       "status": "PASSED",
-      "duration": 922,
+      "duration": 369,
       "reason": null,
       "screenshot": null
     },
@@ -5967,7 +5967,7 @@
       "expectedResult": "Screen element renders successfully with 200 OK state",
       "actualResult": "Successfully verified state",
       "status": "PASSED",
-      "duration": 834,
+      "duration": 701,
       "reason": null,
       "screenshot": null
     },
@@ -5983,7 +5983,7 @@
       "expectedResult": "Screen element renders successfully with 200 OK state",
       "actualResult": "Successfully verified state",
       "status": "PASSED",
-      "duration": 244,
+      "duration": 627,
       "reason": null,
       "screenshot": null
     },
@@ -5999,7 +5999,7 @@
       "expectedResult": "Screen element renders successfully with 200 OK state",
       "actualResult": "Successfully verified state",
       "status": "PASSED",
-      "duration": 883,
+      "duration": 448,
       "reason": null,
       "screenshot": null
     },
@@ -6015,7 +6015,7 @@
       "expectedResult": "Screen element renders successfully with 200 OK state",
       "actualResult": "Successfully verified state",
       "status": "PASSED",
-      "duration": 492,
+      "duration": 621,
       "reason": null,
       "screenshot": null
     },
@@ -6031,7 +6031,7 @@
       "expectedResult": "Screen element renders successfully with 200 OK state",
       "actualResult": "Successfully verified state",
       "status": "PASSED",
-      "duration": 441,
+      "duration": 271,
       "reason": null,
       "screenshot": null
     },
@@ -6047,7 +6047,7 @@
       "expectedResult": "Screen element renders successfully with 200 OK state",
       "actualResult": "Successfully verified state",
       "status": "PASSED",
-      "duration": 472,
+      "duration": 455,
       "reason": null,
       "screenshot": null
     },
@@ -6063,7 +6063,7 @@
       "expectedResult": "Screen element renders successfully with 200 OK state",
       "actualResult": "Successfully verified state",
       "status": "PASSED",
-      "duration": 443,
+      "duration": 381,
       "reason": null,
       "screenshot": null
     },
@@ -6079,7 +6079,7 @@
       "expectedResult": "Screen element renders successfully with 200 OK state",
       "actualResult": "Successfully verified state",
       "status": "PASSED",
-      "duration": 643,
+      "duration": 638,
       "reason": null,
       "screenshot": null
     },
@@ -6095,7 +6095,7 @@
       "expectedResult": "Screen element renders successfully with 200 OK state",
       "actualResult": "Successfully verified state",
       "status": "PASSED",
-      "duration": 799,
+      "duration": 878,
       "reason": null,
       "screenshot": null
     },
@@ -6111,7 +6111,7 @@
       "expectedResult": "Screen element renders successfully with 200 OK state",
       "actualResult": "Successfully verified state",
       "status": "PASSED",
-      "duration": 874,
+      "duration": 511,
       "reason": null,
       "screenshot": null
     },
@@ -6127,7 +6127,7 @@
       "expectedResult": "Screen element renders successfully with 200 OK state",
       "actualResult": "Successfully verified state",
       "status": "PASSED",
-      "duration": 843,
+      "duration": 244,
       "reason": null,
       "screenshot": null
     },
@@ -6143,7 +6143,7 @@
       "expectedResult": "Screen element renders successfully with 200 OK state",
       "actualResult": "Successfully verified state",
       "status": "PASSED",
-      "duration": 402,
+      "duration": 656,
       "reason": null,
       "screenshot": null
     },
@@ -6159,7 +6159,7 @@
       "expectedResult": "Screen element renders successfully with 200 OK state",
       "actualResult": "Successfully verified state",
       "status": "PASSED",
-      "duration": 503,
+      "duration": 842,
       "reason": null,
       "screenshot": null
     },
@@ -6175,7 +6175,7 @@
       "expectedResult": "Screen element renders successfully with 200 OK state",
       "actualResult": "Successfully verified state",
       "status": "PASSED",
-      "duration": 713,
+      "duration": 292,
       "reason": null,
       "screenshot": null
     },
@@ -6191,7 +6191,7 @@
       "expectedResult": "Screen element renders successfully with 200 OK state",
       "actualResult": "Successfully verified state",
       "status": "PASSED",
-      "duration": 752,
+      "duration": 990,
       "reason": null,
       "screenshot": null
     },
@@ -6207,7 +6207,7 @@
       "expectedResult": "Screen element renders successfully with 200 OK state",
       "actualResult": "Successfully verified state",
       "status": "PASSED",
-      "duration": 865,
+      "duration": 643,
       "reason": null,
       "screenshot": null
     },
@@ -6223,7 +6223,7 @@
       "expectedResult": "Screen element renders successfully with 200 OK state",
       "actualResult": "Successfully verified state",
       "status": "PASSED",
-      "duration": 444,
+      "duration": 718,
       "reason": null,
       "screenshot": null
     },
@@ -6239,7 +6239,7 @@
       "expectedResult": "Screen element renders successfully with 200 OK state",
       "actualResult": "Successfully verified state",
       "status": "PASSED",
-      "duration": 809,
+      "duration": 390,
       "reason": null,
       "screenshot": null
     },
@@ -6255,7 +6255,7 @@
       "expectedResult": "Screen element renders successfully with 200 OK state",
       "actualResult": "Successfully verified state",
       "status": "PASSED",
-      "duration": 347,
+      "duration": 213,
       "reason": null,
       "screenshot": null
     },
@@ -6271,7 +6271,7 @@
       "expectedResult": "Screen element renders successfully with 200 OK state",
       "actualResult": "Successfully verified state",
       "status": "PASSED",
-      "duration": 767,
+      "duration": 405,
       "reason": null,
       "screenshot": null
     },
@@ -6287,7 +6287,7 @@
       "expectedResult": "Screen element renders successfully with 200 OK state",
       "actualResult": "Successfully verified state",
       "status": "PASSED",
-      "duration": 572,
+      "duration": 275,
       "reason": null,
       "screenshot": null
     },
@@ -6303,7 +6303,7 @@
       "expectedResult": "Screen element renders successfully with 200 OK state",
       "actualResult": "Successfully verified state",
       "status": "PASSED",
-      "duration": 683,
+      "duration": 792,
       "reason": null,
       "screenshot": null
     },
@@ -6319,7 +6319,7 @@
       "expectedResult": "Screen element renders successfully with 200 OK state",
       "actualResult": "Successfully verified state",
       "status": "PASSED",
-      "duration": 438,
+      "duration": 321,
       "reason": null,
       "screenshot": null
     },
@@ -6335,7 +6335,7 @@
       "expectedResult": "Screen element renders successfully with 200 OK state",
       "actualResult": "Successfully verified state",
       "status": "PASSED",
-      "duration": 837,
+      "duration": 954,
       "reason": null,
       "screenshot": null
     },
@@ -6351,7 +6351,7 @@
       "expectedResult": "Screen element renders successfully with 200 OK state",
       "actualResult": "Successfully verified state",
       "status": "PASSED",
-      "duration": 262,
+      "duration": 370,
       "reason": null,
       "screenshot": null
     },
@@ -6367,7 +6367,7 @@
       "expectedResult": "Screen element renders successfully with 200 OK state",
       "actualResult": "Successfully verified state",
       "status": "PASSED",
-      "duration": 264,
+      "duration": 571,
       "reason": null,
       "screenshot": null
     },
@@ -6383,7 +6383,7 @@
       "expectedResult": "Screen element renders successfully with 200 OK state",
       "actualResult": "Successfully verified state",
       "status": "PASSED",
-      "duration": 292,
+      "duration": 985,
       "reason": null,
       "screenshot": null
     },
@@ -6399,7 +6399,7 @@
       "expectedResult": "Screen element renders successfully with 200 OK state",
       "actualResult": "Successfully verified state",
       "status": "PASSED",
-      "duration": 504,
+      "duration": 461,
       "reason": null,
       "screenshot": null
     },
@@ -6415,7 +6415,7 @@
       "expectedResult": "Screen element renders successfully with 200 OK state",
       "actualResult": "Successfully verified state",
       "status": "PASSED",
-      "duration": 530,
+      "duration": 943,
       "reason": null,
       "screenshot": null
     },
@@ -6431,7 +6431,7 @@
       "expectedResult": "Screen element renders successfully with 200 OK state",
       "actualResult": "Successfully verified state",
       "status": "PASSED",
-      "duration": 378,
+      "duration": 696,
       "reason": null,
       "screenshot": null
     },
@@ -6447,7 +6447,7 @@
       "expectedResult": "Screen element renders successfully with 200 OK state",
       "actualResult": "Successfully verified state",
       "status": "PASSED",
-      "duration": 312,
+      "duration": 294,
       "reason": null,
       "screenshot": null
     },
@@ -6463,7 +6463,7 @@
       "expectedResult": "Screen element renders successfully with 200 OK state",
       "actualResult": "Successfully verified state",
       "status": "PASSED",
-      "duration": 685,
+      "duration": 985,
       "reason": null,
       "screenshot": null
     },
@@ -6479,7 +6479,7 @@
       "expectedResult": "Screen element renders successfully with 200 OK state",
       "actualResult": "Successfully verified state",
       "status": "PASSED",
-      "duration": 798,
+      "duration": 868,
       "reason": null,
       "screenshot": null
     },
@@ -6495,7 +6495,7 @@
       "expectedResult": "Screen element renders successfully with 200 OK state",
       "actualResult": "Successfully verified state",
       "status": "PASSED",
-      "duration": 341,
+      "duration": 226,
       "reason": null,
       "screenshot": null
     },
@@ -6511,7 +6511,7 @@
       "expectedResult": "Screen element renders successfully with 200 OK state",
       "actualResult": "Successfully verified state",
       "status": "PASSED",
-      "duration": 633,
+      "duration": 885,
       "reason": null,
       "screenshot": null
     },
@@ -6527,7 +6527,7 @@
       "expectedResult": "Screen element renders successfully with 200 OK state",
       "actualResult": "Successfully verified state",
       "status": "PASSED",
-      "duration": 402,
+      "duration": 390,
       "reason": null,
       "screenshot": null
     },
@@ -6543,7 +6543,7 @@
       "expectedResult": "Screen element renders successfully with 200 OK state",
       "actualResult": "Successfully verified state",
       "status": "PASSED",
-      "duration": 413,
+      "duration": 796,
       "reason": null,
       "screenshot": null
     },
@@ -6559,7 +6559,7 @@
       "expectedResult": "Screen element renders successfully with 200 OK state",
       "actualResult": "Successfully verified state",
       "status": "PASSED",
-      "duration": 229,
+      "duration": 397,
       "reason": null,
       "screenshot": null
     },
@@ -6575,7 +6575,7 @@
       "expectedResult": "Screen element renders successfully with 200 OK state",
       "actualResult": "Successfully verified state",
       "status": "PASSED",
-      "duration": 962,
+      "duration": 862,
       "reason": null,
       "screenshot": null
     },
@@ -6591,7 +6591,7 @@
       "expectedResult": "Screen element renders successfully with 200 OK state",
       "actualResult": "Successfully verified state",
       "status": "PASSED",
-      "duration": 422,
+      "duration": 942,
       "reason": null,
       "screenshot": null
     },
@@ -6607,7 +6607,7 @@
       "expectedResult": "Screen element renders successfully with 200 OK state",
       "actualResult": "Successfully verified state",
       "status": "PASSED",
-      "duration": 746,
+      "duration": 267,
       "reason": null,
       "screenshot": null
     },
@@ -6623,7 +6623,7 @@
       "expectedResult": "Screen element renders successfully with 200 OK state",
       "actualResult": "Successfully verified state",
       "status": "PASSED",
-      "duration": 234,
+      "duration": 760,
       "reason": null,
       "screenshot": null
     },
@@ -6639,7 +6639,7 @@
       "expectedResult": "Screen element renders successfully with 200 OK state",
       "actualResult": "Successfully verified state",
       "status": "PASSED",
-      "duration": 459,
+      "duration": 858,
       "reason": null,
       "screenshot": null
     },
@@ -6655,7 +6655,7 @@
       "expectedResult": "Screen element renders successfully with 200 OK state",
       "actualResult": "Successfully verified state",
       "status": "PASSED",
-      "duration": 567,
+      "duration": 672,
       "reason": null,
       "screenshot": null
     },
@@ -6671,7 +6671,7 @@
       "expectedResult": "Screen element renders successfully with 200 OK state",
       "actualResult": "Successfully verified state",
       "status": "PASSED",
-      "duration": 831,
+      "duration": 896,
       "reason": null,
       "screenshot": null
     },
@@ -6687,7 +6687,7 @@
       "expectedResult": "Screen element renders successfully with 200 OK state",
       "actualResult": "Successfully verified state",
       "status": "PASSED",
-      "duration": 332,
+      "duration": 598,
       "reason": null,
       "screenshot": null
     },
@@ -6703,7 +6703,7 @@
       "expectedResult": "Screen element renders successfully with 200 OK state",
       "actualResult": "Successfully verified state",
       "status": "PASSED",
-      "duration": 925,
+      "duration": 756,
       "reason": null,
       "screenshot": null
     },
@@ -6719,7 +6719,7 @@
       "expectedResult": "Screen element renders successfully with 200 OK state",
       "actualResult": "Successfully verified state",
       "status": "PASSED",
-      "duration": 234,
+      "duration": 649,
       "reason": null,
       "screenshot": null
     },
@@ -6735,7 +6735,7 @@
       "expectedResult": "Screen element renders successfully with 200 OK state",
       "actualResult": "Successfully verified state",
       "status": "PASSED",
-      "duration": 986,
+      "duration": 740,
       "reason": null,
       "screenshot": null
     },
@@ -6751,7 +6751,7 @@
       "expectedResult": "Screen element renders successfully with 200 OK state",
       "actualResult": "Successfully verified state",
       "status": "PASSED",
-      "duration": 524,
+      "duration": 892,
       "reason": null,
       "screenshot": null
     },
@@ -6767,7 +6767,7 @@
       "expectedResult": "Screen element renders successfully with 200 OK state",
       "actualResult": "Successfully verified state",
       "status": "PASSED",
-      "duration": 344,
+      "duration": 585,
       "reason": null,
       "screenshot": null
     },
@@ -6783,7 +6783,7 @@
       "expectedResult": "Screen element renders successfully with 200 OK state",
       "actualResult": "Successfully verified state",
       "status": "PASSED",
-      "duration": 625,
+      "duration": 755,
       "reason": null,
       "screenshot": null
     },
@@ -6799,7 +6799,7 @@
       "expectedResult": "Screen element renders successfully with 200 OK state",
       "actualResult": "Successfully verified state",
       "status": "PASSED",
-      "duration": 972,
+      "duration": 424,
       "reason": null,
       "screenshot": null
     },
@@ -6815,7 +6815,7 @@
       "expectedResult": "Screen element renders successfully with 200 OK state",
       "actualResult": "Successfully verified state",
       "status": "PASSED",
-      "duration": 217,
+      "duration": 218,
       "reason": null,
       "screenshot": null
     },
@@ -6831,7 +6831,7 @@
       "expectedResult": "Screen element renders successfully with 200 OK state",
       "actualResult": "Successfully verified state",
       "status": "PASSED",
-      "duration": 633,
+      "duration": 964,
       "reason": null,
       "screenshot": null
     },
@@ -6847,7 +6847,7 @@
       "expectedResult": "Screen element renders successfully with 200 OK state",
       "actualResult": "Successfully verified state",
       "status": "PASSED",
-      "duration": 611,
+      "duration": 366,
       "reason": null,
       "screenshot": null
     },
@@ -6863,7 +6863,7 @@
       "expectedResult": "Screen element renders successfully with 200 OK state",
       "actualResult": "Successfully verified state",
       "status": "PASSED",
-      "duration": 759,
+      "duration": 725,
       "reason": null,
       "screenshot": null
     },
@@ -6879,7 +6879,7 @@
       "expectedResult": "Screen element renders successfully with 200 OK state",
       "actualResult": "Successfully verified state",
       "status": "PASSED",
-      "duration": 740,
+      "duration": 267,
       "reason": null,
       "screenshot": null
     },
@@ -6895,7 +6895,7 @@
       "expectedResult": "Screen element renders successfully with 200 OK state",
       "actualResult": "Successfully verified state",
       "status": "PASSED",
-      "duration": 983,
+      "duration": 509,
       "reason": null,
       "screenshot": null
     },
@@ -6911,7 +6911,7 @@
       "expectedResult": "Screen element renders successfully with 200 OK state",
       "actualResult": "Successfully verified state",
       "status": "PASSED",
-      "duration": 213,
+      "duration": 771,
       "reason": null,
       "screenshot": null
     },
@@ -6927,7 +6927,7 @@
       "expectedResult": "Screen element renders successfully with 200 OK state",
       "actualResult": "Successfully verified state",
       "status": "PASSED",
-      "duration": 239,
+      "duration": 451,
       "reason": null,
       "screenshot": null
     },
@@ -6943,7 +6943,7 @@
       "expectedResult": "Screen element renders successfully with 200 OK state",
       "actualResult": "Successfully verified state",
       "status": "PASSED",
-      "duration": 550,
+      "duration": 488,
       "reason": null,
       "screenshot": null
     },
@@ -6959,7 +6959,7 @@
       "expectedResult": "Screen element renders successfully with 200 OK state",
       "actualResult": "Successfully verified state",
       "status": "PASSED",
-      "duration": 715,
+      "duration": 963,
       "reason": null,
       "screenshot": null
     },
@@ -6975,7 +6975,7 @@
       "expectedResult": "Screen element renders successfully with 200 OK state",
       "actualResult": "Successfully verified state",
       "status": "PASSED",
-      "duration": 623,
+      "duration": 733,
       "reason": null,
       "screenshot": null
     },
@@ -6991,7 +6991,7 @@
       "expectedResult": "Screen element renders successfully with 200 OK state",
       "actualResult": "Successfully verified state",
       "status": "PASSED",
-      "duration": 368,
+      "duration": 705,
       "reason": null,
       "screenshot": null
     },
@@ -7007,7 +7007,7 @@
       "expectedResult": "Screen element renders successfully with 200 OK state",
       "actualResult": "Successfully verified state",
       "status": "PASSED",
-      "duration": 371,
+      "duration": 633,
       "reason": null,
       "screenshot": null
     },
@@ -7023,7 +7023,7 @@
       "expectedResult": "Screen element renders successfully with 200 OK state",
       "actualResult": "Successfully verified state",
       "status": "PASSED",
-      "duration": 516,
+      "duration": 830,
       "reason": null,
       "screenshot": null
     },
@@ -7039,7 +7039,7 @@
       "expectedResult": "Screen element renders successfully with 200 OK state",
       "actualResult": "Successfully verified state",
       "status": "PASSED",
-      "duration": 788,
+      "duration": 521,
       "reason": null,
       "screenshot": null
     },
@@ -7055,7 +7055,7 @@
       "expectedResult": "Screen element renders successfully with 200 OK state",
       "actualResult": "Successfully verified state",
       "status": "PASSED",
-      "duration": 920,
+      "duration": 818,
       "reason": null,
       "screenshot": null
     },
@@ -7071,7 +7071,7 @@
       "expectedResult": "Screen element renders successfully with 200 OK state",
       "actualResult": "Successfully verified state",
       "status": "PASSED",
-      "duration": 303,
+      "duration": 860,
       "reason": null,
       "screenshot": null
     },
@@ -7087,7 +7087,7 @@
       "expectedResult": "Screen element renders successfully with 200 OK state",
       "actualResult": "Successfully verified state",
       "status": "PASSED",
-      "duration": 505,
+      "duration": 900,
       "reason": null,
       "screenshot": null
     },
@@ -7103,7 +7103,7 @@
       "expectedResult": "Screen element renders successfully with 200 OK state",
       "actualResult": "Successfully verified state",
       "status": "PASSED",
-      "duration": 331,
+      "duration": 597,
       "reason": null,
       "screenshot": null
     },
@@ -7119,7 +7119,7 @@
       "expectedResult": "Screen element renders successfully with 200 OK state",
       "actualResult": "Successfully verified state",
       "status": "PASSED",
-      "duration": 281,
+      "duration": 647,
       "reason": null,
       "screenshot": null
     },
@@ -7135,7 +7135,7 @@
       "expectedResult": "Screen element renders successfully with 200 OK state",
       "actualResult": "Successfully verified state",
       "status": "PASSED",
-      "duration": 440,
+      "duration": 607,
       "reason": null,
       "screenshot": null
     },
@@ -7151,7 +7151,7 @@
       "expectedResult": "Screen element renders successfully with 200 OK state",
       "actualResult": "Successfully verified state",
       "status": "PASSED",
-      "duration": 371,
+      "duration": 647,
       "reason": null,
       "screenshot": null
     },
@@ -7167,7 +7167,7 @@
       "expectedResult": "Screen element renders successfully with 200 OK state",
       "actualResult": "Successfully verified state",
       "status": "PASSED",
-      "duration": 381,
+      "duration": 673,
       "reason": null,
       "screenshot": null
     },
@@ -7183,7 +7183,7 @@
       "expectedResult": "Screen element renders successfully with 200 OK state",
       "actualResult": "Successfully verified state",
       "status": "PASSED",
-      "duration": 252,
+      "duration": 233,
       "reason": null,
       "screenshot": null
     },
@@ -7199,7 +7199,7 @@
       "expectedResult": "Screen element renders successfully with 200 OK state",
       "actualResult": "Successfully verified state",
       "status": "PASSED",
-      "duration": 205,
+      "duration": 998,
       "reason": null,
       "screenshot": null
     },
@@ -7215,7 +7215,7 @@
       "expectedResult": "Screen element renders successfully with 200 OK state",
       "actualResult": "Successfully verified state",
       "status": "PASSED",
-      "duration": 332,
+      "duration": 328,
       "reason": null,
       "screenshot": null
     },
@@ -7231,7 +7231,7 @@
       "expectedResult": "Screen element renders successfully with 200 OK state",
       "actualResult": "Successfully verified state",
       "status": "PASSED",
-      "duration": 258,
+      "duration": 578,
       "reason": null,
       "screenshot": null
     },
@@ -7247,7 +7247,7 @@
       "expectedResult": "Screen element renders successfully with 200 OK state",
       "actualResult": "Successfully verified state",
       "status": "PASSED",
-      "duration": 585,
+      "duration": 329,
       "reason": null,
       "screenshot": null
     },
@@ -7263,7 +7263,7 @@
       "expectedResult": "Screen element renders successfully with 200 OK state",
       "actualResult": "Successfully verified state",
       "status": "PASSED",
-      "duration": 430,
+      "duration": 618,
       "reason": null,
       "screenshot": null
     },
@@ -7279,7 +7279,7 @@
       "expectedResult": "Screen element renders successfully with 200 OK state",
       "actualResult": "Successfully verified state",
       "status": "PASSED",
-      "duration": 846,
+      "duration": 722,
       "reason": null,
       "screenshot": null
     },
@@ -7295,7 +7295,7 @@
       "expectedResult": "Screen element renders successfully with 200 OK state",
       "actualResult": "Successfully verified state",
       "status": "PASSED",
-      "duration": 871,
+      "duration": 361,
       "reason": null,
       "screenshot": null
     },
@@ -7311,7 +7311,7 @@
       "expectedResult": "Screen element renders successfully with 200 OK state",
       "actualResult": "Successfully verified state",
       "status": "PASSED",
-      "duration": 979,
+      "duration": 257,
       "reason": null,
       "screenshot": null
     },
@@ -7327,7 +7327,7 @@
       "expectedResult": "Screen element renders successfully with 200 OK state",
       "actualResult": "Successfully verified state",
       "status": "PASSED",
-      "duration": 538,
+      "duration": 634,
       "reason": null,
       "screenshot": null
     },
@@ -7343,7 +7343,7 @@
       "expectedResult": "Screen element renders successfully with 200 OK state",
       "actualResult": "Successfully verified state",
       "status": "PASSED",
-      "duration": 877,
+      "duration": 904,
       "reason": null,
       "screenshot": null
     },
@@ -7359,7 +7359,7 @@
       "expectedResult": "Screen element renders successfully with 200 OK state",
       "actualResult": "Successfully verified state",
       "status": "PASSED",
-      "duration": 237,
+      "duration": 447,
       "reason": null,
       "screenshot": null
     },
@@ -7375,7 +7375,7 @@
       "expectedResult": "Screen element renders successfully with 200 OK state",
       "actualResult": "Successfully verified state",
       "status": "PASSED",
-      "duration": 321,
+      "duration": 743,
       "reason": null,
       "screenshot": null
     },
@@ -7391,7 +7391,7 @@
       "expectedResult": "Screen element renders successfully with 200 OK state",
       "actualResult": "Successfully verified state",
       "status": "PASSED",
-      "duration": 304,
+      "duration": 865,
       "reason": null,
       "screenshot": null
     },
@@ -7407,7 +7407,7 @@
       "expectedResult": "Screen element renders successfully with 200 OK state",
       "actualResult": "Successfully verified state",
       "status": "PASSED",
-      "duration": 771,
+      "duration": 819,
       "reason": null,
       "screenshot": null
     },
@@ -7423,7 +7423,7 @@
       "expectedResult": "Screen element renders successfully with 200 OK state",
       "actualResult": "Successfully verified state",
       "status": "PASSED",
-      "duration": 792,
+      "duration": 375,
       "reason": null,
       "screenshot": null
     },
@@ -7439,7 +7439,7 @@
       "expectedResult": "Screen element renders successfully with 200 OK state",
       "actualResult": "Successfully verified state",
       "status": "PASSED",
-      "duration": 459,
+      "duration": 291,
       "reason": null,
       "screenshot": null
     },
@@ -7455,7 +7455,7 @@
       "expectedResult": "Screen element renders successfully with 200 OK state",
       "actualResult": "Successfully verified state",
       "status": "PASSED",
-      "duration": 798,
+      "duration": 677,
       "reason": null,
       "screenshot": null
     },
@@ -7471,7 +7471,7 @@
       "expectedResult": "Screen element renders successfully with 200 OK state",
       "actualResult": "Successfully verified state",
       "status": "PASSED",
-      "duration": 265,
+      "duration": 492,
       "reason": null,
       "screenshot": null
     },
@@ -7503,7 +7503,7 @@
       "expectedResult": "Screen element renders successfully with 200 OK state",
       "actualResult": "Successfully verified state",
       "status": "PASSED",
-      "duration": 577,
+      "duration": 888,
       "reason": null,
       "screenshot": null
     },
@@ -7519,7 +7519,7 @@
       "expectedResult": "Screen element renders successfully with 200 OK state",
       "actualResult": "Successfully verified state",
       "status": "PASSED",
-      "duration": 882,
+      "duration": 632,
       "reason": null,
       "screenshot": null
     },
@@ -7535,7 +7535,7 @@
       "expectedResult": "Screen element renders successfully with 200 OK state",
       "actualResult": "Successfully verified state",
       "status": "PASSED",
-      "duration": 888,
+      "duration": 754,
       "reason": null,
       "screenshot": null
     },
@@ -7551,7 +7551,7 @@
       "expectedResult": "Screen element renders successfully with 200 OK state",
       "actualResult": "Successfully verified state",
       "status": "PASSED",
-      "duration": 886,
+      "duration": 385,
       "reason": null,
       "screenshot": null
     },
@@ -7567,7 +7567,7 @@
       "expectedResult": "Screen element renders successfully with 200 OK state",
       "actualResult": "Successfully verified state",
       "status": "PASSED",
-      "duration": 310,
+      "duration": 238,
       "reason": null,
       "screenshot": null
     },
@@ -7583,7 +7583,7 @@
       "expectedResult": "Screen element renders successfully with 200 OK state",
       "actualResult": "Successfully verified state",
       "status": "PASSED",
-      "duration": 324,
+      "duration": 600,
       "reason": null,
       "screenshot": null
     },
@@ -7599,7 +7599,7 @@
       "expectedResult": "Screen element renders successfully with 200 OK state",
       "actualResult": "Successfully verified state",
       "status": "PASSED",
-      "duration": 687,
+      "duration": 851,
       "reason": null,
       "screenshot": null
     },
@@ -7615,7 +7615,7 @@
       "expectedResult": "Screen element renders successfully with 200 OK state",
       "actualResult": "Successfully verified state",
       "status": "PASSED",
-      "duration": 982,
+      "duration": 537,
       "reason": null,
       "screenshot": null
     },
@@ -7631,7 +7631,7 @@
       "expectedResult": "Screen element renders successfully with 200 OK state",
       "actualResult": "Successfully verified state",
       "status": "PASSED",
-      "duration": 848,
+      "duration": 580,
       "reason": null,
       "screenshot": null
     },
@@ -7647,7 +7647,7 @@
       "expectedResult": "Screen element renders successfully with 200 OK state",
       "actualResult": "Successfully verified state",
       "status": "PASSED",
-      "duration": 919,
+      "duration": 775,
       "reason": null,
       "screenshot": null
     },
@@ -7663,7 +7663,7 @@
       "expectedResult": "Screen element renders successfully with 200 OK state",
       "actualResult": "Successfully verified state",
       "status": "PASSED",
-      "duration": 224,
+      "duration": 336,
       "reason": null,
       "screenshot": null
     },
@@ -7679,7 +7679,7 @@
       "expectedResult": "Screen element renders successfully with 200 OK state",
       "actualResult": "Successfully verified state",
       "status": "PASSED",
-      "duration": 291,
+      "duration": 377,
       "reason": null,
       "screenshot": null
     },
@@ -7695,7 +7695,7 @@
       "expectedResult": "Screen element renders successfully with 200 OK state",
       "actualResult": "Successfully verified state",
       "status": "PASSED",
-      "duration": 289,
+      "duration": 524,
       "reason": null,
       "screenshot": null
     },
@@ -7711,7 +7711,7 @@
       "expectedResult": "Screen element renders successfully with 200 OK state",
       "actualResult": "Successfully verified state",
       "status": "PASSED",
-      "duration": 960,
+      "duration": 836,
       "reason": null,
       "screenshot": null
     },
@@ -7727,7 +7727,7 @@
       "expectedResult": "Screen element renders successfully with 200 OK state",
       "actualResult": "Successfully verified state",
       "status": "PASSED",
-      "duration": 651,
+      "duration": 254,
       "reason": null,
       "screenshot": null
     },
@@ -7743,7 +7743,7 @@
       "expectedResult": "Screen element renders successfully with 200 OK state",
       "actualResult": "Successfully verified state",
       "status": "PASSED",
-      "duration": 774,
+      "duration": 875,
       "reason": null,
       "screenshot": null
     },
@@ -7759,7 +7759,7 @@
       "expectedResult": "Screen element renders successfully with 200 OK state",
       "actualResult": "Successfully verified state",
       "status": "PASSED",
-      "duration": 291,
+      "duration": 806,
       "reason": null,
       "screenshot": null
     },
@@ -7775,7 +7775,7 @@
       "expectedResult": "Screen element renders successfully with 200 OK state",
       "actualResult": "Successfully verified state",
       "status": "PASSED",
-      "duration": 732,
+      "duration": 935,
       "reason": null,
       "screenshot": null
     },
@@ -7791,7 +7791,7 @@
       "expectedResult": "Screen element renders successfully with 200 OK state",
       "actualResult": "Successfully verified state",
       "status": "PASSED",
-      "duration": 679,
+      "duration": 305,
       "reason": null,
       "screenshot": null
     },
@@ -7807,7 +7807,7 @@
       "expectedResult": "Screen element renders successfully with 200 OK state",
       "actualResult": "Successfully verified state",
       "status": "PASSED",
-      "duration": 444,
+      "duration": 924,
       "reason": null,
       "screenshot": null
     },
@@ -7823,7 +7823,7 @@
       "expectedResult": "Screen element renders successfully with 200 OK state",
       "actualResult": "Successfully verified state",
       "status": "PASSED",
-      "duration": 470,
+      "duration": 297,
       "reason": null,
       "screenshot": null
     },
@@ -7839,7 +7839,7 @@
       "expectedResult": "Screen element renders successfully with 200 OK state",
       "actualResult": "Successfully verified state",
       "status": "PASSED",
-      "duration": 713,
+      "duration": 708,
       "reason": null,
       "screenshot": null
     },
@@ -7855,7 +7855,7 @@
       "expectedResult": "Screen element renders successfully with 200 OK state",
       "actualResult": "Successfully verified state",
       "status": "PASSED",
-      "duration": 609,
+      "duration": 595,
       "reason": null,
       "screenshot": null
     },
@@ -7871,7 +7871,7 @@
       "expectedResult": "Screen element renders successfully with 200 OK state",
       "actualResult": "Successfully verified state",
       "status": "PASSED",
-      "duration": 230,
+      "duration": 428,
       "reason": null,
       "screenshot": null
     },
@@ -7887,7 +7887,7 @@
       "expectedResult": "Screen element renders successfully with 200 OK state",
       "actualResult": "Successfully verified state",
       "status": "PASSED",
-      "duration": 811,
+      "duration": 734,
       "reason": null,
       "screenshot": null
     },
@@ -7903,7 +7903,7 @@
       "expectedResult": "Screen element renders successfully with 200 OK state",
       "actualResult": "Successfully verified state",
       "status": "PASSED",
-      "duration": 781,
+      "duration": 843,
       "reason": null,
       "screenshot": null
     },
@@ -7919,7 +7919,7 @@
       "expectedResult": "Screen element renders successfully with 200 OK state",
       "actualResult": "Successfully verified state",
       "status": "PASSED",
-      "duration": 364,
+      "duration": 845,
       "reason": null,
       "screenshot": null
     },
@@ -7935,7 +7935,7 @@
       "expectedResult": "Screen element renders successfully with 200 OK state",
       "actualResult": "Successfully verified state",
       "status": "PASSED",
-      "duration": 861,
+      "duration": 483,
       "reason": null,
       "screenshot": null
     },
@@ -7951,7 +7951,7 @@
       "expectedResult": "Screen element renders successfully with 200 OK state",
       "actualResult": "Successfully verified state",
       "status": "PASSED",
-      "duration": 545,
+      "duration": 953,
       "reason": null,
       "screenshot": null
     },
@@ -7967,7 +7967,7 @@
       "expectedResult": "Screen element renders successfully with 200 OK state",
       "actualResult": "Successfully verified state",
       "status": "PASSED",
-      "duration": 305,
+      "duration": 423,
       "reason": null,
       "screenshot": null
     },
@@ -7983,7 +7983,7 @@
       "expectedResult": "Screen element renders successfully with 200 OK state",
       "actualResult": "Successfully verified state",
       "status": "PASSED",
-      "duration": 201,
+      "duration": 414,
       "reason": null,
       "screenshot": null
     },
@@ -7999,7 +7999,7 @@
       "expectedResult": "Screen element renders successfully with 200 OK state",
       "actualResult": "Successfully verified state",
       "status": "PASSED",
-      "duration": 869,
+      "duration": 255,
       "reason": null,
       "screenshot": null
     },
@@ -8015,7 +8015,7 @@
       "expectedResult": "Screen element renders successfully with 200 OK state",
       "actualResult": "Successfully verified state",
       "status": "PASSED",
-      "duration": 416,
+      "duration": 731,
       "reason": null,
       "screenshot": null
     },
@@ -8031,7 +8031,7 @@
       "expectedResult": "Screen element renders successfully with 200 OK state",
       "actualResult": "Successfully verified state",
       "status": "PASSED",
-      "duration": 523,
+      "duration": 808,
       "reason": null,
       "screenshot": null
     },
@@ -8047,7 +8047,7 @@
       "expectedResult": "Screen element renders successfully with 200 OK state",
       "actualResult": "Successfully verified state",
       "status": "PASSED",
-      "duration": 400,
+      "duration": 640,
       "reason": null,
       "screenshot": null
     },
@@ -8063,7 +8063,7 @@
       "expectedResult": "Screen element renders successfully with 200 OK state",
       "actualResult": "Successfully verified state",
       "status": "PASSED",
-      "duration": 427,
+      "duration": 868,
       "reason": null,
       "screenshot": null
     },
@@ -8079,7 +8079,7 @@
       "expectedResult": "Screen element renders successfully with 200 OK state",
       "actualResult": "Successfully verified state",
       "status": "PASSED",
-      "duration": 959,
+      "duration": 659,
       "reason": null,
       "screenshot": null
     },
@@ -8095,7 +8095,7 @@
       "expectedResult": "Screen element renders successfully with 200 OK state",
       "actualResult": "Successfully verified state",
       "status": "PASSED",
-      "duration": 277,
+      "duration": 548,
       "reason": null,
       "screenshot": null
     },
@@ -8111,7 +8111,7 @@
       "expectedResult": "Screen element renders successfully with 200 OK state",
       "actualResult": "Successfully verified state",
       "status": "PASSED",
-      "duration": 834,
+      "duration": 296,
       "reason": null,
       "screenshot": null
     },
@@ -8127,7 +8127,7 @@
       "expectedResult": "Screen element renders successfully with 200 OK state",
       "actualResult": "Successfully verified state",
       "status": "PASSED",
-      "duration": 483,
+      "duration": 453,
       "reason": null,
       "screenshot": null
     },
@@ -8143,7 +8143,7 @@
       "expectedResult": "Screen element renders successfully with 200 OK state",
       "actualResult": "Successfully verified state",
       "status": "PASSED",
-      "duration": 587,
+      "duration": 659,
       "reason": null,
       "screenshot": null
     },
@@ -8159,7 +8159,7 @@
       "expectedResult": "Screen element renders successfully with 200 OK state",
       "actualResult": "Successfully verified state",
       "status": "PASSED",
-      "duration": 622,
+      "duration": 890,
       "reason": null,
       "screenshot": null
     },
@@ -8175,7 +8175,7 @@
       "expectedResult": "Screen element renders successfully with 200 OK state",
       "actualResult": "Successfully verified state",
       "status": "PASSED",
-      "duration": 662,
+      "duration": 510,
       "reason": null,
       "screenshot": null
     }

@@ -17,6 +17,10 @@
 # Exclude large binaries, logs, secrets, and build outputs
 **/node_modules/
 **/*.apk
+!app-release.apk
+!arogya-ai-release.apk
+!arogya_ai_web/app-release.apk
+!arogya_ai_web/arogya-ai-release.apk
 **/*.aab
 **/*.log
 **/*_log.txt

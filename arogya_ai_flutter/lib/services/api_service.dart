@@ -503,6 +503,7 @@ class ApiService {
 
   // 5. Submit AI Symptom Diagnosis Request
   static Future<Map<String, dynamic>?> diagnose(String symptoms) async {
+    print("[DEBUG] DIAGNOSIS INPUT = '$symptoms'");
     Map<String, dynamic>? diagResult;
 
     // 1. Try Backend API first over HTTP
@@ -1474,6 +1475,7 @@ class ApiService {
     final String apptId = "APT-${DateTime.now().millisecondsSinceEpoch}";
     final String createdAtStr = DateTime.now().toIso8601String();
     final String userSymptoms = (symptoms != null && symptoms.trim().isNotEmpty) ? symptoms.trim() : 'Not provided';
+    print("[DEBUG] APPOINTMENT SYMPTOMS = '$userSymptoms'");
 
     final apptData = {
       'id': apptId,

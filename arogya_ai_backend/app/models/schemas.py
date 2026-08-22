@@ -67,6 +67,9 @@ class AppointmentBase(BaseModel):
     patientPhone: str
     fee: str
     address: str
+    symptoms: Optional[str] = None
+    condition: Optional[str] = None
+    severity: Optional[str] = None
 
 class AppointmentCreate(AppointmentBase):
     userId: Optional[str] = None

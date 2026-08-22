@@ -87,18 +87,9 @@ class _SymptomCheckerScreenState extends State<SymptomCheckerScreen> {
     }
 
     if (!_speechEnabled) {
-      setState(() => _isListening = true);
       ScaffoldMessenger.of(context).showSnackBar(
-        const SnackBar(content: Text('Speech services not ready. Simulating throat pain entry...')),
+        const SnackBar(content: Text('Speech recognition unavailable. Please type your symptoms manually.')),
       );
-      // Fallback sandbox simulation if permission/service not ready on device
-      await Future.delayed(const Duration(seconds: 2));
-      if (_isListening && mounted) {
-        setState(() {
-          _isListening = false;
-          _textController.text = "throat pain and swallowing irritation since yesterday";
-        });
-      }
       return;
     }
 
@@ -126,6 +117,8 @@ class _SymptomCheckerScreenState extends State<SymptomCheckerScreen> {
       );
       return;
     }
+
+    print("[DEBUG] ORIGINAL USER SYMPTOMS = '$text'");
 
     // Stop listening / TTS
     _stopListening();

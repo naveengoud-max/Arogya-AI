@@ -436,6 +436,7 @@ class _HistoryScreenState extends State<HistoryScreen> {
       final String symptoms = (rawSym.isNotEmpty && rawSym != 'null')
           ? rawSym
           : 'Symptoms / reason not available';
+      print("[DEBUG] STORED APPOINTMENT SYMPTOMS = '$symptoms'");
       final String createdAt = (item['createdAt'] ?? 'Not available').toString();
 
       final double? lat = (item['lat'] ?? item['hospitalLat']) != null ? double.tryParse((item['lat'] ?? item['hospitalLat']).toString()) : null;

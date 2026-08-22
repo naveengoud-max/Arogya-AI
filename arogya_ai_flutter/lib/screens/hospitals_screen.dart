@@ -486,11 +486,7 @@ class _HospitalsScreenState extends State<HospitalsScreen> {
                               ),
                             ),
                           ElevatedButton.icon(
-                            onPressed: () {
-                              final query = address;
-                              final url = 'https://www.google.com/maps/search/?api=1&query=${Uri.encodeComponent(query)}';
-                              launchUrl(Uri.parse(url), mode: LaunchMode.externalApplication);
-                            },
+                            onPressed: () => ApiService.launchDirections(address, hLat, hLng),
                             icon: const Icon(Icons.directions, size: 16),
                             label: const Text('GET DIRECTIONS'),
                             style: ElevatedButton.styleFrom(

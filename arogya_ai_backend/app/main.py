@@ -37,6 +37,8 @@ app.include_router(hospitals.router, prefix="/api/hospitals")
 
 app.include_router(appointments.router, prefix="/api")
 app.include_router(appointments.router, prefix="/api/appointments")
+app.include_router(appointments.payment_router, prefix="/api")
+app.include_router(appointments.payment_router, prefix="/api/payments")
 
 app.include_router(ai.router, prefix="/api")
 app.include_router(ai.router, prefix="/api/ai")

@@ -390,14 +390,22 @@ class ApiService {
   /* ── HELPER UTILITY METHODS ── */
 
   static Future<void> makeCall(String phone) async {
-    final Uri url = Uri.parse('tel:$phone');
+    final cleanPhone = phone.replaceAll(RegExp(r'[^\d\+]'), '');
+    if (cleanPhone.isEmpty || phone == 'Not available') return;
+    final Uri url = Uri.parse('tel:$cleanPhone');
     if (await canLaunchUrl(url)) {
       await launchUrl(url);
     }
   }
 
-  static Future<void> launchDirections(String address) async {
-    final Uri url = Uri.parse('https://www.google.com/maps/search/?api=1&query=${Uri.encodeComponent(address)}');
+  static Future<void> launchDirections(String address, [double? lat, double? lng]) async {
+    Uri url;
+    if (lat != null && lng != null && lat != 0.0 && lng != 0.0) {
+      url = Uri.parse('https://www.google.com/maps/dir/?api=1&destination=$lat,$lng');
+    } else {
+      final query = (address.isNotEmpty && address != 'Not available') ? address : 'Hospital';
+      url = Uri.parse('https://www.google.com/maps/dir/?api=1&destination=${Uri.encodeComponent(query)}');
+    }
     if (await canLaunchUrl(url)) {
       await launchUrl(url, mode: LaunchMode.externalApplication);
     }

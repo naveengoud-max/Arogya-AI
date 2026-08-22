@@ -301,7 +301,7 @@ class _AiAnalysisResultScreenState extends State<AiAnalysisResultScreen> {
                     ),
                   ),
                 ),
-              // Main Diagnosis Card
+              // Main Diagnosis Card (PRELIMINARY HEALTH ASSESSMENT)
               FadeInDown(
                 duration: const Duration(milliseconds: 400),
                 child: Container(
@@ -331,11 +331,12 @@ class _AiAnalysisResultScreenState extends State<AiAnalysisResultScreen> {
                               borderRadius: BorderRadius.circular(8),
                             ),
                             child: const Text(
-                              'Analysis Complete',
+                              'PRELIMINARY HEALTH ASSESSMENT',
                               style: TextStyle(
                                 color: Color(0xFF047857),
                                 fontSize: 11,
-                                fontWeight: FontWeight.bold,
+                                fontWeight: FontWeight.w900,
+                                letterSpacing: 0.5,
                               ),
                             ),
                           ),
@@ -350,34 +351,122 @@ class _AiAnalysisResultScreenState extends State<AiAnalysisResultScreen> {
                         ],
                       ),
                       const SizedBox(height: 16),
+
+                      // 1. Symptoms Considered
+                      const Text(
+                        'SYMPTOMS CONSIDERED',
+                        style: TextStyle(
+                          fontSize: 10,
+                          fontWeight: FontWeight.w800,
+                          color: Color(0xFF64748B),
+                          letterSpacing: 0.5,
+                        ),
+                      ),
+                      const SizedBox(height: 4),
+                      Container(
+                        width: double.infinity,
+                        padding: const EdgeInsets.all(12),
+                        decoration: BoxDecoration(
+                          color: const Color(0xFFF8FAFC),
+                          borderRadius: BorderRadius.circular(12),
+                          border: Border.all(color: const Color(0xFFE2E8F0)),
+                        ),
+                        child: Text(
+                          widget.rawSymptoms.isNotEmpty ? widget.rawSymptoms : 'Not provided',
+                          style: const TextStyle(
+                            fontSize: 13,
+                            fontWeight: FontWeight.w600,
+                            color: Color(0xFF1E293B),
+                            fontStyle: FontStyle.italic,
+                          ),
+                        ),
+                      ),
+                      const SizedBox(height: 16),
+
+                      // 2. Possible Condition
+                      const Text(
+                        'POSSIBLE CONDITION',
+                        style: TextStyle(
+                          fontSize: 10,
+                          fontWeight: FontWeight.w800,
+                          color: Color(0xFF64748B),
+                          letterSpacing: 0.5,
+                        ),
+                      ),
+                      const SizedBox(height: 4),
                       Text(
                         condition,
                         style: const TextStyle(
-                          fontSize: 22,
+                          fontSize: 20,
                           fontWeight: FontWeight.w900,
                           color: Color(0xFF1E293B),
                         ),
                       ),
-                      const SizedBox(height: 8),
+                      const SizedBox(height: 12),
+
+                      // 3. Recommended Specialist
+                      Row(
+                        children: [
+                          Container(
+                            padding: const EdgeInsets.all(6),
+                            decoration: BoxDecoration(
+                              color: const Color(0xFF10B981).withOpacity(0.1),
+                              borderRadius: BorderRadius.circular(8),
+                            ),
+                            child: const Icon(Icons.person_search, color: Color(0xFF10B981), size: 16),
+                          ),
+                          const SizedBox(width: 8),
+                          Expanded(
+                            child: Column(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [
+                                const Text(
+                                  'RECOMMENDED SPECIALIST',
+                                  style: TextStyle(fontSize: 10, fontWeight: FontWeight.bold, color: Color(0xFF64748B)),
+                                ),
+                                Text(
+                                  specialist,
+                                  style: const TextStyle(fontSize: 13, fontWeight: FontWeight.w800, color: Color(0xFF047857)),
+                                ),
+                              ],
+                            ),
+                          ),
+                        ],
+                      ),
+                      const SizedBox(height: 16),
+
+                      // 4. General Guidance Description
+                      const Text(
+                        'CLINICAL GUIDANCE',
+                        style: TextStyle(
+                          fontSize: 10,
+                          fontWeight: FontWeight.w800,
+                          color: Color(0xFF64748B),
+                          letterSpacing: 0.5,
+                        ),
+                      ),
+                      const SizedBox(height: 4),
                       Text(
                         description,
                         style: const TextStyle(
-                          fontSize: 14,
+                          fontSize: 13,
                           color: Color(0xFF475569),
                           height: 1.5,
                         ),
                       ),
-                      const SizedBox(height: 20),
-                      // Severity meter
+                      const SizedBox(height: 16),
+
+                      // 5. Severity Meter
                       Row(
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
                           const Text(
-                            'Severity Level',
+                            'SEVERITY LEVEL',
                             style: TextStyle(
-                              fontSize: 12,
-                              fontWeight: FontWeight.bold,
+                              fontSize: 10,
+                              fontWeight: FontWeight.w800,
                               color: Color(0xFF64748B),
+                              letterSpacing: 0.5,
                             ),
                           ),
                           Text(
@@ -411,6 +500,35 @@ class _AiAnalysisResultScreenState extends State<AiAnalysisResultScreen> {
                             ),
                           ),
                         ],
+                      ),
+                      const SizedBox(height: 16),
+
+                      // 6. Medical Disclaimer Box
+                      Container(
+                        padding: const EdgeInsets.all(12),
+                        decoration: BoxDecoration(
+                          color: const Color(0xFFFEF3C7), // Warm Amber
+                          borderRadius: BorderRadius.circular(12),
+                          border: Border.all(color: const Color(0xFFFDE68A)),
+                        ),
+                        child: Row(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: const [
+                            Icon(Icons.info_outline, color: Color(0xFFD97706), size: 18),
+                            SizedBox(width: 8),
+                            Expanded(
+                              child: Text(
+                                'This assessment provides preliminary healthcare guidance and does not replace professional medical diagnosis.',
+                                style: TextStyle(
+                                  fontSize: 11,
+                                  fontWeight: FontWeight.w600,
+                                  color: Color(0xFF92400E),
+                                  height: 1.4,
+                                ),
+                              ),
+                            ),
+                          ],
+                        ),
                       ),
                     ],
                   ),

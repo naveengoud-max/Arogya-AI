@@ -427,8 +427,8 @@ class _HistoryScreenState extends State<HistoryScreen> {
       final String token = (item['token'] ?? 'TK-100').toString();
       final String apptId = (item['id'] ?? item['appointmentId'] ?? 'Not available').toString();
       final String address = (item['address'] ?? item['hospitalAddress'] ?? 'Not available').toString();
-      final String hospitalPhone = (item['hospitalPhone'] ?? '044 28290200').toString();
-      final String emergencyPhone = (item['emergencyPhone'] ?? '1066').toString();
+      final String hospitalPhone = (item['hospitalPhone'] ?? 'Not available').toString();
+      final String emergencyPhone = (item['emergencyPhone'] ?? 'Not available').toString();
       final String officialWebsite = (item['officialWebsite'] ?? 'Not available').toString();
       final String fee = (item['fee'] ?? 'Free').toString();
       final String status = (item['status'] ?? 'Confirmed').toString();
@@ -438,6 +438,8 @@ class _HistoryScreenState extends State<HistoryScreen> {
       final String symptoms = (rawSym.isNotEmpty && rawSym != 'null')
           ? rawSym
           : 'Symptoms / reason not available';
+      final String condition = (item['condition'] ?? '').toString().trim();
+      final String severity = (item['severity'] ?? '').toString().trim();
       final String createdAt = (item['createdAt'] ?? 'Not available').toString();
 
       final double? lat = (item['lat'] ?? item['hospitalLat']) != null ? double.tryParse((item['lat'] ?? item['hospitalLat']).toString()) : null;
@@ -511,12 +513,17 @@ class _HistoryScreenState extends State<HistoryScreen> {
                     _buildDetailRow(Icons.payments_outlined, 'Consultation Fee', fee),
                     _buildDetailRow(Icons.credit_card_outlined, 'Payment Status', payStatus == 'paid' ? 'Paid' : payStatus),
                     _buildDetailRow(Icons.receipt_long_outlined, 'Payment ID', payId),
-                    _buildDetailRow(Icons.phone, 'Hospital Landline', hospitalPhone),
+                    if (hospitalPhone != 'Not available')
+                      _buildDetailRow(Icons.phone, 'Hospital Landline', hospitalPhone),
                     if (emergencyPhone != 'Not available')
                       _buildDetailRow(Icons.medical_services, 'Emergency Hotline', emergencyPhone),
                     _buildDetailRow(Icons.phone_android, 'Patient Contact', patientPhone),
                     _buildDetailRow(Icons.email_outlined, 'Patient Email', patientEmail),
                     _buildDetailRow(Icons.healing_outlined, 'Symptoms / Reason', symptoms),
+                    if (condition.isNotEmpty)
+                      _buildDetailRow(Icons.health_and_safety_outlined, 'Possible Condition', condition),
+                    if (severity.isNotEmpty)
+                      _buildDetailRow(Icons.speed_outlined, 'Severity Level', severity.toUpperCase()),
                     _buildDetailRow(Icons.location_on_outlined, 'Hospital Address', address),
                     if (officialWebsite != 'Not available')
                       _buildDetailRow(Icons.language, 'Official Website', officialWebsite),

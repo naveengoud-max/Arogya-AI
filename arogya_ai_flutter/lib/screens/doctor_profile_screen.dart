@@ -96,7 +96,7 @@ class _DoctorProfileScreenState extends State<DoctorProfileScreen> {
 
     final rawFee = (widget.doctor['fee'] ?? '₹400').toString();
 
-    Navigator.push(
+    await Navigator.push(
       context,
       MaterialPageRoute(
         builder: (_) => PaymentReviewScreen(
@@ -113,6 +113,11 @@ class _DoctorProfileScreenState extends State<DoctorProfileScreen> {
         ),
       ),
     );
+    if (mounted) {
+      setState(() {
+        _isBooking = false;
+      });
+    }
   }
 
   @override

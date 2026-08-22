@@ -17,8 +17,8 @@ Write-Host "Cleaning and Resolving Dependencies in Temp Directory..." -Foregroun
 flutter clean
 flutter pub get
 
-Write-Host "Compiling Web Application in Release Mode..." -ForegroundColor Yellow
-flutter build web --release --no-tree-shake-icons
+Write-Host "Compiling Web Application in Release Mode for GitHub Pages..." -ForegroundColor Yellow
+flutter build web --release --base-href /Arogya-AI/ --no-tree-shake-icons
 
 Pop-Location
 

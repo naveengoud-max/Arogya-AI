@@ -5,7 +5,19 @@ import 'booking_success_screen.dart';
 
 class DoctorProfileScreen extends StatefulWidget {
   final Map<String, dynamic> doctor;
-  const DoctorProfileScreen({super.key, required this.doctor});
+  final String? symptoms;
+  final String? condition;
+  final String? severity;
+  final String? specialist;
+
+  const DoctorProfileScreen({
+    super.key,
+    required this.doctor,
+    this.symptoms,
+    this.condition,
+    this.severity,
+    this.specialist,
+  });
 
   @override
   State<DoctorProfileScreen> createState() => _DoctorProfileScreenState();
@@ -22,12 +34,16 @@ class _DoctorProfileScreenState extends State<DoctorProfileScreen> {
 
   final TextEditingController _nameController = TextEditingController();
   final TextEditingController _phoneController = TextEditingController();
+  final TextEditingController _symptomsController = TextEditingController();
   
   bool _isBooking = false;
 
   @override
   void initState() {
     super.initState();
+    if (widget.symptoms != null && widget.symptoms!.isNotEmpty) {
+      _symptomsController.text = widget.symptoms!;
+    }
     // Pre-fill user data
     if (ApiService.currentUser != null) {
       _nameController.text = ApiService.currentUser!['name'] ?? '';
@@ -72,16 +88,24 @@ class _DoctorProfileScreenState extends State<DoctorProfileScreen> {
       _isBooking = true;
     });
 
+    final String enteredSym = _symptomsController.text.trim();
+    final String finalSymptoms = enteredSym.isNotEmpty
+        ? enteredSym
+        : ((widget.symptoms != null && widget.symptoms!.isNotEmpty) ? widget.symptoms! : 'Not provided');
+
     final res = await ApiService.bookAppointment(
       date: selectedDate.toString(),
       time: selectedTime.toString(),
       clinicName: (widget.doctor['name'] ?? 'Arogya Clinic').toString(),
       doctorName: (widget.doctor['doctor'] ?? 'General Physician').toString(),
-      specialist: (widget.doctor['specialist'] ?? 'GP').toString(),
+      specialist: widget.specialist ?? (widget.doctor['specialist'] ?? 'GP').toString(),
       patientName: name,
       patientPhone: phone,
       fee: (widget.doctor['fee'] ?? 'Free').toString(),
       address: (widget.doctor['address'] ?? 'Rural Main Bypass').toString(),
+      symptoms: finalSymptoms,
+      condition: widget.condition,
+      severity: widget.severity,
     );
 
     setState(() {
@@ -440,6 +464,31 @@ class _DoctorProfileScreenState extends State<DoctorProfileScreen> {
                         decoration: InputDecoration(
                           counterText: "",
                           hintText: 'Patient Contact Phone',
+                          hintStyle: const TextStyle(fontSize: 13, color: Color(0xFF94A3B8)),
+                          contentPadding: const EdgeInsets.symmetric(horizontal: 14, vertical: 12),
+                          border: OutlineInputBorder(
+                            borderRadius: BorderRadius.circular(12),
+                            borderSide: const BorderSide(color: Color(0xFFE2E8F0)),
+                          ),
+                          enabledBorder: OutlineInputBorder(
+                            borderRadius: BorderRadius.circular(12),
+                            borderSide: const BorderSide(color: Color(0xFFE2E8F0)),
+                          ),
+                          focusedBorder: OutlineInputBorder(
+                            borderRadius: BorderRadius.circular(12),
+                            borderSide: const BorderSide(color: Color(0xFF10B981), width: 1.5),
+                          ),
+                          fillColor: const Color(0xFFF8FAFC),
+                          filled: true,
+                        ),
+                        style: const TextStyle(fontSize: 14, color: Color(0xFF1E293B), fontWeight: FontWeight.bold),
+                      ),
+                      const SizedBox(height: 8),
+                      TextField(
+                        controller: _symptomsController,
+                        maxLines: 2,
+                        decoration: InputDecoration(
+                          hintText: 'Symptoms / Reason for visit',
                           hintStyle: const TextStyle(fontSize: 13, color: Color(0xFF94A3B8)),
                           contentPadding: const EdgeInsets.symmetric(horizontal: 14, vertical: 12),
                           border: OutlineInputBorder(

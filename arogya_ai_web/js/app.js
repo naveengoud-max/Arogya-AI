@@ -455,6 +455,7 @@ async function runSymptomDiagnosis() {
     alert('Please speak or type symptoms first.');
     return;
   }
+  state.currentSymptoms = text;
 
   const btn = document.getElementById('btnAnalyzeSymptoms');
   btn.innerHTML = '<i class="fa-solid fa-circle-notch fa-spin"></i> Diagnosing with Gemini...';
@@ -823,10 +824,12 @@ async function confirmAppointmentBooking() {
     clinicName: doc.name || 'Apollo Hospitals',
     patientName: name,
     patientPhone: `+91${phone}`,
+    symptoms: state.currentSymptoms || 'Not provided',
     date: window.selectedBookingDate || 'Today',
     time: window.selectedBookingSlot || '10:30 AM',
     createdAt: new Date().toISOString()
   };
+  state.currentSymptoms = null;
 
   // Double Booking Check in Firestore
   if (window.firestoreService) {

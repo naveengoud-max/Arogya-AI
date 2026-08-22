@@ -658,7 +658,13 @@ class _AiAnalysisResultScreenState extends State<AiAnalysisResultScreen> {
       Navigator.push(
         context,
         MaterialPageRoute(
-          builder: (_) => DoctorProfileScreen(doctor: targetClinic),
+          builder: (_) => DoctorProfileScreen(
+            doctor: targetClinic,
+            symptoms: widget.rawSymptoms,
+            condition: widget.diagnosis['condition']?.toString(),
+            severity: widget.diagnosis['severity']?.toString(),
+            specialist: widget.diagnosis['specialist']?.toString(),
+          ),
         ),
       );
     }

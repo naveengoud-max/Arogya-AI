@@ -432,7 +432,10 @@ class _HistoryScreenState extends State<HistoryScreen> {
       final String officialWebsite = (item['officialWebsite'] ?? 'Not available').toString();
       final String fee = (item['fee'] ?? 'Free').toString();
       final String status = (item['status'] ?? 'Confirmed').toString();
-      final String symptoms = (item['symptoms'] ?? item['condition'] ?? 'General Medical Consultation').toString();
+      final String rawSym = (item['symptoms'] ?? '').toString().trim();
+      final String symptoms = (rawSym.isNotEmpty && rawSym != 'null')
+          ? rawSym
+          : 'Symptoms / reason not available';
       final String createdAt = (item['createdAt'] ?? 'Not available').toString();
 
       final double? lat = (item['lat'] ?? item['hospitalLat']) != null ? double.tryParse((item['lat'] ?? item['hospitalLat']).toString()) : null;

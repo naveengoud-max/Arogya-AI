@@ -1440,6 +1440,8 @@ class ApiService {
     return chennaiHospitals;
   }
 
+  static final List<Map<String, dynamic>> _localAppointments = [];
+
   // 8. Book Appointment
   static Future<Map<String, dynamic>?> bookAppointment({
     String? clinicId,
@@ -1455,6 +1457,9 @@ class ApiService {
     String? specialist,
     String? address,
     String? fee,
+    String? symptoms,
+    String? condition,
+    String? severity,
   }) async {
     final user = FirebaseAuth.instance.currentUser;
     final uid = user?.uid ?? (currentUser != null ? currentUser!['uid'] : null);
@@ -1468,6 +1473,7 @@ class ApiService {
     final String token = "TK-${(100 + (DateTime.now().millisecondsSinceEpoch % 900))}";
     final String apptId = "APT-${DateTime.now().millisecondsSinceEpoch}";
     final String createdAtStr = DateTime.now().toIso8601String();
+    final String userSymptoms = (symptoms != null && symptoms.trim().isNotEmpty) ? symptoms.trim() : 'Not provided';
 
     final apptData = {
       'id': apptId,
@@ -1492,10 +1498,15 @@ class ApiService {
       'time': finalTime,
       'appointmentTime': finalTime,
       'fee': fee ?? 'Free',
+      'symptoms': userSymptoms,
+      if (condition != null && condition.isNotEmpty) 'condition': condition,
+      if (severity != null && severity.isNotEmpty) 'severity': severity,
       'status': 'Confirmed',
       'createdAt': createdAtStr,
       'confirmationEmailSent': false,
     };
+
+    _localAppointments.insert(0, apptData);
 
     final result = {
       'success': true,
@@ -1607,6 +1618,16 @@ class ApiService {
           data['type'] = 'appointment';
           return data;
         }).toList();
+      }
+    }
+
+    // Merge session local appointments into rawList
+    final existingIds = rawList.map((a) => (a['id'] ?? a['appointmentId'] ?? '').toString()).toSet();
+    for (var loc in _localAppointments) {
+      final locId = (loc['id'] ?? loc['appointmentId'] ?? '').toString();
+      if (!existingIds.contains(locId)) {
+        rawList.insert(0, Map<String, dynamic>.from(loc));
+        existingIds.add(locId);
       }
     }
 

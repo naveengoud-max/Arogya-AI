@@ -355,10 +355,20 @@ class _HistoryScreenState extends State<HistoryScreen> {
   List<dynamic> _historyItems = [];
   bool _isLoading = true;
 
+  final TextEditingController _searchController = TextEditingController();
+  String _selectedStatusFilter = 'All';
+  final List<String> _statusFilters = ['All', 'Upcoming', 'Confirmed', 'Completed', 'Cancelled'];
+
   @override
   void initState() {
     super.initState();
     _loadHistory();
+  }
+
+  @override
+  void dispose() {
+    _searchController.dispose();
+    super.dispose();
   }
 
   Future<void> _loadHistory() async {
@@ -410,17 +420,23 @@ class _HistoryScreenState extends State<HistoryScreen> {
       final String doctorName = (item['doctorName'] ?? item['doctor'] ?? 'Not available').toString();
       final String specialist = (item['specialist'] ?? item['specialization'] ?? 'General Physician').toString();
       final String patientName = (item['patientName'] ?? 'Not available').toString();
-      final String patientPhone = (item['patientPhone'] ?? item['phone'] ?? item['contactPhone'] ?? 'Not available').toString();
+      final String patientPhone = (item['patientPhone'] ?? item['phone'] ?? 'Not available').toString();
       final String patientEmail = (item['patientEmail'] ?? item['email'] ?? 'Not available').toString();
       final String date = (item['date'] ?? item['appointmentDate'] ?? 'Not available').toString();
       final String time = (item['time'] ?? item['appointmentTime'] ?? 'Not available').toString();
       final String token = (item['token'] ?? 'TK-100').toString();
       final String apptId = (item['id'] ?? item['appointmentId'] ?? 'Not available').toString();
       final String address = (item['address'] ?? item['hospitalAddress'] ?? 'Not available').toString();
+      final String hospitalPhone = (item['hospitalPhone'] ?? '044 28290200').toString();
+      final String emergencyPhone = (item['emergencyPhone'] ?? '1066').toString();
+      final String officialWebsite = (item['officialWebsite'] ?? 'Not available').toString();
       final String fee = (item['fee'] ?? 'Free').toString();
       final String status = (item['status'] ?? 'Confirmed').toString();
-      final String symptoms = (item['symptoms'] ?? item['condition'] ?? 'General Medical Triage').toString();
+      final String symptoms = (item['symptoms'] ?? item['condition'] ?? 'General Medical Consultation').toString();
       final String createdAt = (item['createdAt'] ?? 'Not available').toString();
+
+      final double? lat = (item['lat'] ?? item['hospitalLat']) != null ? double.tryParse((item['lat'] ?? item['hospitalLat']).toString()) : null;
+      final double? lng = (item['lng'] ?? item['hospitalLng']) != null ? double.tryParse((item['lng'] ?? item['hospitalLng']).toString()) : null;
 
       showDialog(
         context: context,
@@ -428,7 +444,7 @@ class _HistoryScreenState extends State<HistoryScreen> {
           return Dialog(
             shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(24)),
             child: Container(
-              constraints: const BoxConstraints(maxWidth: 500),
+              constraints: const BoxConstraints(maxWidth: 520),
               padding: const EdgeInsets.all(24),
               child: SingleChildScrollView(
                 child: Column(
@@ -488,66 +504,74 @@ class _HistoryScreenState extends State<HistoryScreen> {
                     _buildDetailRow(Icons.numbers_outlined, 'Appointment ID', apptId),
                     _buildDetailRow(Icons.verified_outlined, 'Status', status, isStatus: true),
                     _buildDetailRow(Icons.payments_outlined, 'Consultation Fee', fee),
-                    _buildDetailRow(Icons.phone_outlined, 'Contact Phone', patientPhone),
+                    _buildDetailRow(Icons.phone, 'Hospital Landline', hospitalPhone),
+                    if (emergencyPhone != 'Not available')
+                      _buildDetailRow(Icons.medical_services, 'Emergency Hotline', emergencyPhone),
+                    _buildDetailRow(Icons.phone_android, 'Patient Contact', patientPhone),
                     _buildDetailRow(Icons.email_outlined, 'Patient Email', patientEmail),
                     _buildDetailRow(Icons.healing_outlined, 'Symptoms / Reason', symptoms),
-                    _buildDetailRow(Icons.location_on_outlined, 'Clinic Address', address),
+                    _buildDetailRow(Icons.location_on_outlined, 'Hospital Address', address),
+                    if (officialWebsite != 'Not available')
+                      _buildDetailRow(Icons.language, 'Official Website', officialWebsite),
                     _buildDetailRow(Icons.calendar_today_outlined, 'Booking Date/Time', createdAt),
 
                     const SizedBox(height: 20),
 
-                    Row(
+                    Wrap(
+                      spacing: 8,
+                      runSpacing: 8,
                       children: [
-                        Expanded(
-                          child: ElevatedButton.icon(
+                        ElevatedButton.icon(
+                          onPressed: () => _launchDirections(lat, lng, address, clinicName),
+                          icon: const Icon(Icons.directions, size: 16),
+                          label: const Text('GET DIRECTIONS'),
+                          style: ElevatedButton.styleFrom(
+                            backgroundColor: const Color(0xFF10B981),
+                            foregroundColor: Colors.white,
+                            padding: const EdgeInsets.symmetric(horizontal: 14, vertical: 10),
+                            shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
+                          ),
+                        ),
+                        OutlinedButton.icon(
+                          onPressed: () async {
+                            final url = Uri.parse('tel:$hospitalPhone');
+                            if (await canLaunchUrl(url)) {
+                              await launchUrl(url);
+                            } else {
+                              ScaffoldMessenger.of(context).showSnackBar(
+                                const SnackBar(content: Text('Could not initiate hospital call')),
+                              );
+                            }
+                          },
+                          icon: const Icon(Icons.call, size: 16),
+                          label: const Text('CALL HOSPITAL'),
+                          style: OutlinedButton.styleFrom(
+                            foregroundColor: Colors.blue.shade700,
+                            side: BorderSide(color: Colors.blue.shade300),
+                            padding: const EdgeInsets.symmetric(horizontal: 14, vertical: 10),
+                            shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
+                          ),
+                        ),
+                        if (officialWebsite != 'Not available')
+                          OutlinedButton.icon(
                             onPressed: () async {
-                              final queryAddress = address != 'Not available' ? address : clinicName;
-                              final url = Uri.parse('https://www.google.com/maps/search/?api=1&query=${Uri.encodeComponent(queryAddress)}');
+                              final url = Uri.parse(officialWebsite);
                               if (await canLaunchUrl(url)) {
                                 await launchUrl(url, mode: LaunchMode.externalApplication);
-                              } else {
-                                ScaffoldMessenger.of(context).showSnackBar(
-                                  const SnackBar(content: Text('Could not open map directions')),
-                                );
                               }
                             },
-                            icon: const Icon(Icons.directions, size: 18),
-                            label: const Text('Get Directions'),
-                            style: ElevatedButton.styleFrom(
-                              backgroundColor: const Color(0xFF10B981),
-                              foregroundColor: Colors.white,
-                              padding: const EdgeInsets.symmetric(vertical: 12),
-                              shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
-                            ),
-                          ),
-                        ),
-                        const SizedBox(width: 10),
-                        Expanded(
-                          child: OutlinedButton.icon(
-                            onPressed: () async {
-                              final phone = patientPhone != 'Not available' ? patientPhone : '108';
-                              final url = Uri.parse('tel:$phone');
-                              if (await canLaunchUrl(url)) {
-                                await launchUrl(url);
-                              } else {
-                                ScaffoldMessenger.of(context).showSnackBar(
-                                  const SnackBar(content: Text('Could not initiate phone call')),
-                                );
-                              }
-                            },
-                            icon: const Icon(Icons.call, size: 18),
-                            label: const Text('Call Clinic'),
+                            icon: const Icon(Icons.language, size: 16),
+                            label: const Text('WEBSITE'),
                             style: OutlinedButton.styleFrom(
-                              foregroundColor: const Color(0xFF1E293B),
-                              side: const BorderSide(color: Color(0xFFCBD5E1)),
-                              padding: const EdgeInsets.symmetric(vertical: 12),
-                              shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
+                              foregroundColor: Colors.grey.shade800,
+                              side: BorderSide(color: Colors.grey.shade400),
+                              padding: const EdgeInsets.symmetric(horizontal: 14, vertical: 10),
+                              shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
                             ),
                           ),
-                        ),
                       ],
                     ),
-                    const SizedBox(height: 8),
+                    const SizedBox(height: 12),
                     SizedBox(
                       width: double.infinity,
                       child: TextButton.icon(
@@ -570,6 +594,23 @@ class _HistoryScreenState extends State<HistoryScreen> {
       debugPrint("Error opening appointment details: $e");
       ScaffoldMessenger.of(context).showSnackBar(
         const SnackBar(content: Text('Could not load appointment details')),
+      );
+    }
+  }
+
+  void _launchDirections(double? lat, double? lng, String address, String clinicName) async {
+    Uri url;
+    if (lat != null && lng != null && lat != 0 && lng != 0) {
+      url = Uri.parse('https://www.google.com/maps/dir/?api=1&destination=$lat,$lng');
+    } else {
+      final q = address != 'Not available' ? address : clinicName;
+      url = Uri.parse('https://www.google.com/maps/dir/?api=1&destination=${Uri.encodeComponent(q)}');
+    }
+    if (await canLaunchUrl(url)) {
+      await launchUrl(url, mode: LaunchMode.externalApplication);
+    } else {
+      ScaffoldMessenger.of(context).showSnackBar(
+        const SnackBar(content: Text('Could not open Google Maps')),
       );
     }
   }
@@ -609,6 +650,47 @@ class _HistoryScreenState extends State<HistoryScreen> {
 
   @override
   Widget build(BuildContext context) {
+    // Separate history items into appointments and reports
+    final allAppts = _historyItems.where((i) => i['type'] == 'appointment').toList();
+    final allReports = _historyItems.where((i) => i['type'] != 'appointment').toList();
+
+    // Filter appointments by search query & status chip
+    final query = _searchController.text.trim().toLowerCase();
+    final filteredAppts = allAppts.where((item) {
+      final clinic = (item['clinicName'] ?? item['hospitalName'] ?? '').toString().toLowerCase();
+      final doc = (item['doctorName'] ?? item['doctor'] ?? '').toString().toLowerCase();
+      final token = (item['token'] ?? '').toString().toLowerCase();
+      final patient = (item['patientName'] ?? '').toString().toLowerCase();
+      final date = (item['date'] ?? '').toString().toLowerCase();
+      final apptId = (item['id'] ?? item['appointmentId'] ?? '').toString().toLowerCase();
+      final status = (item['status'] ?? 'Confirmed').toString();
+
+      final matchesQuery = query.isEmpty ||
+          clinic.contains(query) ||
+          doc.contains(query) ||
+          token.contains(query) ||
+          patient.contains(query) ||
+          date.contains(query) ||
+          apptId.contains(query);
+
+      final matchesStatus = _selectedStatusFilter == 'All' ||
+          (_selectedStatusFilter == 'Upcoming' && status != 'Completed' && status != 'Cancelled') ||
+          (status.toLowerCase() == _selectedStatusFilter.toLowerCase());
+
+      return matchesQuery && matchesStatus;
+    }).toList();
+
+    // Group into Upcoming (Confirmed/Pending) vs Past/Completed
+    final upcomingAppts = filteredAppts.where((item) {
+      final st = (item['status'] ?? 'Confirmed').toString().toLowerCase();
+      return st != 'completed' && st != 'cancelled';
+    }).toList();
+
+    final pastAppts = filteredAppts.where((item) {
+      final st = (item['status'] ?? 'Confirmed').toString().toLowerCase();
+      return st == 'completed' || st == 'cancelled';
+    }).toList();
+
     return Scaffold(
       backgroundColor: const Color(0xFFF8FAFC),
       appBar: AppBar(
@@ -622,150 +704,412 @@ class _HistoryScreenState extends State<HistoryScreen> {
       ),
       body: _isLoading
           ? const Center(child: CircularProgressIndicator(color: Color(0xFF10B981)))
-          : _historyItems.isEmpty
-              ? _buildEmptyState()
-              : ListView.builder(
-                  padding: const EdgeInsets.all(16),
-                  itemCount: _historyItems.length,
-                  itemBuilder: (context, index) {
-                    final item = _historyItems[index];
-                    final isAppt = item['type'] == 'appointment';
-                    final itemId = item['id'] ?? item['token'] ?? '';
+          : Column(
+              children: [
+                // Search Input
+                Padding(
+                  padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 6),
+                  child: TextField(
+                    controller: _searchController,
+                    onChanged: (_) => setState(() {}),
+                    decoration: InputDecoration(
+                      hintText: "Search passes, doctor, token, date...",
+                      prefixIcon: const Icon(Icons.search, color: Color(0xFF10B981)),
+                      suffixIcon: _searchController.text.isNotEmpty
+                          ? IconButton(
+                              icon: const Icon(Icons.clear, size: 18),
+                              onPressed: () {
+                                _searchController.clear();
+                                setState(() {});
+                              },
+                            )
+                          : null,
+                      filled: true,
+                      fillColor: Colors.white,
+                      contentPadding: const EdgeInsets.symmetric(vertical: 0, horizontal: 16),
+                      border: OutlineInputBorder(borderRadius: BorderRadius.circular(16), borderSide: BorderSide(color: Colors.grey.shade300)),
+                      enabledBorder: OutlineInputBorder(borderRadius: BorderRadius.circular(16), borderSide: BorderSide(color: Colors.grey.shade200)),
+                      focusedBorder: OutlineInputBorder(borderRadius: BorderRadius.circular(16), borderSide: const BorderSide(color: Color(0xFF10B981), width: 2)),
+                    ),
+                  ),
+                ),
 
-                    return FadeInUp(
-                      child: Material(
-                        color: Colors.transparent,
-                        child: InkWell(
-                          borderRadius: BorderRadius.circular(20),
-                          onTap: isAppt ? () => _showAppointmentDetailsModal(context, item) : null,
-                          child: Container(
-                            margin: const EdgeInsets.only(bottom: 16),
-                            padding: const EdgeInsets.all(18),
-                            decoration: BoxDecoration(
-                              color: Colors.white,
-                              borderRadius: BorderRadius.circular(20),
-                              border: isAppt ? Border.all(color: const Color(0xFF10B981).withOpacity(0.3), width: 1.5) : null,
-                              boxShadow: [
-                                BoxShadow(
-                                  color: Colors.black.withOpacity(0.03),
-                                  blurRadius: 10,
-                                  offset: const Offset(0, 4),
-                                )
-                              ],
-                            ),
-                            child: Column(
-                              crossAxisAlignment: CrossAxisAlignment.start,
-                              children: [
-                                Row(
-                                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                // Status Filter Chips
+                SingleChildScrollView(
+                  scrollDirection: Axis.horizontal,
+                  padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 4),
+                  child: Row(
+                    children: _statusFilters.map((st) {
+                      final isSelected = _selectedStatusFilter == st;
+                      return Padding(
+                        padding: const EdgeInsets.only(right: 6),
+                        child: ChoiceChip(
+                          label: Text(st),
+                          selected: isSelected,
+                          onSelected: (sel) {
+                            if (sel) setState(() => _selectedStatusFilter = st);
+                          },
+                          selectedColor: const Color(0xFF10B981),
+                          backgroundColor: Colors.white,
+                          labelStyle: TextStyle(
+                            color: isSelected ? Colors.white : const Color(0xFF475569),
+                            fontWeight: isSelected ? FontWeight.bold : FontWeight.w600,
+                            fontSize: 12,
+                          ),
+                          shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(20),
+                            side: BorderSide(color: isSelected ? const Color(0xFF10B981) : Colors.grey.shade300),
+                          ),
+                        ),
+                      );
+                    }).toList(),
+                  ),
+                ),
+
+                const SizedBox(height: 6),
+
+                // Main List Content
+                Expanded(
+                  child: (upcomingAppts.isEmpty && pastAppts.isEmpty && allReports.isEmpty)
+                      ? _buildEmptyState()
+                      : ListView(
+                          padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
+                          children: [
+                            // UPCOMING APPOINTMENTS SECTION
+                            if (upcomingAppts.isNotEmpty) ...[
+                              Padding(
+                                padding: const EdgeInsets.only(bottom: 10, top: 4),
+                                child: Row(
                                   children: [
-                                    Row(
-                                      children: [
-                                        Icon(
-                                          isAppt ? Icons.confirmation_number : Icons.analytics,
-                                          color: isAppt ? const Color(0xFF10B981) : const Color(0xFFF59E0B),
-                                          size: 20,
-                                        ),
-                                        const SizedBox(width: 8),
-                                        Text(
-                                          isAppt ? 'CLINIC PASS' : 'AI GUIDANCE',
-                                          style: TextStyle(
-                                            fontSize: 11,
-                                            fontWeight: FontWeight.w900,
-                                            color: isAppt ? const Color(0xFF10B981) : const Color(0xFFF59E0B),
-                                            letterSpacing: 0.5,
-                                          ),
-                                        ),
-                                      ],
+                                    Container(
+                                      padding: const EdgeInsets.all(6),
+                                      decoration: BoxDecoration(color: const Color(0xFF10B981).withOpacity(0.1), shape: BoxShape.circle),
+                                      child: const Icon(Icons.event_available, color: Color(0xFF10B981), size: 18),
                                     ),
-                                    IconButton(
-                                      constraints: const BoxConstraints(),
-                                      padding: EdgeInsets.zero,
-                                      icon: const Icon(Icons.delete_outline, color: Colors.grey, size: 20),
-                                      onPressed: () => _deleteItem(itemId, item['type'] ?? ''),
+                                    const SizedBox(width: 8),
+                                    const Text(
+                                      'UPCOMING APPOINTMENTS',
+                                      style: TextStyle(fontSize: 13, fontWeight: FontWeight.w900, color: Color(0xFF1E293B), letterSpacing: 0.5),
+                                    ),
+                                    const SizedBox(width: 8),
+                                    Container(
+                                      padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 2),
+                                      decoration: BoxDecoration(color: const Color(0xFF10B981), borderRadius: BorderRadius.circular(10)),
+                                      child: Text('${upcomingAppts.length}', style: const TextStyle(color: Colors.white, fontWeight: FontWeight.bold, fontSize: 11)),
                                     ),
                                   ],
                                 ),
-                                const Divider(height: 20, thickness: 1),
-                                if (isAppt) ...[
-                                  Row(
-                                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                                    children: [
-                                      Expanded(
-                                        child: Column(
-                                          crossAxisAlignment: CrossAxisAlignment.start,
-                                          children: [
-                                            Text(item['clinicName'] ?? '', style: const TextStyle(fontWeight: FontWeight.bold, fontSize: 16, color: Color(0xFF1E293B))),
-                                            const SizedBox(height: 2),
-                                            Text(item['doctorName'] ?? '', style: TextStyle(color: Colors.grey[600], fontSize: 13)),
-                                            const SizedBox(height: 8),
-                                            Text('Patient: ${item['patientName']}', style: const TextStyle(fontWeight: FontWeight.w600, fontSize: 12)),
-                                            Text('Schedule: ${item['date']} at ${item['time']}', style: TextStyle(color: Colors.grey[500], fontSize: 12)),
-                                          ],
-                                        ),
-                                      ),
-                                      Container(
-                                        padding: const EdgeInsets.symmetric(horizontal: 14, vertical: 10),
-                                        decoration: BoxDecoration(
-                                          color: const Color(0xFFD1FAE5),
-                                          borderRadius: BorderRadius.circular(12),
-                                        ),
-                                        child: Column(
-                                          children: [
-                                            const Text('TOKEN', style: TextStyle(fontSize: 8, color: Color(0xFF065F46), fontWeight: FontWeight.bold)),
-                                            const SizedBox(height: 2),
-                                            Text(item['token'] ?? '', style: const TextStyle(fontSize: 18, fontWeight: FontWeight.w900, color: Color(0xFF065F46))),
-                                          ],
-                                        ),
-                                      )
-                                    ],
-                                  ),
-                                  const SizedBox(height: 12),
-                                  Row(
-                                    mainAxisAlignment: MainAxisAlignment.end,
-                                    children: const [
-                                      Text(
-                                        'Tap to view full appointment details',
-                                        style: TextStyle(fontSize: 11, fontWeight: FontWeight.bold, color: Color(0xFF10B981)),
-                                      ),
-                                      SizedBox(width: 4),
-                                      Icon(Icons.arrow_forward_ios_rounded, size: 10, color: Color(0xFF10B981)),
-                                    ],
-                                  ),
-                                ] else ...[
-                                  Text(item['condition'] ?? '', style: const TextStyle(fontWeight: FontWeight.bold, fontSize: 16, color: Color(0xFF1E293B))),
-                                  const SizedBox(height: 4),
-                                  Text('Symptoms: "${item['symptoms']}"', style: TextStyle(fontStyle: FontStyle.italic, color: Colors.grey[600], fontSize: 13)),
-                                  const SizedBox(height: 10),
-                                  Row(
-                                    children: [
-                                      Container(
-                                        padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 2),
-                                        decoration: BoxDecoration(color: Colors.orange.withOpacity(0.1), borderRadius: BorderRadius.circular(6)),
-                                        child: Text(
-                                          'Severity: ${(item['severity'] ?? 'medium').toUpperCase()}',
-                                          style: const TextStyle(color: Colors.orange, fontWeight: FontWeight.bold, fontSize: 10),
-                                        ),
-                                      ),
-                                      const SizedBox(width: 12),
-                                      Expanded(
-                                        child: Text(
-                                          'Specialist: ${item['specialist']}',
-                                          style: const TextStyle(fontSize: 12, fontWeight: FontWeight.bold, color: Colors.blue),
-                                          overflow: TextOverflow.ellipsis,
-                                        ),
-                                      )
-                                    ],
-                                  )
-                                ]
-                              ],
+                              ),
+                              ...upcomingAppts.map((item) => _buildAppointmentCard(item)),
+                              const SizedBox(height: 16),
+                            ],
+
+                            // PAST / COMPLETED APPOINTMENTS SECTION
+                            if (pastAppts.isNotEmpty) ...[
+                              Padding(
+                                padding: const EdgeInsets.only(bottom: 10, top: 4),
+                                child: Row(
+                                  children: [
+                                    Container(
+                                      padding: const EdgeInsets.all(6),
+                                      decoration: BoxDecoration(color: Colors.grey.shade200, shape: BoxShape.circle),
+                                      child: Icon(Icons.history, color: Colors.grey[700], size: 18),
+                                    ),
+                                    const SizedBox(width: 8),
+                                    Text(
+                                      'PAST APPOINTMENTS',
+                                      style: TextStyle(fontSize: 13, fontWeight: FontWeight.w900, color: Colors.grey[800], letterSpacing: 0.5),
+                                    ),
+                                    const SizedBox(width: 8),
+                                    Container(
+                                      padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 2),
+                                      decoration: BoxDecoration(color: Colors.grey.shade400, borderRadius: BorderRadius.circular(10)),
+                                      child: Text('${pastAppts.length}', style: const TextStyle(color: Colors.white, fontWeight: FontWeight.bold, fontSize: 11)),
+                                    ),
+                                  ],
+                                ),
+                              ),
+                              ...pastAppts.map((item) => _buildAppointmentCard(item)),
+                              const SizedBox(height: 16),
+                            ],
+
+                            // AI GUIDANCE REPORTS SECTION
+                            if (allReports.isNotEmpty && _selectedStatusFilter == 'All') ...[
+                              Padding(
+                                padding: const EdgeInsets.only(bottom: 10, top: 8),
+                                child: Row(
+                                  children: [
+                                    Container(
+                                      padding: const EdgeInsets.all(6),
+                                      decoration: BoxDecoration(color: Colors.amber.withOpacity(0.1), shape: BoxShape.circle),
+                                      child: const Icon(Icons.analytics, color: Colors.amber, size: 18),
+                                    ),
+                                    const SizedBox(width: 8),
+                                    const Text(
+                                      'AI DIAGNOSIS GUIDANCE HISTORY',
+                                      style: TextStyle(fontSize: 13, fontWeight: FontWeight.w900, color: Color(0xFF1E293B), letterSpacing: 0.5),
+                                    ),
+                                  ],
+                                ),
+                              ),
+                              ...allReports.map((item) => _buildReportCard(item)),
+                            ],
+                          ],
+                        ),
+                ),
+              ],
+            ),
+    );
+  }
+
+  Widget _buildAppointmentCard(Map<String, dynamic> item) {
+    final itemId = (item['id'] ?? item['token'] ?? '').toString();
+    final status = (item['status'] ?? 'Confirmed').toString();
+    final isCompleted = status.toLowerCase() == 'completed';
+    final isCancelled = status.toLowerCase() == 'cancelled';
+
+    final Color statusBg = isCompleted
+        ? Colors.blue.shade50
+        : (isCancelled ? Colors.red.shade50 : const Color(0xFFD1FAE5));
+    final Color statusTextColor = isCompleted
+        ? Colors.blue.shade800
+        : (isCancelled ? Colors.red.shade800 : const Color(0xFF047857));
+
+    final String clinicName = (item['clinicName'] ?? item['hospitalName'] ?? 'Clinic').toString();
+    final String doctorName = (item['doctorName'] ?? item['doctor'] ?? 'Doctor').toString();
+    final String specialist = (item['specialist'] ?? 'General Physician').toString();
+    final String patientName = (item['patientName'] ?? 'Patient').toString();
+    final String date = (item['date'] ?? item['appointmentDate'] ?? 'Date').toString();
+    final String time = (item['time'] ?? item['appointmentTime'] ?? 'Time').toString();
+    final String token = (item['token'] ?? 'TK-100').toString();
+    final String apptId = (item['id'] ?? item['appointmentId'] ?? 'APT-100').toString();
+    final String address = (item['address'] ?? item['hospitalAddress'] ?? 'Chennai, TN').toString();
+    final String hospitalPhone = (item['hospitalPhone'] ?? '044 28290200').toString();
+
+    final double? lat = (item['lat'] ?? item['hospitalLat']) != null ? double.tryParse((item['lat'] ?? item['hospitalLat']).toString()) : null;
+    final double? lng = (item['lng'] ?? item['hospitalLng']) != null ? double.tryParse((item['lng'] ?? item['hospitalLng']).toString()) : null;
+
+    return FadeInUp(
+      child: Container(
+        margin: const EdgeInsets.only(bottom: 16),
+        decoration: BoxDecoration(
+          color: Colors.white,
+          borderRadius: BorderRadius.circular(20),
+          border: Border.all(color: isCompleted ? Colors.blue.shade200 : const Color(0xFF10B981).withOpacity(0.3), width: 1.5),
+          boxShadow: [
+            BoxShadow(
+              color: Colors.black.withOpacity(0.04),
+              blurRadius: 10,
+              offset: const Offset(0, 4),
+            )
+          ],
+        ),
+        child: Material(
+          color: Colors.transparent,
+          borderRadius: BorderRadius.circular(20),
+          child: InkWell(
+            borderRadius: BorderRadius.circular(20),
+            onTap: () => _showAppointmentDetailsModal(context, item),
+            child: Padding(
+              padding: const EdgeInsets.all(18),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  // Pass Header Row
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      Row(
+                        children: [
+                          const Icon(Icons.confirmation_number, color: Color(0xFF10B981), size: 20),
+                          const SizedBox(width: 8),
+                          const Text(
+                            'CLINIC PASS',
+                            style: TextStyle(
+                              fontSize: 11,
+                              fontWeight: FontWeight.w900,
+                              color: Color(0xFF10B981),
+                              letterSpacing: 0.5,
                             ),
+                          ),
+                        ],
+                      ),
+                      Row(
+                        children: [
+                          Container(
+                            padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 4),
+                            decoration: BoxDecoration(color: statusBg, borderRadius: BorderRadius.circular(12)),
+                            child: Text(
+                              status.toUpperCase(),
+                              style: TextStyle(color: statusTextColor, fontWeight: FontWeight.w800, fontSize: 10),
+                            ),
+                          ),
+                          const SizedBox(width: 8),
+                          IconButton(
+                            constraints: const BoxConstraints(),
+                            padding: EdgeInsets.zero,
+                            icon: const Icon(Icons.delete_outline, color: Colors.grey, size: 20),
+                            onPressed: () => _deleteItem(itemId, 'appointment'),
+                          ),
+                        ],
+                      ),
+                    ],
+                  ),
+                  const Divider(height: 20, thickness: 1),
+
+                  // Main Hospital & Doctor Details
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Expanded(
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            Text(
+                              clinicName,
+                              style: const TextStyle(fontWeight: FontWeight.w900, fontSize: 16, color: Color(0xFF1E293B)),
+                            ),
+                            const SizedBox(height: 2),
+                            Text(
+                              '$doctorName • $specialist',
+                              style: TextStyle(color: Colors.grey[700], fontWeight: FontWeight.w600, fontSize: 13),
+                            ),
+                            const SizedBox(height: 8),
+                            Text('Patient: $patientName', style: const TextStyle(fontWeight: FontWeight.w600, fontSize: 12, color: Color(0xFF334155))),
+                            Text('Schedule: $date at $time', style: TextStyle(color: Colors.grey[600], fontSize: 12)),
+                            Text('Appt ID: $apptId', style: TextStyle(color: Colors.grey[500], fontSize: 11)),
+                          ],
+                        ),
+                      ),
+                      Container(
+                        padding: const EdgeInsets.symmetric(horizontal: 14, vertical: 10),
+                        decoration: BoxDecoration(
+                          color: const Color(0xFFD1FAE5),
+                          borderRadius: BorderRadius.circular(14),
+                        ),
+                        child: Column(
+                          children: [
+                            const Text('TOKEN', style: TextStyle(fontSize: 9, color: Color(0xFF065F46), fontWeight: FontWeight.bold)),
+                            const SizedBox(height: 2),
+                            Text(token, style: const TextStyle(fontSize: 18, fontWeight: FontWeight.w900, color: Color(0xFF065F46))),
+                          ],
+                        ),
+                      )
+                    ],
+                  ),
+
+                  const SizedBox(height: 14),
+
+                  // Action Buttons Row
+                  Row(
+                    children: [
+                      Expanded(
+                        child: OutlinedButton.icon(
+                          onPressed: () => _showAppointmentDetailsModal(context, item),
+                          icon: const Icon(Icons.info_outline, size: 14, color: Color(0xFF10B981)),
+                          label: const Text('VIEW DETAILS', style: TextStyle(fontSize: 11, fontWeight: FontWeight.bold)),
+                          style: OutlinedButton.styleFrom(
+                            foregroundColor: const Color(0xFF10B981),
+                            side: const BorderSide(color: Color(0xFF10B981)),
+                            padding: const EdgeInsets.symmetric(vertical: 8),
+                            shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
                           ),
                         ),
                       ),
-                    );
-                  },
+                      const SizedBox(width: 6),
+                      Expanded(
+                        child: ElevatedButton.icon(
+                          onPressed: () => _launchDirections(lat, lng, address, clinicName),
+                          icon: const Icon(Icons.directions, size: 14, color: Colors.white),
+                          label: const Text('DIRECTIONS', style: TextStyle(fontSize: 11, fontWeight: FontWeight.bold)),
+                          style: ElevatedButton.styleFrom(
+                            backgroundColor: const Color(0xFF10B981),
+                            foregroundColor: Colors.white,
+                            elevation: 0,
+                            padding: const EdgeInsets.symmetric(vertical: 8),
+                            shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
+                          ),
+                        ),
+                      ),
+                      const SizedBox(width: 6),
+                      Container(
+                        decoration: BoxDecoration(
+                          color: Colors.blue.shade50,
+                          borderRadius: BorderRadius.circular(10),
+                        ),
+                        child: IconButton(
+                          tooltip: 'Call Hospital Landline',
+                          onPressed: () async {
+                            final url = Uri.parse('tel:$hospitalPhone');
+                            if (await canLaunchUrl(url)) {
+                              await launchUrl(url);
+                            }
+                          },
+                          icon: const Icon(Icons.phone, color: Colors.blue, size: 18),
+                        ),
+                      ),
+                    ],
+                  ),
+                ],
+              ),
+            ),
+          ),
+        ),
+      ),
+    );
+  }
+
+  Widget _buildReportCard(Map<String, dynamic> item) {
+    final itemId = (item['id'] ?? '').toString();
+    return Container(
+      margin: const EdgeInsets.only(bottom: 12),
+      padding: const EdgeInsets.all(16),
+      decoration: BoxDecoration(
+        color: Colors.white,
+        borderRadius: BorderRadius.circular(16),
+        border: Border.all(color: Colors.grey.shade200),
+      ),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
+              Text(item['condition'] ?? 'AI Guidance', style: const TextStyle(fontWeight: FontWeight.bold, fontSize: 15, color: Color(0xFF1E293B))),
+              IconButton(
+                constraints: const BoxConstraints(),
+                padding: EdgeInsets.zero,
+                icon: const Icon(Icons.delete_outline, color: Colors.grey, size: 18),
+                onPressed: () => _deleteItem(itemId, item['type'] ?? 'report'),
+              ),
+            ],
+          ),
+          const SizedBox(height: 4),
+          Text('Symptoms: "${item['symptoms'] ?? ''}"', style: TextStyle(fontStyle: FontStyle.italic, color: Colors.grey[600], fontSize: 12)),
+          const SizedBox(height: 8),
+          Row(
+            children: [
+              Container(
+                padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 2),
+                decoration: BoxDecoration(color: Colors.orange.withOpacity(0.1), borderRadius: BorderRadius.circular(6)),
+                child: Text(
+                  'Severity: ${(item['severity'] ?? 'medium').toUpperCase()}',
+                  style: const TextStyle(color: Colors.orange, fontWeight: FontWeight.bold, fontSize: 10),
                 ),
+              ),
+              const SizedBox(width: 12),
+              Expanded(
+                child: Text(
+                  'Specialist: ${item['specialist'] ?? 'GP'}',
+                  style: const TextStyle(fontSize: 12, fontWeight: FontWeight.bold, color: Colors.blue),
+                  overflow: TextOverflow.ellipsis,
+                ),
+              )
+            ],
+          )
+        ],
+      ),
     );
   }
 
@@ -776,9 +1120,9 @@ class _HistoryScreenState extends State<HistoryScreen> {
         children: [
           Icon(Icons.calendar_today_outlined, size: 64, color: Colors.grey[300]),
           const SizedBox(height: 16),
-          const Text('No medical logs found', style: TextStyle(fontWeight: FontWeight.bold, fontSize: 16)),
+          const Text('No medical passes found', style: TextStyle(fontWeight: FontWeight.bold, fontSize: 16)),
           const SizedBox(height: 8),
-          Text('Book an appointment or run diagnostic checks', style: TextStyle(color: Colors.grey[500])),
+          Text('Book an appointment at any hospital to view your pass', style: TextStyle(color: Colors.grey[500], fontSize: 13)),
         ],
       ),
     );

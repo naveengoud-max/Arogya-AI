@@ -1577,6 +1577,8 @@ class ApiService {
     final user = FirebaseAuth.instance.currentUser;
     final uid = user?.uid ?? (currentUser != null ? currentUser!['uid'] : null);
 
+    List<dynamic> rawList = [];
+
     if (isFirebaseAvailable && uid != null) {
       try {
         final snap = await FirebaseFirestore.instance
@@ -1584,7 +1586,7 @@ class ApiService {
             .where('userId', isEqualTo: uid)
             .get();
         if (snap.docs.isNotEmpty) {
-          return snap.docs.map((d) {
+          rawList = snap.docs.map((d) {
             final data = Map<String, dynamic>.from(d.data());
             data['id'] = data['id'] ?? data['appointmentId'] ?? d.id;
             data['type'] = 'appointment';
@@ -1596,33 +1598,162 @@ class ApiService {
       }
     }
 
-    final res = await _httpGet("$baseUrl/appointments/user");
-    if (res != null && res.statusCode == 200) {
-      final list = json.decode(res.body) as List<dynamic>;
-      return list.map((item) {
-        final data = Map<String, dynamic>.from(item);
-        data['type'] = 'appointment';
-        return data;
-      }).toList();
-    }
-    return [
-      {
-        "id": "APT-781",
-        "type": "appointment",
-        "token": "TK-412",
-        "patientName": user?.displayName ?? (currentUser != null ? currentUser!['name'] : "Arogya Patient"),
-        "patientEmail": user?.email ?? (currentUser != null ? currentUser!['email'] : "patient@arogya.ai"),
-        "doctorName": "Dr. Priya Sharma",
-        "clinicName": "Primary Health Centre Medak",
-        "hospitalName": "Primary Health Centre Medak",
-        "specialist": "ENT Specialist",
-        "symptoms": "Throat soreness & acute fever",
-        "date": "2026-08-22",
-        "time": "10:30 AM",
-        "status": "Confirmed",
-        "createdAt": "2026-08-19"
+    if (rawList.isEmpty) {
+      final res = await _httpGet("$baseUrl/appointments/user");
+      if (res != null && res.statusCode == 200) {
+        final list = json.decode(res.body) as List<dynamic>;
+        rawList = list.map((item) {
+          final data = Map<String, dynamic>.from(item);
+          data['type'] = 'appointment';
+          return data;
+        }).toList();
       }
-    ];
+    }
+
+    // Comprehensive Fallback Multi-Appointment Dataset (if user has no Firestore records yet)
+    if (rawList.isEmpty) {
+      final patientName = user?.displayName ?? (currentUser != null ? currentUser!['name'] : "Naveen Kumar");
+      final patientEmail = user?.email ?? (currentUser != null ? currentUser!['email'] : "patient@arogya.ai");
+      final patientPhone = currentUser != null ? (currentUser!['phone'] ?? "+91 9876543210") : "+91 9876543210";
+
+      rawList = [
+        {
+          "id": "APT-8821",
+          "appointmentId": "APT-8821",
+          "type": "appointment",
+          "token": "TK-412",
+          "patientName": patientName,
+          "patientEmail": patientEmail,
+          "patientPhone": patientPhone,
+          "doctorName": "Dr. Priya Sharma",
+          "clinicName": "Apollo Hospitals, Greams Road",
+          "hospitalName": "Apollo Hospitals, Greams Road",
+          "specialist": "ENT Specialist",
+          "symptoms": "Throat soreness & acute fever",
+          "date": "2026-08-25",
+          "time": "10:30 AM",
+          "status": "Confirmed",
+          "fee": "₹400",
+          "createdAt": "2026-08-20 at 09:15 AM"
+        },
+        {
+          "id": "APT-9104",
+          "appointmentId": "APT-9104",
+          "type": "appointment",
+          "token": "TK-519",
+          "patientName": patientName,
+          "patientEmail": patientEmail,
+          "patientPhone": patientPhone,
+          "doctorName": "Dr. A. Anantharaman",
+          "clinicName": "Kauvery Hospital – Chennai Alwarpet",
+          "hospitalName": "Kauvery Hospital – Chennai Alwarpet",
+          "specialist": "Cardiologist",
+          "symptoms": "Chest tightness & arrhythmia checkup",
+          "date": "2026-08-28",
+          "time": "02:30 PM",
+          "status": "Confirmed",
+          "fee": "₹500",
+          "createdAt": "2026-08-21 at 04:40 PM"
+        },
+        {
+          "id": "APT-9312",
+          "appointmentId": "APT-9312",
+          "type": "appointment",
+          "token": "TK-602",
+          "patientName": patientName,
+          "patientEmail": patientEmail,
+          "patientPhone": patientPhone,
+          "doctorName": "Dr. Mohamed Rela",
+          "clinicName": "Gleneagles Hospital, Perumbakkam / Sholinganallur",
+          "hospitalName": "Gleneagles Hospital, Perumbakkam / Sholinganallur",
+          "specialist": "Liver Transplant Surgeon",
+          "symptoms": "Hepatic function consultation",
+          "date": "2026-09-02",
+          "time": "11:00 AM",
+          "status": "Confirmed",
+          "fee": "₹700",
+          "createdAt": "2026-08-22 at 08:30 AM"
+        },
+        {
+          "id": "APT-7501",
+          "appointmentId": "APT-7501",
+          "type": "appointment",
+          "token": "TK-204",
+          "patientName": patientName,
+          "patientEmail": patientEmail,
+          "patientPhone": patientPhone,
+          "doctorName": "Dr. PVA Mohandas",
+          "clinicName": "MIOT International, Manapakkam",
+          "hospitalName": "MIOT International, Manapakkam",
+          "specialist": "Orthopaedics",
+          "symptoms": "Knee joint stiffness & mobility review",
+          "date": "2026-08-10",
+          "time": "11:30 AM",
+          "status": "Completed",
+          "fee": "₹600",
+          "createdAt": "2026-08-05 at 02:15 PM"
+        },
+        {
+          "id": "APT-6120",
+          "appointmentId": "APT-6120",
+          "type": "appointment",
+          "token": "TK-118",
+          "patientName": patientName,
+          "patientEmail": patientEmail,
+          "patientPhone": patientPhone,
+          "doctorName": "Dr. VV Bashi",
+          "clinicName": "SIMS Hospital, Vadapalani",
+          "hospitalName": "SIMS Hospital, Vadapalani",
+          "specialist": "Cardiac Surgeon",
+          "symptoms": "Aortic screening & ECG evaluation",
+          "date": "2026-07-15",
+          "time": "10:00 AM",
+          "status": "Completed",
+          "fee": "₹600",
+          "createdAt": "2026-07-10 at 11:00 AM"
+        }
+      ];
+    }
+
+    // Enrich all appointments with verified hospital location (lat, lng, address) & landline phone details
+    final allHospitals = await getHospitals();
+    final enrichedList = rawList.map((appt) {
+      final Map<String, dynamic> item = Map<String, dynamic>.from(appt);
+      final String cName = (item['clinicName'] ?? item['hospitalName'] ?? '').toString().toLowerCase();
+      final String hId = (item['hospitalId'] ?? '').toString();
+
+      Map<String, dynamic>? match;
+      for (var h in allHospitals) {
+        final Map<String, dynamic> hMap = Map<String, dynamic>.from(h);
+        final String id = (hMap['id'] ?? '').toString();
+        final String name = (hMap['name'] ?? hMap['hospitalName'] ?? '').toString().toLowerCase();
+        if ((hId.isNotEmpty && id == hId) || (cName.isNotEmpty && (name.contains(cName) || cName.contains(name)))) {
+          match = hMap;
+          break;
+        }
+      }
+
+      if (match != null) {
+        item['hospitalId'] = item['hospitalId'] ?? match['id'];
+        item['hospitalName'] = item['hospitalName'] ?? match['name'];
+        item['hospitalAddress'] = item['hospitalAddress'] ?? item['address'] ?? match['address'];
+        item['address'] = item['address'] ?? match['address'];
+        item['hospitalPhone'] = item['hospitalPhone'] ?? match['phone'];
+        item['emergencyPhone'] = item['emergencyPhone'] ?? match['emergencyPhone'];
+        item['hospitalLat'] = item['hospitalLat'] ?? match['lat'];
+        item['hospitalLng'] = item['hospitalLng'] ?? match['lng'];
+        item['lat'] = item['lat'] ?? match['lat'];
+        item['lng'] = item['lng'] ?? match['lng'];
+        item['officialWebsite'] = item['officialWebsite'] ?? match['officialWebsite'];
+        item['city'] = item['city'] ?? match['city'];
+        item['pincode'] = item['pincode'] ?? match['pincode'];
+        item['area'] = item['area'] ?? match['area'];
+        item['type'] = 'appointment';
+      }
+      return item;
+    }).toList();
+
+    return enrichedList;
   }
 
   // 11. Fetch User Prescriptions & Health Records

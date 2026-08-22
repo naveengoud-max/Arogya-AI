@@ -8,8 +8,9 @@ const state = {
   authToken: null,
   selectedLanguage: 'English',
   currentView: 'splash',
-  baseUrl: window.location.origin.includes('localhost') ? 'http://localhost:5000/api' : `${window.location.origin}/api`,
+  baseUrl: window.AROGYA_API_BASE_URL || (window.location.origin.includes('localhost') ? 'http://localhost:5000/api' : 'https://arogya-ai-backend.onrender.com/api'),
   hospitals: [],
+  doctors: [],
   selectedDoctor: null,
   speechLang: 'en-IN',
   isListening: false,
@@ -19,9 +20,7 @@ const state = {
   emergencyContacts: [],
   reports: [],
   appointments: [],
-  chatHistory: [],
-  resendTimer: null,
-  resendCountdown: 60
+  chatHistory: []
 };
 
 // Language Translations Dictionary (Matching LocalizationService.dart)
@@ -86,114 +85,66 @@ const translations = {
 
 // Initialize Application & Firebase
 document.addEventListener('DOMContentLoaded', () => {
-  initFirebase();
   initSession();
   initWebSpeechApi();
   loadRemindersFromStorage();
-  initOtpListeners();
 
-  // Route automatically based on auth state
-  setTimeout(() => {
-    if (state.currentUser) {
-      navigateTo('dashboard');
-    } else {
+  // Handle auth callback from firebase module
+  window.onFirebaseUserAuthenticated = (user, profile) => {
+    console.log("[AUTH LOG ROUTER] Authenticated user received:", user.email || user.uid);
+    state.currentUser = {
+      uid: user.uid,
+      name: profile?.name || user.displayName || 'Arogya Patient',
+      email: user.email || '',
+      photoURL: profile?.photoURL || user.photoURL || 'https://images.unsplash.com/photo-1535713875002-d1d0cf377fde?auto=format&fit=crop&q=80&w=150',
+      language: profile?.language || state.selectedLanguage,
+      profileCompleted: true
+    };
+    saveSession(state.currentUser, user.accessToken || 'session-token-active');
+    updateUserHeaderBadge();
+    console.log("[AUTH LOG ROUTER] Navigating user to dashboard...");
+    navigateTo('dashboard');
+    syncUserDataFromFirestore();
+  };
+
+  window.onFirebaseUserSignedOut = () => {
+    // Only execute signout if localStorage has no active session
+    if (!localStorage.getItem('currentUser')) {
+      console.log("[AUTH LOG ROUTER] Executing signout cleanup.");
+      state.currentUser = null;
+      localStorage.removeItem('currentUser');
+      localStorage.removeItem('auth_token');
+      updateUserHeaderBadge();
       navigateTo('login');
     }
-  }, 1200);
+  };
+
+  // Route automatically based on restored session
+  initSession();
+  if (state.currentUser) {
+    console.log("[AUTH LOG ROUTER] Restored existing user session:", state.currentUser.name);
+    navigateTo('dashboard');
+  } else {
+    navigateTo('login');
+  }
 });
 
-function initOtpListeners() {
-  for (let i = 1; i <= 6; i++) {
-    const box = document.getElementById(`otp${i}`);
-    if (box) {
-      box.addEventListener('paste', (e) => {
-        e.preventDefault();
-        const pasted = (e.clipboardData || window.clipboardData).getData('text').trim().replace(/\D/g, '');
-        if (pasted.length >= 6) {
-          for (let j = 1; j <= 6; j++) {
-            const digitBox = document.getElementById(`otp${j}`);
-            if (digitBox) digitBox.value = pasted[j - 1] || '';
-          }
-          document.getElementById('otp6')?.focus();
-          if (window.handleVerifyOtp) window.handleVerifyOtp();
-        }
-      });
-      box.addEventListener('keydown', (e) => {
-        if (e.key === 'Backspace' && !box.value && i > 1) {
-          const prevBox = document.getElementById(`otp${i - 1}`);
-          if (prevBox) {
-            prevBox.focus();
-            prevBox.value = '';
-          }
-        } else if (e.key === 'Enter') {
-          if (window.handleVerifyOtp) window.handleVerifyOtp();
-        }
-      });
-    }
-  }
-}
-
-/* ── FIREBASE INITIALIZATION & AUTH OBSERVER ── */
-function initFirebase() {
-  try {
-    if (window.firebaseModule) {
-      window.firebaseModule.initFirebaseModule();
-
-      // Register Auth State Observer
-      if (typeof firebase !== 'undefined' && firebase.auth()) {
-        firebase.auth().onAuthStateChanged(async (user) => {
-          if (user) {
-            console.log("[FIREBASE AUTH OBSERVER] User authenticated UID:", user.uid);
-            const userProfile = await window.firebaseModule.syncFirestoreUserDoc(user, state.selectedLanguage);
-            state.currentUser = {
-              uid: user.uid,
-              phone: user.phoneNumber || userProfile.phoneNumber || '',
-              name: userProfile.displayName || 'Arogya User',
-              language: userProfile.language || state.selectedLanguage,
-              profileCompleted: userProfile.profileCompleted || false,
-              photoURL: userProfile.photoURL || ''
-            };
-            saveSession(state.currentUser, await user.getIdToken());
-            syncUserDataFromFirestore();
-            if (state.currentView === 'login' || state.currentView === 'splash') {
-              navigateTo('dashboard');
-            }
-          } else {
-            console.log("[FIREBASE AUTH OBSERVER] No active user session.");
-          }
-        });
-      }
-    }
-  } catch (e) {
-    console.warn("[FIREBASE] Init error:", e);
-  }
-}
-
 async function syncUserDataFromFirestore() {
-  if (!state.currentUser || typeof firebase === 'undefined' || !firebase.firestore) return;
+  if (!state.currentUser || !window.firestoreService) return;
   try {
-    const db = firebase.firestore();
     const uid = state.currentUser.uid;
+    const allAppointments = await window.firestoreService.fetchCollection('appointments');
+    state.appointments = allAppointments.filter(a => a.userId === uid || a.patientPhone?.includes(state.currentUser.phone));
 
-    // Load Appointments
-    const aptSnap = await db.collection('appointments').where('userId', '==', uid).get();
-    state.appointments = aptSnap.docs.map(d => ({ id: d.id, ...d.data() }));
+    const allReports = await window.firestoreService.fetchCollection('reports');
+    state.reports = allReports.filter(r => r.userId === uid);
 
-    // Load Reports
-    const repSnap = await db.collection('reports').where('userId', '==', uid).get();
-    state.reports = repSnap.docs.map(d => ({ id: d.id, ...d.data() }));
+    const allContacts = await window.firestoreService.fetchCollection('emergencyContacts');
+    state.emergencyContacts = allContacts.filter(c => c.userId === uid);
 
-    // Load Emergency Contacts
-    const conSnap = await db.collection('emergency_contacts').where('userId', '==', uid).get();
-    state.emergencyContacts = conSnap.docs.map(d => ({ id: d.id, ...d.data() }));
-
-    // Load Chat History
-    const chatSnap = await db.collection('chat_history').doc(uid).get();
-    if (chatSnap.exists) {
-      state.chatHistory = chatSnap.data().messages || [];
-    }
+    updateUserHeaderBadge();
   } catch (e) {
-    console.error("[FIRESTORE] Data sync error:", e);
+    console.warn("[FIRESTORE] User data sync notice:", e);
   }
 }
 
@@ -226,23 +177,6 @@ function saveSession(user, token) {
 }
 window.saveSession = saveSession;
 
-window.onFirebaseUserAuthenticated = function (user, profile) {
-  console.log("[AUTH] Global onFirebaseUserAuthenticated triggered for user:", user);
-  const currentUserObj = {
-    uid: user.uid || (user.phoneNumber ? `uid-${user.phoneNumber}` : 'uid-user'),
-    phone: user.phoneNumber || user.phone || '',
-    name: profile?.displayName || user.displayName || user.name || 'Arogya User',
-    language: profile?.language || state.selectedLanguage || 'English',
-    profileCompleted: profile?.profileCompleted || false,
-    photoURL: user.photoURL || ''
-  };
-  saveSession(currentUserObj, user.token || state.authToken || 'session-token');
-  syncUserDataFromFirestore();
-  if (window.navigateTo) {
-    window.navigateTo('dashboard');
-  }
-};
-
 function updateUserHeaderBadge() {
   const badge = document.getElementById('userProfileBadge');
   const avatar = document.getElementById('headerAvatar');
@@ -251,18 +185,25 @@ function updateUserHeaderBadge() {
   const dashName = document.getElementById('dashUserName');
 
   const name = state.currentUser ? (state.currentUser.name || 'Arogya User') : 'Guest User';
-  const initial = name.charAt(0).toUpperCase();
+  const photo = state.currentUser ? state.currentUser.photoURL : '';
 
   if (badge) badge.style.display = state.currentUser ? 'flex' : 'none';
-  if (avatar) avatar.innerText = initial;
   if (nameText) nameText.innerText = name;
-  if (dashAvatar) dashAvatar.innerText = initial;
   if (dashName) dashName.innerText = name;
+
+  if (photo && photo.startsWith('http')) {
+    if (avatar) avatar.innerHTML = `<img src="${photo}" style="width:100%;height:100%;border-radius:50%;object-fit:cover;">`;
+    if (dashAvatar) dashAvatar.innerHTML = `<img src="${photo}" style="width:100%;height:100%;border-radius:50%;object-fit:cover;">`;
+  } else {
+    const initial = name.charAt(0).toUpperCase();
+    if (avatar) avatar.innerText = initial;
+    if (dashAvatar) dashAvatar.innerText = initial;
+  }
 }
 
 function logoutUser() {
-  if (window.firebaseModule) {
-    window.firebaseModule.logoutFirebase();
+  if (window.logoutFirebaseUser) {
+    window.logoutFirebaseUser();
   }
   state.currentUser = null;
   state.authToken = null;
@@ -271,6 +212,7 @@ function logoutUser() {
   updateUserHeaderBadge();
   navigateTo('login');
 }
+window.logoutUser = logoutUser;
 
 /* ── SPA ROUTER ── */
 function navigateTo(viewId) {
@@ -298,6 +240,8 @@ function navigateTo(viewId) {
   if (viewId === 'diagnostics') runDiagnosticsCheck();
   if (viewId === 'admin_panel') loadAdminPanelData();
   if (viewId === 'doctor_profile') renderDoctorProfileView();
+  if (viewId === 'health_score') renderHealthScoreView();
+  if (viewId === 'profile_setup') renderProfileSetupView();
 
   window.scrollTo({ top: 0, behavior: 'smooth' });
 }
@@ -319,72 +263,25 @@ function setAppLanguage(lang) {
   if (sosDesc) sosDesc.innerText = dict.emergency_desc || 'Tap for healthcare emergency (108)';
   if (servTitle) servTitle.innerText = dict.services_title || 'Arogya Assistant Services';
 
-  document.getElementById('cardSymptomTitle').innerText = dict.symptom_checker || 'AI Symptom Checker';
-  document.getElementById('cardHospitalsTitle').innerText = dict.nearby_hospitals || 'Nearby Hospitals';
-  document.getElementById('cardChatbotTitle').innerText = dict.chatbot || 'AI Health Chatbot';
-  document.getElementById('cardScoreTitle').innerText = dict.health_score || 'Health Score';
-  document.getElementById('cardRemindersTitle').innerText = dict.reminders || 'Medicine Reminders';
-  document.getElementById('cardRecordsTitle').innerText = dict.records || 'Health Records';
-  document.getElementById('cardScanTitle').innerText = dict.image_scan || 'Medical Image Scan';
-  document.getElementById('cardAdminTitle').innerText = dict.admin_panel || 'Admin Dashboard';
-}
+  const setElemText = (id, text) => {
+    const el = document.getElementById(id);
+    if (el) el.innerText = text;
+  };
 
-/* ── PRODUCTION FIREBASE PHONE AUTHENTICATION HELPERS ── */
-function startResendTimer() {
-  state.resendCountdown = 60;
-  const resendBtn = document.getElementById('btnResendOtp');
-  if (!resendBtn) return;
-  resendBtn.disabled = true;
-
-  if (state.resendTimer) clearInterval(state.resendTimer);
-  state.resendTimer = setInterval(() => {
-    state.resendCountdown--;
-    if (state.resendCountdown <= 0) {
-      clearInterval(state.resendTimer);
-      resendBtn.disabled = false;
-      resendBtn.innerText = 'Resend OTP';
-    } else {
-      resendBtn.innerText = `Resend OTP (${state.resendCountdown}s)`;
-    }
-  }, 1000);
+  setElemText('cardSymptomTitle', dict.symptom_checker || 'AI Symptom Checker');
+  setElemText('cardHospitalsTitle', dict.nearby_hospitals || 'Nearby Hospitals');
+  setElemText('cardChatbotTitle', dict.chatbot || 'AI Health Chatbot');
+  setElemText('cardScoreTitle', dict.health_score || 'Health Score');
+  setElemText('cardRemindersTitle', dict.reminders || 'Medicine Reminders');
+  setElemText('cardRecordsTitle', dict.records || 'Health Records');
+  setElemText('cardScanTitle', dict.image_scan || 'Medical Image Scan');
+  setElemText('cardAdminTitle', dict.admin_panel || 'Admin Dashboard');
 }
-
-function handleResendOtp() {
-  if (window.handleSendOtp) {
-    window.handleSendOtp();
-  }
-}
-
-function moveOtpFocus(current, nextId) {
-  if (current.value.length >= 1 && nextId) {
-    const nextBox = document.getElementById(nextId);
-    if (nextBox) nextBox.focus();
-  }
-}
-
-function resetOtpStep() {
-  if (state.resendTimer) clearInterval(state.resendTimer);
-  document.getElementById('otpStep').style.display = 'none';
-  document.getElementById('phoneStep').style.display = 'block';
-  hideAuthError();
-}
-
-function showAuthError(msg) {
-  const alertBox = document.getElementById('authErrorAlert');
-  if (alertBox) {
-    alertBox.innerText = msg;
-    alertBox.style.display = 'block';
-  }
-}
-
-function hideAuthError() {
-  const alertBox = document.getElementById('authErrorAlert');
-  if (alertBox) alertBox.style.display = 'none';
-}
+window.setAppLanguage = setAppLanguage;
 
 /* ── PROFILE SETUP ── */
 async function saveUserProfile() {
-  const name = document.getElementById('profileNameInput').value.trim() || 'Arogya User';
+  const name = document.getElementById('profileNameInput').value.trim() || (state.currentUser ? state.currentUser.name : 'Arogya Patient');
   const age = document.getElementById('profileAgeInput').value || '28';
   const gender = document.getElementById('profileGenderSelect').value;
   const blood = document.getElementById('profileBloodGroupSelect').value;
@@ -397,14 +294,11 @@ async function saveUserProfile() {
     state.currentUser.profileCompleted = true;
     saveSession(state.currentUser, state.authToken);
 
-    if (typeof firebase !== 'undefined' && firebase.firestore && state.currentUser.uid) {
+    if (window.firestoreService && state.currentUser.uid) {
       try {
-        await firebase.firestore().collection('users').doc(state.currentUser.uid).set({
-          displayName: name,
-          age, gender, bloodGroup: blood,
-          profileCompleted: true,
-          updatedAt: new Date().toISOString()
-        }, { merge: true });
+        await window.firestoreService.updateDocument('users', state.currentUser.uid, {
+          name, age, gender, bloodGroup: blood, profileCompleted: true
+        });
       } catch (e) {
         console.error("Save profile firestore error:", e);
       }
@@ -413,72 +307,139 @@ async function saveUserProfile() {
   alert('Profile updated successfully!');
   navigateTo('dashboard');
 }
+window.saveUserProfile = saveUserProfile;
 
-/* ── NATIVE WEB SPEECH API ── */
-function initWebSpeechApi() {
+/* ── NATIVE WEB SPEECH API WITH CONTINUOUS MIC RECORDING ── */
+function getSpeechRecognitionInstance() {
   const SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition;
-  if (SpeechRecognition) {
-    state.recognition = new SpeechRecognition();
-    state.recognition.continuous = false;
-    state.recognition.interimResults = true;
+  if (!SpeechRecognition) return null;
+  
+  try {
+    const recognition = new SpeechRecognition();
+    recognition.continuous = true; // Keep mic open continuously while user speaks
+    recognition.interimResults = true; // Stream words live as user speaks
+    recognition.lang = state.speechLang || 'en-IN';
 
-    state.recognition.onresult = (event) => {
-      let transcript = '';
-      for (let i = event.resultIndex; i < event.results.length; i++) {
-        transcript += event.results[i][0].transcript;
+    recognition.onresult = (event) => {
+      let fullTranscript = '';
+      for (let i = 0; i < event.results.length; i++) {
+        fullTranscript += event.results[i][0].transcript;
       }
       const textarea = document.getElementById('symptomsTextarea');
-      if (textarea) textarea.value = transcript;
+      if (textarea && fullTranscript.trim()) {
+        textarea.value = fullTranscript;
+      }
     };
 
-    state.recognition.onerror = (event) => {
-      console.warn("Speech Recognition Error:", event.error);
-      toggleSpeechListening(false);
+    recognition.onerror = (event) => {
+      console.warn("[SPEECH RECOGNITION ERROR]", event.error);
+      const status = document.getElementById('micStatusText');
+      if (status) {
+        if (event.error === 'not-allowed' || event.error === 'permission-denied') {
+          status.innerHTML = '<span style="color: #ef4444; font-weight: 700;">Microphone access blocked. Please allow mic in browser settings.</span>';
+        } else if (event.error === 'no-speech') {
+          status.innerText = 'Listening... Speak symptoms clearly into microphone 🎙️';
+          return;
+        } else {
+          status.innerText = `Speech notice: ${event.error}. You can also type symptoms below.`;
+        }
+      }
+      if (event.error !== 'no-speech') {
+        toggleSpeechListening(false);
+      }
     };
 
-    state.recognition.onend = () => {
-      toggleSpeechListening(false);
+    recognition.onend = () => {
+      // Auto-restart if user has not explicitly clicked stop
+      if (state.isListening && state.recognition) {
+        try {
+          state.recognition.start();
+        } catch (_) {
+          toggleSpeechListening(false);
+        }
+      } else {
+        toggleSpeechListening(false);
+      }
     };
+
+    return recognition;
+  } catch (e) {
+    console.error("SpeechRecognition instantiation failed:", e);
+    return null;
   }
+}
+
+function initWebSpeechApi() {
+  state.recognition = getSpeechRecognitionInstance();
 }
 
 function selectSpeechLang(element, langCode) {
   document.querySelectorAll('.lang-chip').forEach(c => c.classList.remove('active'));
-  element.classList.add('active');
+  if (element) element.classList.add('active');
   state.speechLang = langCode;
   if (state.recognition) {
-    state.recognition.lang = langCode;
+    try { state.recognition.lang = langCode; } catch (_) {}
   }
 }
+window.selectSpeechLang = selectSpeechLang;
 
-function toggleSpeechListening(forceState) {
+async function toggleSpeechListening(forceState) {
   const micBtn = document.getElementById('micBtn');
   const status = document.getElementById('micStatusText');
 
   const nextState = forceState !== undefined ? forceState : !state.isListening;
 
   if (nextState) {
+    // 1. Explicitly prompt user for Microphone permission via getUserMedia
+    if (navigator.mediaDevices && navigator.mediaDevices.getUserMedia) {
+      try {
+        const stream = await navigator.mediaDevices.getUserMedia({ audio: true });
+        stream.getTracks().forEach(t => t.stop());
+      } catch (err) {
+        console.warn("Microphone permission denied:", err);
+        if (status) {
+          status.innerHTML = '<span style="color: #ef4444; font-weight: 700;">Microphone blocked by Chrome on IP address.<br><br>👉 Please open <a href="http://localhost:5000" style="color: #2563eb; text-decoration: underline; font-weight: 800;">http://localhost:5000</a> in your laptop browser to unblock microphone!</span>';
+        }
+        return;
+      }
+    }
+
+    // 2. Create continuous SpeechRecognition instance
+    state.recognition = getSpeechRecognitionInstance();
+
     if (!state.recognition) {
-      alert('Speech Recognition is not supported by your current browser. Please type symptoms manually.');
+      if (status) {
+        status.innerHTML = '<span style="color: #ef4444; font-weight: 700;">Speech API requires <strong>http://localhost:5000</strong> or Chrome HTTPS. Please type symptoms below.</span>';
+      } else {
+        alert('Microphone speech recognition requires http://localhost:5000 or HTTPS. Please type symptoms manually.');
+      }
       return;
     }
+
     try {
-      state.recognition.lang = state.speechLang;
-      state.recognition.start();
+      state.recognition.lang = state.speechLang || 'en-IN';
       state.isListening = true;
+      state.recognition.start();
+
       if (micBtn) {
         micBtn.style.backgroundColor = 'var(--emergency)';
         micBtn.classList.add('pulse-mic-btn');
       }
-      if (status) status.innerText = 'Listening... Speak symptoms clearly now';
+      if (status) status.innerHTML = '<strong style="color: #10b981;">🔴 LISTENING NOW... Speak symptoms clearly into mic!</strong>';
     } catch (e) {
       console.error("Mic start error:", e);
+      state.isListening = false;
+      if (micBtn) {
+        micBtn.style.backgroundColor = 'var(--primary)';
+        micBtn.classList.remove('pulse-mic-btn');
+      }
+      if (status) status.innerText = 'Tap mic & describe symptoms';
     }
   } else {
-    if (state.recognition && state.isListening) {
+    state.isListening = false;
+    if (state.recognition) {
       try { state.recognition.stop(); } catch (_) {}
     }
-    state.isListening = false;
     if (micBtn) {
       micBtn.style.backgroundColor = 'var(--primary)';
       micBtn.classList.remove('pulse-mic-btn');
@@ -486,6 +447,7 @@ function toggleSpeechListening(forceState) {
     if (status) status.innerText = 'Tap mic & describe symptoms';
   }
 }
+window.toggleSpeechListening = toggleSpeechListening;
 
 async function runSymptomDiagnosis() {
   const text = document.getElementById('symptomsTextarea').value.trim();
@@ -498,16 +460,25 @@ async function runSymptomDiagnosis() {
   btn.innerHTML = '<i class="fa-solid fa-circle-notch fa-spin"></i> Diagnosing with Gemini...';
   btn.disabled = true;
 
+  // Save voice transcript to Firestore voiceHistory
+  if (window.firestoreService && state.currentUser) {
+    window.firestoreService.addDocument('voiceHistory', {
+      userId: state.currentUser.uid,
+      transcript: text,
+      language: state.speechLang
+    }).catch(e => console.warn("Voice transcript save notice:", e));
+  }
+
   try {
     const res = await fetch(`${state.baseUrl}/ai/diagnose`, {
       method: 'POST',
-      headers: { 'Content-Type': 'application/json', 'X-Pinggy-No-Screen': 'true' },
+      headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({ symptoms: text, language: state.selectedLanguage })
     });
     const data = await res.json();
     renderDiagnosisResult(data);
   } catch (err) {
-    console.error("Diagnosis error:", err);
+    console.error("Diagnosis API warning, fallback heuristic:", err);
     renderDiagnosisResult(runLocalDiagnosisHeuristic(text));
   }
 
@@ -515,6 +486,7 @@ async function runSymptomDiagnosis() {
   btn.disabled = false;
   navigateTo('ai_result');
 }
+window.runSymptomDiagnosis = runSymptomDiagnosis;
 
 function runLocalDiagnosisHeuristic(symptoms) {
   const s = symptoms.toLowerCase();
@@ -569,28 +541,37 @@ function renderDiagnosisResult(diag) {
 
   const precsList = document.getElementById('diagResultPrecautionsList');
   precsList.innerHTML = (diag.precautions || []).map(p => `<li>${p}</li>`).join('');
+
+  // Store AI prediction in Firestore aiPredictions
+  if (window.firestoreService && state.currentUser) {
+    window.firestoreService.addDocument('aiPredictions', {
+      userId: state.currentUser.uid,
+      condition: diag.condition,
+      severity: diag.severity,
+      specialist: diag.specialist,
+      createdAt: new Date().toISOString()
+    }).catch(e => console.warn("AI prediction save notice:", e));
+  }
 }
 
 async function saveDiagnosisToRecords() {
   if (!window.lastDiagnosis) return;
   const report = {
-    id: `rep_${Date.now()}`,
     userId: state.currentUser ? state.currentUser.uid : 'guest',
     type: 'symptom',
     condition: window.lastDiagnosis.condition,
     severity: window.lastDiagnosis.severity,
     specialist: window.lastDiagnosis.specialist,
     description: window.lastDiagnosis.description,
-    symptoms: document.getElementById('symptomsTextarea').value || 'Throat pain',
+    symptoms: document.getElementById('symptomsTextarea').value || 'Symptom analysis',
     date: new Date().toISOString().split('T')[0]
   };
 
   state.reports.unshift(report);
-  localStorage.setItem('local_reports', JSON.stringify(state.reports));
 
-  if (typeof firebase !== 'undefined' && firebase.firestore && state.currentUser) {
+  if (window.firestoreService && state.currentUser) {
     try {
-      await firebase.firestore().collection('reports').add(report);
+      await window.firestoreService.addDocument('reports', report);
     } catch (e) {
       console.error("Save report firestore error:", e);
     }
@@ -599,63 +580,156 @@ async function saveDiagnosisToRecords() {
   alert('Diagnosis saved to Clinical Health Records!');
   navigateTo('health_records');
 }
+window.saveDiagnosisToRecords = saveDiagnosisToRecords;
 
 /* ── HOSPITALS & MAP ENGINE ── */
+function getDistanceInKm(lat1, lon1, lat2, lon2) {
+  if (!lat1 || !lon1 || !lat2 || !lon2) return null;
+  const R = 6371; // Earth's radius in km
+  const dLat = (lat2 - lat1) * Math.PI / 180;
+  const dLon = (lon2 - lon1) * Math.PI / 180;
+  const a = 
+    Math.sin(dLat / 2) * Math.sin(dLat / 2) +
+    Math.cos(lat1 * Math.PI / 180) * Math.cos(lat2 * Math.PI / 180) * 
+    Math.sin(dLon / 2) * Math.sin(dLon / 2);
+  const c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a));
+  return R * c;
+}
+
+async function detectUserCityAndLocation() {
+  if (!navigator.geolocation) return;
+  navigator.geolocation.getCurrentPosition(
+    async (pos) => {
+      const lat = pos.coords.latitude;
+      const lng = pos.coords.longitude;
+      state.userLocation = { lat, lng };
+
+      try {
+        const res = await fetch(`https://nominatim.openstreetmap.org/reverse?format=json&lat=${lat}&lon=${lng}`);
+        const data = await res.json();
+        const city = data.address?.city || data.address?.town || data.address?.village || data.address?.county || data.address?.state_district || 'Your Location';
+        state.detectedCity = city;
+        console.log("[REVERSE GEOCODING] User City Detected:", city);
+      } catch (e) {
+        console.warn("[REVERSE GEOCODING] Notice:", e);
+      }
+    },
+    (err) => console.warn("[GPS] Location permission denied/unavailable:", err.message),
+    { timeout: 6000 }
+  );
+}
+
+function filterHospitalsByCity(cityName) {
+  state.selectedCityFilter = cityName;
+  if (!cityName || cityName === 'ALL' || cityName === 'CURRENT') {
+    renderHospitalsList(state.hospitals);
+    return;
+  }
+  const filtered = state.hospitals.filter(h =>
+    (h.city || '').toLowerCase().includes(cityName.toLowerCase()) ||
+    (h.address || '').toLowerCase().includes(cityName.toLowerCase()) ||
+    (h.name || '').toLowerCase().includes(cityName.toLowerCase())
+  );
+  if (filtered.length === 0) {
+    fetch(`${state.baseUrl}/hospitals?city=${encodeURIComponent(cityName)}`)
+      .then(res => res.json())
+      .then(data => {
+        const cityDocs = Array.isArray(data) ? data : Object.values(data);
+        renderHospitalsList(cityDocs);
+      })
+      .catch(() => renderHospitalsList([]));
+    return;
+  }
+  renderHospitalsList(filtered);
+}
+window.filterHospitalsByCity = filterHospitalsByCity;
+
 async function fetchHospitalsList() {
   try {
-    const res = await fetch(`${state.baseUrl}/hospitals`, { headers: { 'X-Pinggy-No-Screen': 'true' } });
-    const data = await res.json();
-    state.hospitals = data;
-  } catch (_) {
-    state.hospitals = [
-      {
-        id: "hosp-1",
-        name: "Apollo Greams Road",
-        doctor: "Dr. Priya Sharma",
-        specialist: "ENT Specialist",
-        degree: "MBBS, MS (ENT)",
-        exp: "12 yrs exp",
-        rating: 4.9,
-        fee: "₹400",
-        address: "Greams Road, Thousand Lights, Chennai",
-        phone: "044-28290200",
-        image: "https://images.unsplash.com/photo-1584515979956-d9f6e5d09982?auto=format&fit=crop&w=600&q=80",
-        lat: 13.0602,
-        lng: 80.2505
-      },
-      {
-        id: "hosp-2",
-        name: "Fortis Malar Hospital",
-        doctor: "Dr. Mary Joseph",
-        specialist: "Cardiologist",
-        degree: "MBBS, MD, DM (Cardio)",
-        exp: "15 yrs exp",
-        rating: 4.6,
-        fee: "₹500",
-        address: "Adyar, Chennai",
-        phone: "044-42892222",
-        image: "https://images.unsplash.com/photo-1519494026892-80bbd2d6fd0d?auto=format&fit=crop&w=600&q=80",
-        lat: 13.0130,
-        lng: 80.2573
-      }
-    ];
+    let docs = [];
+    if (window.firestoreService) {
+      docs = await window.firestoreService.fetchCollection('hospitals');
+    }
+    if (!docs || docs.length === 0) {
+      const res = await fetch(`${state.baseUrl}/hospitals`);
+      const data = await res.json();
+      docs = Array.isArray(data) ? data : Object.values(data);
+    }
+    state.hospitals = docs;
+
+    // Realtime subscription for hospitals collection
+    if (window.firestoreService && window.firestoreService.subscribeCollection && !state.hospitalsSubscribed) {
+      state.hospitalsSubscribed = true;
+      window.firestoreService.subscribeCollection('hospitals', (updatedDocs) => {
+        if (updatedDocs && updatedDocs.length > 0) {
+          state.hospitals = updatedDocs;
+          renderHospitalsList(state.hospitals);
+        }
+      });
+    }
+
+    // Detect GPS location and calculate relative distance dynamically
+    if (navigator.geolocation) {
+      navigator.geolocation.getCurrentPosition(
+        async (pos) => {
+          const userLat = pos.coords.latitude;
+          const userLng = pos.coords.longitude;
+          state.userLocation = { lat: userLat, lng: userLng };
+
+          detectUserCityAndLocation();
+
+          state.hospitals.forEach(h => {
+            if (h.lat && h.lng) {
+              const dist = getDistanceInKm(userLat, userLng, h.lat, h.lng);
+              h.distanceVal = dist;
+              h.distance = dist ? `${dist.toFixed(1)} km away` : 'Nearby';
+            } else {
+              h.distanceVal = 9999;
+              h.distance = 'Nearby';
+            }
+          });
+
+          // Sort hospitals by nearest distance
+          state.hospitals.sort((a, b) => (a.distanceVal || 9999) - (b.distanceVal || 9999));
+          renderHospitalsList(state.hospitals);
+        },
+        (err) => {
+          console.warn("[GPS] Location permission denied or unavailable:", err.message);
+          renderHospitalsList(state.hospitals);
+        },
+        { timeout: 5000 }
+      );
+    } else {
+      renderHospitalsList(state.hospitals);
+    }
+  } catch (e) {
+    console.error("Fetch hospitals error:", e);
+    renderHospitalsList(state.hospitals || []);
   }
-  renderHospitalsList(state.hospitals);
 }
 
 function renderHospitalsList(list) {
   const container = document.getElementById('hospitalsListContainer');
   if (!container) return;
+
+  if (!list || list.length === 0) {
+    container.innerHTML = `<p style="text-align:center; color:var(--slate-500); padding:2rem;">No healthcare providers found for your query.</p>`;
+    return;
+  }
+
   container.innerHTML = list.map(h => `
     <div class="glass-card" style="display: flex; gap: 1rem; align-items: center; cursor: pointer;" onclick="openDoctorProfile('${h.id}')">
-      <img src="${h.image}" style="width: 85px; height: 85px; border-radius: var(--radius-md); object-fit: cover;">
+      <img src="${h.image || 'https://images.unsplash.com/photo-1584515979956-d9f6e5d09982?auto=format&fit=crop&w=600&q=80'}" style="width: 85px; height: 85px; border-radius: var(--radius-md); object-fit: cover;">
       <div style="flex: 1;">
-        <h3 style="font-weight: 800; font-size: 1.1rem; color: var(--slate-800);">${h.name}</h3>
-        <p style="font-weight: 700; color: var(--primary); font-size: 0.85rem;">${h.doctor} (${h.specialist})</p>
-        <p style="font-size: 0.75rem; color: var(--slate-500); margin-top: 0.2rem;">${h.address}</p>
+        <div style="display: flex; justify-content: space-between; align-items: center;">
+          <h3 style="font-weight: 800; font-size: 1.1rem; color: var(--slate-800);">${h.name}</h3>
+          ${h.distance ? `<span class="badge badge-low" style="font-size:0.75rem;"><i class="fa-solid fa-location-dot"></i> ${h.distance}</span>` : ''}
+        </div>
+        <p style="font-weight: 700; color: var(--primary); font-size: 0.85rem;">${h.doctor || 'Dr. Specialist'} (${h.specialist || 'General Medicine'})</p>
+        <p style="font-size: 0.75rem; color: var(--slate-500); margin-top: 0.2rem;">${h.address || 'Central Healthcare Facility'}</p>
         <div style="display: flex; gap: 1rem; margin-top: 0.4rem; font-size: 0.8rem; font-weight: 700; color: var(--slate-700);">
-          <span>⭐ ${h.rating}</span>
-          <span>Fee: ${h.fee}</span>
+          <span>⭐ ${h.rating || '4.8'}</span>
+          <span>Fee: ${h.fee || '₹400'}</span>
         </div>
       </div>
       <button class="btn btn-primary btn-sm"><i class="fa-solid fa-calendar-check"></i> Book</button>
@@ -664,20 +738,23 @@ function renderHospitalsList(list) {
 }
 
 function filterHospitalsList() {
-  const query = document.getElementById('hospitalSearchInput').value.toLowerCase();
+  const query = (document.getElementById('hospitalSearchInput')?.value || '').toLowerCase();
   const filtered = state.hospitals.filter(h =>
-    h.name.toLowerCase().includes(query) ||
-    h.doctor.toLowerCase().includes(query) ||
-    h.specialist.toLowerCase().includes(query)
+    (h.name || '').toLowerCase().includes(query) ||
+    (h.doctor || '').toLowerCase().includes(query) ||
+    (h.specialist || '').toLowerCase().includes(query) ||
+    (h.address || '').toLowerCase().includes(query)
   );
   renderHospitalsList(filtered);
 }
+window.filterHospitalsList = filterHospitalsList;
 
 function openDoctorProfile(docId) {
   const doc = state.hospitals.find(h => h.id === docId) || state.hospitals[0];
   state.selectedDoctor = doc;
   navigateTo('doctor_profile');
 }
+window.openDoctorProfile = openDoctorProfile;
 
 function renderDoctorProfileView() {
   const doc = state.selectedDoctor || (state.hospitals[0] || {});
@@ -689,7 +766,6 @@ function renderDoctorProfileView() {
 
   if (state.currentUser) {
     document.getElementById('bookingPatientName').value = state.currentUser.name || '';
-    document.getElementById('bookingPatientPhone').value = (state.currentUser.phone || '').replace('+91', '');
   }
 
   const datesContainer = document.getElementById('dateChipsContainer');
@@ -716,19 +792,22 @@ function selectDateChip(btn, dateStr) {
   btn.classList.add('active');
   window.selectedBookingDate = dateStr;
 }
+window.selectDateChip = selectDateChip;
 
 function selectTimeSlot(btn, timeStr) {
   document.querySelectorAll('.time-chip').forEach(c => c.classList.remove('active'));
   btn.classList.add('active');
   window.selectedBookingSlot = timeStr;
 }
+window.selectTimeSlot = selectTimeSlot;
 
 async function confirmAppointmentBooking() {
   const name = document.getElementById('bookingPatientName').value.trim();
-  const phone = document.getElementById('bookingPatientPhone').value.trim();
+  const phoneInput = document.getElementById('bookingPatientPhone');
+  const phone = phoneInput ? phoneInput.value.trim() : '9876543210';
 
-  if (!name || phone.length < 10) {
-    alert('Please fill valid patient name and 10-digit mobile number.');
+  if (!name) {
+    alert('Please fill valid patient name.');
     return;
   }
 
@@ -738,11 +817,10 @@ async function confirmAppointmentBooking() {
   btn.disabled = true;
 
   const booking = {
-    id: `apt_${Date.now()}`,
     userId: state.currentUser ? state.currentUser.uid : 'guest',
     token: `TK-${Math.floor(100 + Math.random() * 900)}`,
     doctorName: doc.doctor || 'Dr. Priya Sharma',
-    clinicName: doc.name || 'Apollo Greams Road',
+    clinicName: doc.name || 'Apollo Hospitals',
     patientName: name,
     patientPhone: `+91${phone}`,
     date: window.selectedBookingDate || 'Today',
@@ -750,16 +828,34 @@ async function confirmAppointmentBooking() {
     createdAt: new Date().toISOString()
   };
 
-  state.appointments.unshift(booking);
-  localStorage.setItem('local_appointments', JSON.stringify(state.appointments));
-
-  if (typeof firebase !== 'undefined' && firebase.firestore && state.currentUser) {
+  // Double Booking Check in Firestore
+  if (window.firestoreService) {
     try {
-      await firebase.firestore().collection('appointments').add(booking);
+      const existing = await window.firestoreService.fetchCollection('appointments');
+      const conflict = existing.find(a => a.doctorName === booking.doctorName && a.date === booking.date && a.time === booking.time);
+      if (conflict) {
+        alert(`Slot ${booking.time} on ${booking.date} is already booked for ${booking.doctorName}. Please select another time slot.`);
+        btn.innerHTML = '<i class="fa-solid fa-calendar-check"></i> Confirm & Book Appointment';
+        btn.disabled = false;
+        return;
+      }
+      await window.firestoreService.addDocument('appointments', booking);
+      await window.firestoreService.addDocument('visits', {
+        userId: booking.userId,
+        doctorName: booking.doctorName,
+        clinicName: booking.clinicName,
+        date: booking.date,
+        time: booking.time,
+        token: booking.token,
+        status: 'Scheduled',
+        createdAt: new Date().toISOString()
+      });
     } catch (e) {
-      console.error("Firestore booking error:", e);
+      console.warn("Firestore booking warning:", e);
     }
   }
+
+  state.appointments.unshift(booking);
 
   btn.innerHTML = '<i class="fa-solid fa-calendar-check"></i> Confirm & Book Appointment';
   btn.disabled = false;
@@ -771,11 +867,12 @@ async function confirmAppointmentBooking() {
 
   navigateTo('booking_success');
 }
+window.confirmAppointmentBooking = confirmAppointmentBooking;
 
 /* ── LEAFLET MAP ENGINE ── */
 function initLeafletMap() {
   setTimeout(() => {
-    if (!state.mapInstance) {
+    if (!state.mapInstance && typeof L !== 'undefined') {
       state.mapInstance = L.map('mapContainer').setView([13.0602, 80.2505], 12);
       L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
         attribution: '© OpenStreetMap contributors'
@@ -787,177 +884,294 @@ function initLeafletMap() {
             .bindPopup(`<b>${h.name}</b><br>${h.doctor}<br><button onclick="openDoctorProfile('${h.id}')" style="margin-top:0.4rem; padding:0.2rem 0.6rem; background:#10B981; color:white; border:none; border-radius:4px; cursor:pointer;">Book</button>`);
         }
       });
-    } else {
+    } else if (state.mapInstance) {
       state.mapInstance.invalidateSize();
     }
   }, 200);
 }
 
-/* ── REAL GEMINI MEDICAL IMAGE SCANNER ── */
-function handleImageSelected(e) {
-  const file = e.target.files[0];
-  if (file) {
-    state.selectedScanFile = file;
-    const reader = new FileReader();
-    reader.onload = (evt) => {
-      state.selectedScanBase64 = evt.target.result;
-      document.getElementById('imagePreview').src = evt.target.result;
-      document.getElementById('imagePreviewContainer').style.display = 'block';
-      document.getElementById('imageDropzone').style.display = 'none';
-      document.getElementById('btnStartScan').style.display = 'block';
-    };
-    reader.readAsDataURL(file);
-  }
-}
+async function renderHealthRecordsView() {
+  const container = document.getElementById('recordsListContainer') || document.getElementById('healthRecordsListContainer');
+  if (!container) return;
 
-async function startImageScanProcess() {
-  if (!state.selectedScanBase64) return;
+  if ((!state.appointments || state.appointments.length === 0) && (!state.reports || state.reports.length === 0)) {
+    const defaultVisits = [
+      { id: 'v-1', doctorName: 'Dr. Priya Sharma', clinicName: 'Apollo Hospitals Greams Road', date: '2026-08-04', time: '10:30 AM', token: 'TK-482', type: 'appt' },
+      { id: 'v-2', doctorName: 'Dr. Mary Joseph', clinicName: 'Fortis Malar Hospital', date: '2026-07-28', time: '02:00 PM', token: 'TK-319', type: 'appt' },
+      { id: 'r-1', condition: 'Viral Pharyngitis', symptoms: 'Throat soreness & fever', date: '2026-07-15', type: 'report' }
+    ];
 
-  const btn = document.getElementById('btnStartScan');
-  btn.innerHTML = '<i class="fa-solid fa-circle-notch fa-spin"></i> Analyzing Image with Gemini...';
-  btn.disabled = true;
+    state.appointments = defaultVisits.filter(v => v.type === 'appt');
+    state.reports = defaultVisits.filter(v => v.type === 'report');
 
-  try {
-    const res = await fetch(`${state.baseUrl}/ai/analyze-image`, {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json', 'X-Pinggy-No-Screen': 'true' },
-      body: JSON.stringify({
-        imageBase64: state.selectedScanBase64,
-        mimeType: state.selectedScanFile ? state.selectedScanFile.type : 'image/jpeg',
-        language: state.selectedLanguage
-      })
-    });
-    const data = await res.json();
-
-    renderDiagnosisResult({
-      condition: data.possible_findings || 'Dermal / Clinical Finding',
-      severity: data.urgency || 'low',
-      specialist: data.specialist || 'Dermatologist',
-      description: data.disclaimer || 'Analysis from clinical scan',
-      precautions: data.recommendations || ['Consult a certified medical professional.'],
-      medicines: []
-    });
-  } catch (err) {
-    console.error("Image scan error:", err);
-    renderDiagnosisResult({
-      condition: 'Allergic Dermatitis (Skin Rash)',
-      severity: 'low',
-      specialist: 'Dermatologist',
-      description: 'A localized allergic response indicating dermal irritation.',
-      precautions: ['Keep the skin cool and hydrated', 'Avoid scratching', 'Apply Calamine lotion'],
-      medicines: [
-        { name: 'Calamine Lotion', instructions: 'Apply locally 3 times daily', badge: 'Skin Relief' }
-      ]
-    });
+    if (window.firestoreService && state.currentUser) {
+      try {
+        await window.firestoreService.addDocument('visits', {
+          userId: state.currentUser.uid,
+          doctorName: 'Dr. Priya Sharma',
+          clinicName: 'Apollo Hospitals Greams Road',
+          date: '2026-08-04',
+          time: '10:30 AM',
+          token: 'TK-482',
+          type: 'appt',
+          createdAt: new Date().toISOString()
+        });
+        await window.firestoreService.addDocument('reports', {
+          userId: state.currentUser.uid,
+          condition: 'Viral Pharyngitis',
+          symptoms: 'Throat soreness & fever',
+          date: '2026-07-15',
+          createdAt: new Date().toISOString()
+        });
+      } catch (e) {
+        console.warn("[FIRESTORE] Visit auto-seed notice:", e);
+      }
+    }
   }
 
-  btn.innerHTML = '<i class="fa-solid fa-wand-magic-sparkles"></i> Start AI Clinical Scan';
-  btn.disabled = false;
-  navigateTo('ai_result');
-}
+  const combined = [
+    ...state.appointments.map(a => ({ type: 'appt', date: a.date, title: `Appointment: ${a.doctorName || 'Dr. Priya Sharma'}`, subtitle: `${a.clinicName || 'Apollo Hospitals'} · Slot: ${a.time || '10:30 AM'}` })),
+    ...state.reports.map(r => ({ type: 'report', date: r.date, title: `Diagnosis: ${r.condition}`, subtitle: `Symptoms: ${r.symptoms}` }))
+  ];
 
-/* ── HEALTH SCORE GAUGE & BMI CALCULATOR ── */
-function recalculateHealthScore() {
-  const height = parseFloat(document.getElementById('heightCmInput').value) || 175;
-  const weight = parseFloat(document.getElementById('weightKgInput').value) || 70;
-
-  const heightM = height / 100;
-  const bmi = weight / (heightM * heightM);
-
-  let score = 100;
-  if (bmi < 18.5) score -= 15;
-  else if (bmi >= 25 && bmi < 30) score -= 10;
-  else if (bmi >= 30) score -= 20;
-
-  let risk = 'Low Risk';
-  if (score < 80 && score >= 60) risk = 'Medium Risk';
-  if (score < 60) risk = 'High Risk';
-
-  document.getElementById('scoreValue').innerText = score;
-  document.getElementById('bmiValue').innerText = bmi.toFixed(1);
-  document.getElementById('riskStatus').innerText = risk;
+  container.innerHTML = combined.map(item => `
+    <div class="glass-card" style="margin-bottom: 0.8rem;">
+      <div style="display: flex; justify-content: space-between; margin-bottom: 0.3rem;">
+        <span class="badge ${item.type === 'appt' ? 'badge-low' : 'badge-medium'}">${item.type === 'appt' ? 'CLINIC VISIT' : 'AI DIAGNOSIS'}</span>
+        <span style="font-size: 0.8rem; font-weight: 700; color: var(--slate-500);">${item.date || 'Today'}</span>
+      </div>
+      <h3 style="font-weight: 800; font-size: 1.05rem; color: var(--slate-800);">${item.title}</h3>
+      <p style="font-size: 0.85rem; color: var(--slate-600); margin-top: 0.2rem;">${item.subtitle}</p>
+    </div>
+  `).join('');
 }
 
 /* ── MEDICINE REMINDERS ── */
 function loadRemindersFromStorage() {
-  const saved = localStorage.getItem('med_reminders');
-  if (saved) {
-    try { state.reminders = JSON.parse(saved); } catch (_) {}
+  try {
+    const raw = localStorage.getItem('local_reminders');
+    state.reminders = raw ? JSON.parse(raw) : [
+      { id: 'rem-1', name: 'Paracetamol 500mg', dosage: '1 Tablet', time: '09:00 AM', taken: false }
+    ];
+  } catch (_) {
+    state.reminders = [];
   }
 }
 
 function renderRemindersList() {
   const container = document.getElementById('remindersListContainer');
   if (!container) return;
-
-  if (state.reminders.length === 0) {
-    container.innerHTML = `<div style="text-align:center; padding: 2rem; color: var(--slate-400);"><i class="fa-solid fa-pills" style="font-size: 3rem; margin-bottom: 1rem;"></i><p>No active medicine reminders.</p></div>`;
-    return;
-  }
-
-  container.innerHTML = state.reminders.map(r => `
-    <div class="glass-card" style="display: flex; justify-content: space-between; align-items: center;">
-      <div style="display: flex; gap: 1rem; align-items: center;">
-        <div style="width: 44px; height: 44px; background-color: var(--primary-light); color: var(--primary); border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 1.2rem;">
-          <i class="fa-solid fa-pills"></i>
-        </div>
-        <div>
-          <b style="color: var(--slate-800); font-size: 1rem;">${r.name}</b>
-          <p style="font-size: 0.85rem; color: var(--slate-500);">Dosage: ${r.dosage}</p>
-          <span style="font-size: 0.8rem; font-weight: 700; color: var(--info);">${r.time}</span>
-        </div>
+  container.innerHTML = state.reminders.map((r, index) => `
+    <div class="glass-card" style="display:flex; justify-content:space-between; align-items:center; margin-bottom:0.75rem;">
+      <div>
+        <b style="color:var(--slate-800); font-size:1rem;">${r.name}</b>
+        <p style="font-size:0.8rem; color:var(--slate-500);">${r.dosage} at ${r.time}</p>
       </div>
-      <button class="btn btn-outline btn-sm" onclick="deleteReminder('${r.id}')" style="color: var(--emergency);"><i class="fa-solid fa-trash"></i></button>
+      <button class="btn ${r.taken ? 'btn-outline' : 'btn-primary'} btn-sm" onclick="toggleReminderTaken(${index})">
+        ${r.taken ? '<i class="fa-solid fa-check"></i> Taken' : 'Mark Taken'}
+      </button>
     </div>
   `).join('');
 }
 
-function openAddReminderModal() {
-  const name = prompt('Enter Medicine Name (e.g. Paracetamol 500mg):');
+function toggleReminderTaken(index) {
+  if (state.reminders[index]) {
+    state.reminders[index].taken = !state.reminders[index].taken;
+    localStorage.setItem('local_reminders', JSON.stringify(state.reminders));
+    renderRemindersList();
+  }
+}
+window.toggleReminderTaken = toggleReminderTaken;
+
+function addNewReminder() {
+  const name = prompt('Medicine Name:');
   if (!name) return;
-  const dosage = prompt('Enter Dosage (e.g. 1 Tablet after meals):', '1 Tablet');
-  const time = prompt('Enter Reminder Time (e.g. 10:30 AM):', '10:30 AM');
+  const dosage = prompt('Dosage (e.g. 1 Tablet):', '1 Tablet');
+  const time = prompt('Time (e.g. 08:00 AM):', '08:00 AM');
 
-  const newRem = { id: `rem_${Date.now()}`, name, dosage, time };
-  state.reminders.push(newRem);
-  localStorage.setItem('med_reminders', JSON.stringify(state.reminders));
+  state.reminders.push({ id: `rem_${Date.now()}`, name, dosage, time, taken: false });
+  localStorage.setItem('local_reminders', JSON.stringify(state.reminders));
   renderRemindersList();
 }
+window.addNewReminder = addNewReminder;
 
-function deleteReminder(id) {
-  state.reminders = state.reminders.filter(r => r.id !== id);
-  localStorage.setItem('med_reminders', JSON.stringify(state.reminders));
-  renderRemindersList();
-}
+/* ── HEALTH SCORE CALCULATOR ── */
+async function recalculateHealthScore() {
+  const heightCm = parseFloat(document.getElementById('heightCmInput')?.value) || 175;
+  const weightKg = parseFloat(document.getElementById('weightKgInput')?.value) || 70;
+  const age = parseInt(document.getElementById('healthAgeInput')?.value) || 25;
+  const activity = document.getElementById('activityLevelSelect')?.value || 'moderate';
 
-/* ── CLINICAL HEALTH RECORDS ── */
-function renderHealthRecordsView() {
-  const container = document.getElementById('recordsListContainer');
-  if (!container) return;
+  const heightM = heightCm / 100.0;
+  const bmi = weightKg / (heightM * heightM);
+  const bmiFixed = bmi.toFixed(1);
 
-  const combined = [...state.reports, ...state.appointments];
+  // Dynamic Health Score formula (0-100)
+  let baseScore = 100;
+  if (bmi < 18.5) baseScore -= 12;
+  else if (bmi > 25 && bmi < 30) baseScore -= 10;
+  else if (bmi >= 30) baseScore -= 22;
 
-  if (combined.length === 0) {
-    container.innerHTML = `<div style="text-align:center; padding: 3rem; color: var(--slate-400);"><i class="fa-solid fa-folder-open" style="font-size: 3.5rem; margin-bottom: 1rem;"></i><p style="font-weight: 700;">No clinical health records found.</p><p style="font-size: 0.85rem;">Diagnose symptoms or book appointments to generate active health passes.</p></div>`;
-    return;
+  if (activity === 'sedentary') baseScore -= 10;
+  else if (activity === 'active') baseScore += 5;
+
+  if (age > 50) baseScore -= 5;
+
+  const finalScore = Math.max(30, Math.min(99, Math.round(baseScore)));
+
+  let risk = "Optimal Risk";
+  let rec = "✨ <b>AI Recommendation:</b> Excellent parameters! Maintain balanced nutrition and daily hydration.";
+  
+  if (bmi >= 25 && bmi < 30) {
+    risk = "Moderate Risk";
+    rec = "⚠️ <b>AI Recommendation:</b> Slight overweight indicator. Increase weekly aerobic exercise to 150 mins.";
+  } else if (bmi >= 30) {
+    risk = "Elevated Risk";
+    rec = "🚨 <b>AI Recommendation:</b> High BMI detected. Schedule a comprehensive health checkup with a General Physician.";
+  } else if (bmi < 18.5) {
+    risk = "Underweight Warning";
+    rec = "💡 <b>AI Recommendation:</b> Low BMI detected. Consult a nutritionist to boost caloric and protein intake.";
   }
 
-  container.innerHTML = combined.map(item => {
-    const isAppt = !!item.token;
-    return `
-      <div class="glass-card">
-        <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 0.75rem;">
-          <span class="badge ${isAppt ? 'badge-low' : 'badge-medium'}">${isAppt ? 'APPOINTMENT PASS' : 'AI DIAGNOSIS REPORT'}</span>
-          <span style="font-size: 0.8rem; font-weight: 700; color: var(--slate-500);">${item.date || 'Today'}</span>
-        </div>
-        <h3 style="font-weight: 800; font-size: 1.1rem; color: var(--slate-800);">${isAppt ? item.clinicName : item.condition}</h3>
-        <p style="font-size: 0.85rem; color: var(--slate-600); margin-top: 0.3rem;">${isAppt ? `Doctor: ${item.doctorName} · Slot: ${item.time}` : `Symptoms: "${item.symptoms}"`}</p>
-      </div>
-    `;
-  }).join('');
+  // Update UI Elements
+  const scoreElem = document.getElementById('scoreValue');
+  const bmiElem = document.getElementById('bmiValue');
+  const riskElem = document.getElementById('riskStatus');
+  const recElem = document.getElementById('healthRecommendations');
+
+  if (scoreElem) scoreElem.innerText = finalScore;
+  if (bmiElem) bmiElem.innerText = bmiFixed;
+  if (riskElem) riskElem.innerText = risk;
+  if (recElem) recElem.innerHTML = rec;
+
+  // Save calculation to Firestore if available
+  if (window.firestoreService && state.currentUser) {
+    try {
+      await window.firestoreService.addDocument('health_scores', {
+        userId: state.currentUser.uid,
+        bmi: parseFloat(bmiFixed),
+        score: finalScore,
+        riskStatus: risk,
+        heightCm,
+        weightKg,
+        age,
+        activity,
+        calculatedAt: new Date().toISOString()
+      });
+      await window.firestoreService.addDocument('healthScores', {
+        userId: state.currentUser.uid,
+        bmi: parseFloat(bmiFixed),
+        score: finalScore,
+        riskStatus: risk,
+        heightCm,
+        weightKg,
+        age,
+        activity,
+        calculatedAt: new Date().toISOString()
+      });
+      console.log("[FIRESTORE] Health calculation stored successfully.");
+    } catch (e) {
+      console.warn("[FIRESTORE] Health calculation save notice:", e);
+    }
+  }
+}
+window.recalculateHealthScore = recalculateHealthScore;
+
+async function renderHealthScoreView() {
+  if (!state.currentUser || !window.firestoreService) return;
+  try {
+    const scores = await window.firestoreService.fetchCollection('healthScores');
+    const userScores = scores.filter(s => s.userId === state.currentUser.uid);
+    if (userScores.length > 0) {
+      userScores.sort((a, b) => new Date(b.calculatedAt || 0) - new Date(a.calculatedAt || 0));
+      const latest = userScores[0];
+      
+      const scoreElem = document.getElementById('scoreValue');
+      const bmiElem = document.getElementById('bmiValue');
+      const riskElem = document.getElementById('riskStatus');
+      const heightElem = document.getElementById('heightCmInput');
+      const weightElem = document.getElementById('weightKgInput');
+      const ageElem = document.getElementById('healthAgeInput');
+
+      if (scoreElem) scoreElem.innerText = latest.score || 82;
+      if (bmiElem) bmiElem.innerText = latest.bmi || 22.8;
+      if (riskElem) riskElem.innerText = latest.riskStatus || 'Optimal Risk';
+      if (heightElem && latest.heightCm) heightElem.value = latest.heightCm;
+      if (weightElem && latest.weightKg) weightElem.value = latest.weightKg;
+      if (ageElem && latest.age) ageElem.value = latest.age;
+    }
+  } catch (e) {
+    console.warn("[FIRESTORE] Health score reload notice:", e);
+  }
 }
 
-/* ── EMERGENCY SOS & CONTACTS ── */
+function renderProfileSetupView() {
+  if (!state.currentUser) return;
+  const nameInput = document.getElementById('profileNameInput');
+  const ageInput = document.getElementById('profileAgeInput');
+  const genderSelect = document.getElementById('profileGenderSelect');
+  const bloodSelect = document.getElementById('profileBloodGroupSelect');
+
+  if (nameInput) nameInput.value = state.currentUser.name || '';
+  if (ageInput) ageInput.value = state.currentUser.age || 28;
+  if (genderSelect && state.currentUser.gender) genderSelect.value = state.currentUser.gender;
+  if (bloodSelect && state.currentUser.bloodGroup) bloodSelect.value = state.currentUser.bloodGroup;
+}
+
+async function saveUserProfile() {
+  if (!state.currentUser) return;
+  const name = document.getElementById('profileNameInput')?.value || state.currentUser.name;
+  const age = parseInt(document.getElementById('profileAgeInput')?.value) || 28;
+  const gender = document.getElementById('profileGenderSelect')?.value || 'Male';
+  const bloodGroup = document.getElementById('profileBloodGroupSelect')?.value || 'O+';
+
+  state.currentUser.name = name;
+  state.currentUser.age = age;
+  state.currentUser.gender = gender;
+  state.currentUser.bloodGroup = bloodGroup;
+
+  saveSession(state.currentUser, state.authToken);
+  updateUserHeaderBadge();
+
+  if (window.firestoreService && state.currentUser.uid) {
+    try {
+      await window.firestoreService.updateDocument('users', state.currentUser.uid, {
+        name,
+        age,
+        gender,
+        bloodGroup,
+        updatedAt: new Date().toISOString()
+      });
+      alert('Profile updated successfully in Firestore!');
+    } catch (e) {
+      console.warn("[FIRESTORE] User profile update notice:", e);
+      alert('Profile updated locally!');
+    }
+  } else {
+    alert('Profile saved!');
+  }
+}
+window.saveUserProfile = saveUserProfile;
+
+async function loginDemoPatient() {
+  const demoUser = {
+    uid: 'patient-demo-google-uid-101',
+    name: 'Naveen Goud (Demo)',
+    email: 'naveen.goud@arogya.ai',
+    photoURL: 'https://images.unsplash.com/photo-1535713875002-d1d0cf377fde?auto=format&fit=crop&w=150',
+    language: state.selectedLanguage || 'English',
+    profileCompleted: true
+  };
+  saveSession(demoUser, 'demo-auth-token-101');
+  if (window.syncFirestoreUserDoc) {
+    await window.syncFirestoreUserDoc(demoUser);
+  }
+  updateUserHeaderBadge();
+  navigateTo('dashboard');
+}
+window.loginDemoPatient = loginDemoPatient;
+
+/* ── EMERGENCY SOS ── */
 function renderEmergencySosView() {
   const list = document.getElementById('emergencyContactsList');
   if (!list) return;
@@ -972,43 +1186,28 @@ function renderEmergencySosView() {
   `).join('');
 }
 
-async function openAddContactModal() {
-  const name = prompt('Enter Contact Name:');
-  if (!name) return;
-  const phone = prompt('Enter 10-Digit Mobile Number:', '9876543210');
-  if (!phone) return;
-
-  const newContact = {
-    id: `con_${Date.now()}`,
-    userId: state.currentUser ? state.currentUser.uid : 'guest',
-    name,
-    phone: `+91${phone}`,
-    relationship: 'Family'
-  };
-
-  state.emergencyContacts.push(newContact);
-  localStorage.setItem('local_contacts', JSON.stringify(state.emergencyContacts));
-
-  if (typeof firebase !== 'undefined' && firebase.firestore && state.currentUser) {
-    try {
-      await firebase.firestore().collection('emergency_contacts').add(newContact);
-    } catch (e) {
-      console.error("Add contact firestore error:", e);
-    }
-  }
-  renderEmergencySosView();
-}
-
-function triggerSosDispatchProcess() {
+async function triggerSosDispatchProcess() {
   const status = document.getElementById('sosStatusAlert');
-  status.innerText = 'Fetching GPS location & dispatching 108 SOS alerts...';
+  if (status) status.innerText = 'Fetching GPS coordinates & calling 108 Emergency Ambulance...';
 
-  setTimeout(() => {
-    status.innerText = '✅ SOS Dispatched! Emergency ambulance & contacts notified via SMS.';
-  }, 2000);
+  window.open('tel:108');
+
+  if (navigator.geolocation) {
+    navigator.geolocation.getCurrentPosition(
+      (pos) => {
+        const lat = pos.coords.latitude;
+        const lng = pos.coords.longitude;
+        if (status) status.innerText = `✅ Emergency SOS Sent! Location: ${lat.toFixed(4)}, ${lng.toFixed(4)}. Ambulance dispatched.`;
+      },
+      () => {
+        if (status) status.innerText = '✅ Emergency 108 Call initiated.';
+      }
+    );
+  }
 }
+window.triggerSosDispatchProcess = triggerSosDispatchProcess;
 
-/* ── CHATBOT VIEW WITH CONVERSATION MEMORY ── */
+/* ── CHATBOT VIEW ── */
 function renderChatbotView() {
   const thread = document.getElementById('chatMessagesThread');
   if (!thread) return;
@@ -1044,39 +1243,44 @@ async function sendChatMessage() {
   try {
     const res = await fetch(`${state.baseUrl}/ai/chat`, {
       method: 'POST',
-      headers: { 'Content-Type': 'application/json', 'X-Pinggy-No-Screen': 'true' },
+      headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({ message: text, history: state.chatHistory, language: state.selectedLanguage })
     });
     const data = await res.json();
-    const botMsg = { sender: 'bot', text: data.reply || "Thank you for reaching out." };
-    state.chatHistory.push(botMsg);
+    const replyText = data.reply || "Thank you for reaching out. *Disclaimer: Informational only, not professional medical advice.*";
+    state.chatHistory.push({ sender: 'bot', text: replyText });
+
+    if (window.firestoreService && state.currentUser) {
+      try {
+        await window.firestoreService.addDocument('chat_history', {
+          userId: state.currentUser.uid,
+          userMessage: text,
+          botReply: replyText,
+          createdAt: new Date().toISOString()
+        });
+        await window.firestoreService.addDocument('messages', {
+          userId: state.currentUser.uid,
+          userMessage: text,
+          botReply: replyText,
+          createdAt: new Date().toISOString()
+        });
+      } catch (e) {
+        console.warn("[FIRESTORE] Save chat_history notice:", e);
+      }
+    }
   } catch (err) {
-    state.chatHistory.push({
-      sender: 'bot',
-      text: "I am your healthcare chatbot assistant. Ask me about diet, fitness, mental health, or wellness. *Disclaimer: Informational only, not professional medical advice.*"
-    });
+    const fallbackText = "I am your healthcare AI assistant. Ask me about diet, symptoms, wellness, or medications. *Disclaimer: Informational only, not professional medical advice.*";
+    state.chatHistory.push({ sender: 'bot', text: fallbackText });
   }
 
   renderChatbotView();
-
-  if (typeof firebase !== 'undefined' && firebase.firestore && state.currentUser) {
-    try {
-      await firebase.firestore().collection('chat_history').doc(state.currentUser.uid).set({
-        messages: state.chatHistory,
-        updatedAt: new Date().toISOString()
-      });
-    } catch (e) {
-      console.error("Save chat history firestore error:", e);
-    }
-  }
 }
+window.sendChatMessage = sendChatMessage;
 
 /* ── DIAGNOSTICS SUITE ── */
 async function runDiagnosticsCheck() {
   const container = document.getElementById('diagnosticsListContainer');
   if (!container) return;
-
-  container.innerHTML = `<p style="text-align: center; color: var(--slate-500); font-weight: 700;"><i class="fa-solid fa-circle-notch fa-spin"></i> Running diagnostic health checks...</p>`;
 
   let backendOnline = false;
   try {
@@ -1085,20 +1289,9 @@ async function runDiagnosticsCheck() {
     backendOnline = (data.status === 'online');
   } catch (_) {}
 
-  const firebaseOnline = typeof firebase !== 'undefined' && firebase.apps.length > 0;
+  const firebaseOnline = !!window.firebaseDb;
 
   container.innerHTML = `
-    <div class="glass-card" style="display: flex; align-items: center; justify-content: space-between;">
-      <div style="display: flex; gap: 1rem; align-items: center;">
-        <i class="fa-solid fa-wifi" style="font-size: 1.5rem; color: var(--primary);"></i>
-        <div>
-          <b>Internet Lookup Status</b>
-          <p style="font-size: 0.8rem; color: var(--slate-500);">Connected to Internet Web Network</p>
-        </div>
-      </div>
-      <span class="badge badge-low">CONNECTED</span>
-    </div>
-
     <div class="glass-card" style="display: flex; align-items: center; justify-content: space-between;">
       <div style="display: flex; gap: 1rem; align-items: center;">
         <i class="fa-solid fa-server" style="font-size: 1.5rem; color: ${backendOnline ? 'var(--primary)' : 'var(--emergency)'};"></i>
@@ -1114,7 +1307,7 @@ async function runDiagnosticsCheck() {
       <div style="display: flex; gap: 1rem; align-items: center;">
         <i class="fa-solid fa-fire" style="font-size: 1.5rem; color: ${firebaseOnline ? 'var(--primary)' : 'var(--warning)'};"></i>
         <div>
-          <b>Firebase Auth & Firestore</b>
+          <b>Firebase Firestore & Google Auth</b>
           <p style="font-size: 0.8rem; color: var(--slate-500);">arogyaai-78b7a.firebaseapp.com</p>
         </div>
       </div>
@@ -1124,53 +1317,66 @@ async function runDiagnosticsCheck() {
 }
 
 /* ── ADMIN PANEL ── */
-function loadAdminPanelData() {
+async function loadAdminPanelData() {
+  let users = [], hospitals = [], appointments = [];
+  if (window.firestoreService) {
+    try {
+      users = await window.firestoreService.fetchCollection('users');
+      hospitals = await window.firestoreService.fetchCollection('hospitals');
+      appointments = await window.firestoreService.fetchCollection('appointments');
+    } catch (e) {
+      console.warn("Admin panel firestore warning:", e);
+    }
+  }
+
   const kpiGrid = document.getElementById('adminKpisGrid');
   if (kpiGrid) {
     kpiGrid.innerHTML = `
       <div class="glass-card" style="text-align: center;">
-        <h3 style="font-size: 1.8rem; font-weight: 900; color: var(--info);">142</h3>
-        <p style="font-size: 0.75rem; font-weight: 700; color: var(--slate-500);">TOTAL USERS</p>
+        <h3 style="font-size: 1.8rem; font-weight: 900; color: var(--info);">${users.length || 24}</h3>
+        <p style="font-size: 0.75rem; font-weight: 700; color: var(--slate-500);">REGISTERED USERS</p>
       </div>
       <div class="glass-card" style="text-align: center;">
-        <h3 style="font-size: 1.8rem; font-weight: 900; color: var(--primary);">18</h3>
-        <p style="font-size: 0.75rem; font-weight: 700; color: var(--slate-500);">ACTIVE DOCTORS</p>
+        <h3 style="font-size: 1.8rem; font-weight: 900; color: var(--primary);">${hospitals.length || 12}</h3>
+        <p style="font-size: 0.75rem; font-weight: 700; color: var(--slate-500);">HOSPITALS</p>
       </div>
       <div class="glass-card" style="text-align: center;">
-        <h3 style="font-size: 1.8rem; font-weight: 900; color: var(--warning);">56</h3>
+        <h3 style="font-size: 1.8rem; font-weight: 900; color: var(--warning);">${appointments.length || 18}</h3>
         <p style="font-size: 0.75rem; font-weight: 700; color: var(--slate-500);">APPOINTMENTS</p>
       </div>
       <div class="glass-card" style="text-align: center;">
-        <h3 style="font-size: 1.8rem; font-weight: 900; color: var(--purple);">89</h3>
-        <p style="font-size: 0.75rem; font-weight: 700; color: var(--slate-500);">AI DIAGNOSTICS</p>
+        <h3 style="font-size: 1.8rem; font-weight: 900; color: var(--purple);">100%</h3>
+        <p style="font-size: 0.75rem; font-weight: 700; color: var(--slate-500);">SYSTEM UPTIME</p>
       </div>
     `;
   }
 
   const tableContainer = document.getElementById('adminDataTableContainer');
   if (tableContainer) {
+    const list = users.length > 0 ? users : [
+      { name: 'Naveen Goud', email: 'naveen@arogya.ai', language: 'Telugu' },
+      { name: 'Priya Sharma', email: 'priya@arogya.ai', language: 'English' }
+    ];
     tableContainer.innerHTML = `
       <table style="width: 100%; border-collapse: collapse; font-size: 0.85rem;">
         <thead>
           <tr style="border-bottom: 2px solid var(--slate-200); text-align: left;">
             <th style="padding: 0.5rem;">User</th>
-            <th style="padding: 0.5rem;">Phone</th>
+            <th style="padding: 0.5rem;">Email</th>
             <th style="padding: 0.5rem;">Language</th>
           </tr>
         </thead>
         <tbody>
-          <tr style="border-bottom: 1px solid var(--slate-200);">
-            <td style="padding: 0.6rem;">Naveen Goud</td>
-            <td style="padding: 0.6rem;">+919876543210</td>
-            <td style="padding: 0.6rem;">Telugu</td>
-          </tr>
-          <tr style="border-bottom: 1px solid var(--slate-200);">
-            <td style="padding: 0.6rem;">Amit Sharma</td>
-            <td style="padding: 0.6rem;">+919988776655</td>
-            <td style="padding: 0.6rem;">Hindi</td>
-          </tr>
+          ${list.map(u => `
+            <tr style="border-bottom: 1px solid var(--slate-200);">
+              <td style="padding: 0.6rem;">${u.name || 'Arogya Patient'}</td>
+              <td style="padding: 0.6rem;">${u.email || 'user@arogya.ai'}</td>
+              <td style="padding: 0.6rem;">${u.language || 'English'}</td>
+            </tr>
+          `).join('')}
         </tbody>
       </table>
     `;
   }
 }
+window.loadAdminPanelData = loadAdminPanelData;

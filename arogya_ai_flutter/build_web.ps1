@@ -30,8 +30,15 @@ if (Test-Path $destWebDir) {
 
 robocopy "$tempDir\build\web" $destWebDir /E /NJH /NJS /NDL /NC /NS
 
+$rootWorkspace = "$PSScriptRoot\.."
+$arogyaWebDir = "$PSScriptRoot\..\arogya_ai_web"
+
+Write-Host "Syncing compiled web files to arogya_ai_web and repository root..." -ForegroundColor Yellow
+robocopy "$destWebDir" "$arogyaWebDir" /E /XF *.apk /NJH /NJS /NDL /NC /NS
+robocopy "$destWebDir" "$rootWorkspace" /E /XF *.apk /XF *.md /XF *.rules /XD arogya_ai_flutter /XD arogya_ai_backend /XD .git /XD .github /NJH /NJS /NDL /NC /NS
+
 if (Test-Path "$destWebDir\index.html") {
-    Write-Host "SUCCESS: Web application built successfully!" -ForegroundColor Green
+    Write-Host "SUCCESS: Web application built and synced successfully to root & arogya_ai_web!" -ForegroundColor Green
     Write-Host "Web build output location: $destWebDir" -ForegroundColor Cyan
 } else {
     Write-Host "ERROR: Web build failed!" -ForegroundColor Red

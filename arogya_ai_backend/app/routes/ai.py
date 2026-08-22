@@ -2,8 +2,10 @@ from fastapi import APIRouter, Depends, HTTPException
 import json
 import logging
 from datetime import datetime
-from typing import Optional
-import google.generativeai as genai
+try:
+    import google.generativeai as genai
+except ImportError:
+    genai = None
 from app.config import db, GEMINI_API_KEY
 from app.models.schemas import SymptomReportBase
 from app.middleware import get_current_user
@@ -164,6 +166,7 @@ OFFLINE_DIAGNOSES = {
 
 
 @router.post("/diagnose")
+@router.post("/predict")
 async def analyze_symptoms(
     payload: dict,
     current_user: dict = Depends(get_current_user)
@@ -181,9 +184,9 @@ async def analyze_symptoms(
 
     clean_symptoms = normalize_symptoms(raw_symptoms)
     
-    # 1. Try Gemini API
+    # 1. Try Gemini API if key and module exist
     ai_result = None
-    if GEMINI_API_KEY:
+    if GEMINI_API_KEY and genai is not None:
         try:
             # Construct a multilingual, schema-strict prompt for Gemini
             system_prompt = (
@@ -401,7 +404,7 @@ async def chatbot_respond(
     )
     
     response_text = ""
-    if GEMINI_API_KEY:
+    if GEMINI_API_KEY and genai is not None:
         try:
             model = genai.GenerativeModel("gemini-1.5-flash")
             response = model.generate_content(

@@ -5,7 +5,10 @@ from typing import Any
 from dotenv import load_dotenv
 import firebase_admin
 from firebase_admin import credentials, firestore
-import google.generativeai as genai
+try:
+    import google.generativeai as genai
+except ImportError:
+    genai = None
 
 # Setup Logging
 logging.basicConfig(level=logging.INFO, format="%(asctime)s [%(levelname)s] %(message)s")
@@ -22,15 +25,15 @@ TWILIO_AUTH_TOKEN = os.getenv("TWILIO_AUTH_TOKEN", "")
 TWILIO_PHONE_NUMBER = os.getenv("TWILIO_PHONE_NUMBER", "")
 FIREBASE_CREDENTIALS = os.getenv("FIREBASE_CREDENTIALS", "")
 
-# Initialize Gemini API
-if GEMINI_API_KEY:
+# Initialize Gemini API if library and key exist
+if GEMINI_API_KEY and genai is not None:
     try:
         genai.configure(api_key=GEMINI_API_KEY)
         logger.info("Gemini API successfully configured.")
     except Exception as e:
         logger.error(f"Failed to configure Gemini API: {e}")
 else:
-    logger.warning("GEMINI_API_KEY not found in environment. AI features will fallback to offline rule-based diagnosis.")
+    logger.info("Operating in standalone offline clinical rule-based diagnosis mode.")
 
 # Initialize Firebase Admin SDK
 db = None
@@ -40,7 +43,9 @@ firebase_app = None
 class JSONCollection:
     def __init__(self, name: str):
         self.name = name
-        self.file_path = f"db_{name.lower()}.json"
+        db_dir = os.path.join(os.path.dirname(os.path.abspath(__file__)), "..", "database")
+        os.makedirs(db_dir, exist_ok=True)
+        self.file_path = os.path.join(db_dir, f"db_{name.lower()}.json")
         if not os.path.exists(self.file_path):
             with open(self.file_path, "w") as f:
                 json.dump({}, f)
@@ -154,6 +159,12 @@ try:
         firebase_app = firebase_admin.initialize_app(cred)
         db = firestore.client()
         logger.info("Firebase Admin SDK successfully initialized using Service Account file.")
+    elif FIREBASE_CREDENTIALS and FIREBASE_CREDENTIALS.strip().startswith("{"):
+        cred_dict = json.loads(FIREBASE_CREDENTIALS)
+        cred = credentials.Certificate(cred_dict)
+        firebase_app = firebase_admin.initialize_app(cred)
+        db = firestore.client()
+        logger.info("Firebase Admin SDK successfully initialized using environment JSON string.")
     elif os.path.exists("firebase_credentials.json"):
         cred = credentials.Certificate("firebase_credentials.json")
         firebase_app = firebase_admin.initialize_app(cred)

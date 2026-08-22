@@ -1,4 +1,4 @@
-import 'dart:io';
+import 'dart:typed_data';
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:animate_do/animate_do.dart';
@@ -13,7 +13,8 @@ class ImageScanScreen extends StatefulWidget {
 }
 
 class _ImageScanScreenState extends State<ImageScanScreen> with SingleTickerProviderStateMixin {
-  File? _imageFile;
+  XFile? _xFile;
+  Uint8List? _imageBytes;
   final ImagePicker _picker = ImagePicker();
   bool _isScanning = false;
   late AnimationController _animationController;
@@ -42,8 +43,10 @@ class _ImageScanScreenState extends State<ImageScanScreen> with SingleTickerProv
         imageQuality: 85,
       );
       if (pickedFile != null) {
+        final bytes = await pickedFile.readAsBytes();
         setState(() {
-          _imageFile = File(pickedFile.path);
+          _xFile = pickedFile;
+          _imageBytes = bytes;
         });
       }
     } catch (e) {
@@ -54,7 +57,7 @@ class _ImageScanScreenState extends State<ImageScanScreen> with SingleTickerProv
   }
 
   void _startScan() async {
-    if (_imageFile == null) return;
+    if (_xFile == null) return;
 
     setState(() {
       _isScanning = true;
@@ -65,8 +68,8 @@ class _ImageScanScreenState extends State<ImageScanScreen> with SingleTickerProv
     // Simulate clinical scan analysis delay
     await Future.delayed(const Duration(seconds: 3));
 
-    // Analyze symptoms based on simulated image tags or name
-    final fileName = _imageFile!.path.toLowerCase();
+    // Analyze symptoms based on image file path / name
+    final fileName = _xFile!.name.toLowerCase();
     String query = "dermal rash itchiness"; // Default fallback
     if (fileName.contains("prescription") || fileName.contains("doc")) {
       query = "throat infection cough throat pain";
@@ -104,7 +107,8 @@ class _ImageScanScreenState extends State<ImageScanScreen> with SingleTickerProv
       ).then((_) {
         // Clear selected image on return
         setState(() {
-          _imageFile = null;
+          _xFile = null;
+          _imageBytes = null;
         });
       });
     }
@@ -151,7 +155,7 @@ class _ImageScanScreenState extends State<ImageScanScreen> with SingleTickerProv
                 child: Stack(
                   clipBehavior: Clip.antiAlias,
                   children: [
-                    if (_imageFile == null)
+                    if (_imageBytes == null)
                       Center(
                         child: Column(
                           mainAxisAlignment: MainAxisAlignment.center,
@@ -170,7 +174,7 @@ class _ImageScanScreenState extends State<ImageScanScreen> with SingleTickerProv
                       Positioned.fill(
                         child: ClipRRect(
                           borderRadius: BorderRadius.circular(22),
-                          child: Image.file(_imageFile!, fit: BoxFit.cover),
+                          child: Image.memory(_imageBytes!, fit: BoxFit.cover),
                         ),
                       ),
                       
@@ -215,7 +219,7 @@ class _ImageScanScreenState extends State<ImageScanScreen> with SingleTickerProv
             const SizedBox(height: 32),
             
             // Buttons
-            if (_imageFile != null && !_isScanning)
+            if (_imageBytes != null && !_isScanning)
               FadeInUp(
                 child: Row(
                   children: [

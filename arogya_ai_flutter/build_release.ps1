@@ -24,12 +24,12 @@ flutter build appbundle --release --no-tree-shake-icons
 Pop-Location
 
 # Copy outputs back
-$apkSource = "$buildDir\app\outputs\flutter-apk\app-release.apk"
+$apkSource = "$tempDir\build\app\outputs\flutter-apk\app-release.apk"
 if (!(Test-Path $apkSource)) {
-    $apkSource = "$buildDir\app\outputs\apk\release\app-release.apk"
+    $apkSource = "$tempDir\build\app\outputs\apk\release\app-release.apk"
 }
 if (!(Test-Path $apkSource)) {
-    $apkSource = "$tempDir\build\app\outputs\flutter-apk\app-release.apk"
+    $apkSource = "$buildDir\app\outputs\flutter-apk\app-release.apk"
 }
 
 $aabSource = "$buildDir\app\outputs\bundle\release\app-release.aab"

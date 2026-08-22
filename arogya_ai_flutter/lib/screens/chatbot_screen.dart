@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:animate_do/animate_do.dart';
 import 'package:speech_to_text/speech_to_text.dart';
+import 'package:firebase_auth/firebase_auth.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
 import '../services/api_service.dart';
 import '../services/localization_service.dart';
 
@@ -101,6 +103,20 @@ class _ChatbotScreenState extends State<ChatbotScreen> {
         });
       });
       _scrollToBottom();
+
+      if (ApiService.isFirebaseAvailable) {
+        try {
+          final uid = FirebaseAuth.instance.currentUser?.uid ?? 'guest';
+          FirebaseFirestore.instance.collection('chat_history').add({
+            'userId': uid,
+            'userMessage': text,
+            'botReply': response,
+            'createdAt': DateTime.now().toIso8601String(),
+          });
+        } catch (e) {
+          debugPrint('Firestore chat save error: $e');
+        }
+      }
     }
   }
 

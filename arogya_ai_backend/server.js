@@ -13,7 +13,12 @@ const PORT = process.env.PORT || 5000;
 
 app.use(cors());
 app.use(express.json());
-app.use(express.static(path.join(__dirname, '../arogya_ai_web')));
+
+const webDir = fs.existsSync(path.join(__dirname, '../arogya_ai_web'))
+    ? path.join(__dirname, '../arogya_ai_web')
+    : path.join(__dirname, 'public');
+
+app.use(express.static(webDir));
 
 app.get('/health', (req, res) => {
     res.status(200).json({
@@ -32,24 +37,37 @@ app.get('/api/health', (req, res) => {
 });
 
 app.get('/download-apk', (req, res) => {
-    const apkPath = path.join(__dirname, '../arogya_ai_flutter/arogya-ai-debug.apk');
-    if (fs.existsSync(apkPath)) {
-        res.download(apkPath, 'arogya-ai-debug.apk');
+    const candidates = [
+        path.join(__dirname, '../arogya_ai_flutter/arogya-ai-production-release.apk'),
+        path.join(__dirname, '../arogya_ai_flutter/arogya-ai-release-final.apk'),
+        path.join(__dirname, '../arogya_ai_flutter/arogya-ai-debug.apk'),
+        path.join(__dirname, '../arogya_ai_flutter/build/app/outputs/flutter-apk/app-release.apk')
+    ];
+    const found = candidates.find(p => fs.existsSync(p));
+    if (found) {
+        res.download(found, path.basename(found));
     } else {
         res.status(404).send('APK file not found. Please compile it first.');
     }
 });
 
 
-// Local Database JSON file paths
-const APPOINTMENTS_FILE = path.join(__dirname, 'db_appointments.json');
-const REPORTS_FILE = path.join(__dirname, 'db_reports.json');
-const USERS_FILE = path.join(__dirname, 'db_users.json');
+// Local Database JSON directory & file paths
+const DB_DIR = path.join(__dirname, 'database');
+if (!fs.existsSync(DB_DIR)) fs.mkdirSync(DB_DIR, { recursive: true });
+
+const APPOINTMENTS_FILE = path.join(DB_DIR, 'db_appointments.json');
+const REPORTS_FILE = path.join(DB_DIR, 'db_reports.json');
+const USERS_FILE = path.join(DB_DIR, 'db_users.json');
+const DOCTORS_FILE = path.join(DB_DIR, 'db_doctors.json');
+const HOSPITALS_FILE = path.join(DB_DIR, 'db_hospitals.json');
 
 // Initialize database files if they don't exist
 if (!fs.existsSync(APPOINTMENTS_FILE)) fs.writeFileSync(APPOINTMENTS_FILE, JSON.stringify([]));
 if (!fs.existsSync(REPORTS_FILE)) fs.writeFileSync(REPORTS_FILE, JSON.stringify([]));
 if (!fs.existsSync(USERS_FILE)) fs.writeFileSync(USERS_FILE, JSON.stringify({}));
+if (!fs.existsSync(DOCTORS_FILE)) fs.writeFileSync(DOCTORS_FILE, JSON.stringify([]));
+if (!fs.existsSync(HOSPITALS_FILE)) fs.writeFileSync(HOSPITALS_FILE, JSON.stringify([]));
 
 const readDb = (filePath) => {
     try {
@@ -159,6 +177,50 @@ async function sendSms(phone, message) {
     }
 
     return { success: false, provider: 'None (Console Printed Only)' };
+}
+
+// Helper to send transactional emails via Brevo REST API
+async function sendBrevoEmail({ toEmail, toName, subject, htmlContent, textContent }) {
+    const apiKey = process.env.BREVO_API_KEY;
+    if (!apiKey) {
+        console.warn("[Brevo Email] BREVO_API_KEY missing from server configuration.");
+        return { success: false, error: "BREVO_API_KEY missing" };
+    }
+
+    const senderEmail = process.env.BREVO_SENDER_EMAIL || "knaveengoud123@gmail.com";
+    const senderName = process.env.BREVO_SENDER_NAME || "ArogyaAI";
+
+    try {
+        const payload = {
+            sender: { email: senderEmail, name: senderName },
+            to: [{ email: toEmail, name: toName || toEmail }],
+            subject: subject,
+            htmlContent: htmlContent,
+            textContent: textContent || subject
+        };
+
+        const response = await fetch("https://api.brevo.com/v3/smtp/email", {
+            method: "POST",
+            headers: {
+                "accept": "application/json",
+                "content-type": "application/json",
+                "api-key": apiKey
+            },
+            body: JSON.stringify(payload)
+        });
+
+        const result = await response.json();
+        if (response.ok && result.messageId) {
+            console.log(`[Brevo Email Sent] Success to: ${toEmail} | Message ID: ${result.messageId}`);
+            return { success: true, messageId: result.messageId };
+        } else {
+            console.error("[Brevo Email Error]", result);
+            return { success: false, error: result.message || "Brevo API returned error" };
+        }
+    } catch (e) {
+        console.error("[Brevo Email Exception]", e.message);
+        return { success: false, error: e.message };
+    }
 }
 
 /* ── ROUTES ── */
@@ -422,138 +484,34 @@ app.post('/api/auth/profile', (req, res) => {
     return res.status(200).json(profile);
 });
 
-// 3. Get Clinics/Hospitals (Dynamically center around user location)
+// 3. Get Clinics/Hospitals (Dynamically served from database/db_hospitals.json with multi-city support)
 app.get('/api/hospitals', async (req, res) => {
-    const baseLat = parseFloat(req.query.lat) || 17.3850;
-    const baseLng = parseFloat(req.query.lng) || 78.4867;
-
-    let city = "Local Area";
-    let state = "";
-
-    // Reverse geocode user location to show local city/village name
+    const cityFilter = req.query.city ? req.query.city.toLowerCase() : null;
     try {
-        const geoUrl = `https://nominatim.openstreetmap.org/reverse?format=json&lat=${baseLat}&lon=${baseLng}`;
-        const response = await fetch(geoUrl, {
-            headers: { 'User-Agent': 'ArogyaAI-Mobile-Engine' }
-        });
-        if (response.ok) {
-            const geoData = await response.json();
-            const addr = geoData.address || {};
-            city = addr.city || addr.town || addr.village || addr.suburb || addr.county || "Local Area";
-            state = addr.state || "";
+        const hospitalsObj = readDbObj(HOSPITALS_FILE);
+        let list = Object.values(hospitalsObj);
+
+        if (cityFilter && cityFilter !== 'all' && cityFilter !== 'current') {
+            const filtered = list.filter(h =>
+                (h.city || '').toLowerCase().includes(cityFilter) ||
+                (h.address || '').toLowerCase().includes(cityFilter) ||
+                (h.name || '').toLowerCase().includes(cityFilter)
+            );
+            if (filtered.length > 0) {
+                list = filtered;
+            }
         }
+
+        return res.status(200).json(list);
     } catch (e) {
-        console.error("Reverse geocoding failed:", e);
+        console.error("Read hospitals database error:", e);
+        return res.status(500).json({ success: false, message: "Error reading hospitals database" });
     }
-
-    const isChennai = (city.toLowerCase().includes("chennai") || (baseLat >= 12.8 && baseLat <= 13.2 && baseLng >= 80.0 && baseLng <= 80.4));
-
-    const baseClinics = [
-        {
-            id: "hosp-1",
-            name: isChennai ? "Apollo Greams Road" : "Apollo Hospitals",
-            doctor: "Dr. Priya Sharma",
-            specialist: "ENT Specialist",
-            degree: "MBBS, MS (ENT)",
-            exp: "12 yrs exp",
-            patients: "2.5k+",
-            rating: "4.9",
-            about: isChennai
-                ? "Dr. Priya Sharma is a senior ENT consultant at Apollo Greams Road with over 12 years of experience treating throat, nose, and ear conditions."
-                : "Dr. Priya Sharma is a senior ENT consultant at Apollo Hospitals with over 12 years of experience treating throat, nose, and ear conditions.",
-            latOffset: 0.012,
-            lngOffset: -0.015,
-            fee: "₹400",
-            open: true,
-            type: "private",
-            phone: isChennai ? "044-28290200" : "040-23607777",
-            address: isChennai 
-                ? `Apollo Greams Road, Thousand Lights, Chennai, Tamil Nadu 600006`
-                : `Apollo Diagnostics Center, Jubilee Hills, ${city}`,
-            image: "https://images.unsplash.com/photo-1584515979956-d9f6e5d09982?auto=format&fit=crop&w=600&q=80"
-        },
-        {
-            id: "hosp-2",
-            name: isChennai ? "Fortis Malar Hospital" : "Care Hospitals",
-            doctor: "Dr. Mary Joseph",
-            specialist: "Cardiologist",
-            degree: "MBBS, MD, DM (Cardio)",
-            exp: "15 yrs exp",
-            patients: "3.2k+",
-            rating: "4.6",
-            about: isChennai
-                ? "Dr. Mary Joseph is an expert in interventional cardiology and preventive cardiovascular wellness at Fortis Malar Hospital."
-                : "Dr. Mary Joseph is an expert in interventional cardiology and preventive cardiovascular wellness.",
-            latOffset: -0.018,
-            lngOffset: 0.022,
-            fee: "₹500",
-            open: true,
-            type: "private",
-            phone: isChennai ? "044-42892222" : "080-25200000",
-            address: isChennai
-                ? `Fortis Malar Hospital, Gandhi Nagar, Adyar, Chennai, Tamil Nadu 600020`
-                : `Care Heart Clinic, Banjara Hills, ${city}`,
-            image: "https://images.unsplash.com/photo-1519494026892-80bbd2d6fd0d?auto=format&fit=crop&w=600&q=80"
-        },
-        {
-            id: "hosp-3",
-            name: isChennai ? "MGM Healthcare" : "Cauvery Multi-Specialty",
-            doctor: "Dr. Vinay Gowda",
-            specialist: "General Physician",
-            degree: "MBBS, MD (Gen Med)",
-            exp: "8 yrs exp",
-            patients: "1.8k+",
-            rating: "4.4",
-            about: "Dr. Vinay Gowda provides outpatient treatment for systemic infections and family wellness.",
-            latOffset: 0.035,
-            lngOffset: 0.041,
-            fee: "₹200",
-            open: true,
-            type: "private",
-            phone: isChennai ? "044-45200200" : "080-23456789",
-            address: isChennai
-                ? `MGM Healthcare, Nelson Manickam Road, Aminjikarai, Chennai, Tamil Nadu 600029`
-                : `Cauvery General Clinic, Main Bypass, ${city}`,
-            image: "https://images.unsplash.com/photo-1551076805-e1869033e561?auto=format&fit=crop&w=600&q=80"
-        },
-        {
-            id: "hosp-4",
-            name: isChennai ? "Rajiv Gandhi Govt General Hospital" : "Govt Primary Health Centre (PHC)",
-            doctor: "Dr. Ramesh Chandra",
-            specialist: "General Physician",
-            degree: "MBBS",
-            exp: "10 yrs exp",
-            patients: "5.0k+",
-            rating: "4.2",
-            about: isChennai
-                ? "Primary healthcare services funded by the government, offering free immunizations, consultations, and maternal health programs in Chennai."
-                : "Primary healthcare services funded by the government, offering free immunizations, consultations, and maternal health programs.",
-            latOffset: -0.005,
-            lngOffset: -0.008,
-            fee: "Free",
-            open: true,
-            type: "govt",
-            phone: isChennai ? "044-25305000" : "080-28561111",
-            address: isChennai
-                ? `EVR Periyar Salai, Park Town, Chennai, Tamil Nadu 600003`
-                : `Govt Primary Health Center, Ward 5, ${city}`,
-            image: "https://images.unsplash.com/photo-1538108176447-2af0b97db733?auto=format&fit=crop&w=600&q=80"
-        }
-    ];
-
-    // Compute actual absolute coordinates for the app map to render properly
-    const processedClinics = baseClinics.map(h => ({
-        ...h,
-        lat: baseLat + h.latOffset,
-        lng: baseLng + h.lngOffset
-    }));
-
-    return res.status(200).json(processedClinics);
 });
 
 // 4. Clinical Symptom AI Diagnosis (Gemini 2.5 Flash Integration)
-app.post('/api/ai/diagnose', async (req, res) => {
-    const { symptoms, language } = req.body;
+const diagnoseHandler = async (req, res) => {
+    const { symptoms, language } = req.body || {};
     if (!symptoms || !symptoms.trim()) {
         return res.status(400).json({ success: false, message: "Symptoms description is required" });
     }
@@ -666,7 +624,11 @@ app.post('/api/ai/diagnose', async (req, res) => {
     }
 
     return res.status(200).json(diagnosis);
-});
+};
+
+app.post('/api/ai/diagnose', diagnoseHandler);
+app.post('/api/diagnose', diagnoseHandler);
+app.post('/diagnose', diagnoseHandler);
 
 // 4.2 AI Health Chatbot Endpoint with Context Memory
 app.post('/api/ai/chat', async (req, res) => {
@@ -855,10 +817,175 @@ app.post('/api/appointments', async (req, res) => {
         console.error("Failed to send booking confirmation SMS:", err);
     });
 
+    // Trigger Brevo email confirmation if patient email exists
+    if (newBooking.patientEmail && newBooking.patientEmail.includes('@')) {
+        const htmlEmail = `
+<div style="font-family: 'Segoe UI', Arial, sans-serif; max-width: 600px; margin: 0 auto; border: 1px solid #e0e0e0; border-radius: 12px; overflow: hidden;">
+    <div style="background: linear-gradient(135deg, #1A365D, #00A86B); padding: 24px; text-align: center; color: white;">
+        <h1 style="margin: 0; font-size: 24px; font-weight: 700;">ArogyaAI</h1>
+        <p style="margin: 4px 0 0 0; font-size: 14px; opacity: 0.9;">AI-Powered Rural Healthcare Assistant</p>
+    </div>
+    <div style="padding: 24px; background-color: #ffffff; color: #2D3748;">
+        <h2 style="color: #1A365D; margin-top: 0;">Appointment Confirmed!</h2>
+        <p>Hello <strong>${newBooking.patientName || 'Valued Patient'}</strong>,</p>
+        <p>Your healthcare appointment has been successfully booked through ArogyaAI.</p>
+        <div style="background-color: #F7FAFC; border-left: 4px solid #00A86B; padding: 16px; margin: 20px 0; border-radius: 4px;">
+            <h3 style="margin-top: 0; color: #1A365D; font-size: 16px;">Appointment Summary</h3>
+            <table style="width: 100%; border-collapse: collapse; font-size: 14px;">
+                <tr><td style="padding: 6px 0; color: #718096; width: 35%;">Patient:</td><td style="padding: 6px 0; font-weight: 600;">${newBooking.patientName}</td></tr>
+                <tr><td style="padding: 6px 0; color: #718096;">Doctor:</td><td style="padding: 6px 0; font-weight: 600;">Dr. ${newBooking.doctorName}</td></tr>
+                <tr><td style="padding: 6px 0; color: #718096;">Hospital/Clinic:</td><td style="padding: 6px 0; font-weight: 600;">${newBooking.clinicName}</td></tr>
+                <tr><td style="padding: 6px 0; color: #718096;">Specialization:</td><td style="padding: 6px 0; font-weight: 600;">${newBooking.specialist || 'General Medicine'}</td></tr>
+                <tr><td style="padding: 6px 0; color: #718096;">Date & Time:</td><td style="padding: 6px 0; font-weight: 600;">${newBooking.date} at ${newBooking.time}</td></tr>
+                <tr><td style="padding: 6px 0; color: #718096;">Booking ID:</td><td style="padding: 6px 0; font-weight: 600; color: #00A86B;">${newBooking.id} (${tokenNum})</td></tr>
+                <tr><td style="padding: 6px 0; color: #718096;">Address:</td><td style="padding: 6px 0;">${newBooking.address || 'N/A'}</td></tr>
+                <tr><td style="padding: 6px 0; color: #718096;">Status:</td><td style="padding: 6px 0; font-weight: 600; color: #00A86B;">Confirmed</td></tr>
+            </table>
+        </div>
+        <p>You can open the ArogyaAI application at any time to view your appointment token and clinical records.</p>
+        <p style="margin-top: 24px;">Regards,<br><strong>ArogyaAI Healthcare Team</strong></p>
+    </div>
+</div>`;
+        sendBrevoEmail({
+            toEmail: newBooking.patientEmail,
+            toName: newBooking.patientName,
+            subject: "ArogyaAI — Appointment Confirmation",
+            htmlContent: htmlEmail
+        }).then(res => {
+            if (res.success) {
+                newBooking.confirmationEmailSent = true;
+                newBooking.confirmationEmailSentAt = new Date().toISOString();
+                writeDb(APPOINTMENTS_FILE, all);
+            }
+        }).catch(err => console.error("Brevo email async error:", err));
+    }
+
     return res.status(200).json({
         success: true,
         appointment: newBooking
     });
+});
+
+// 6.1 Trigger Brevo Appointment Email Confirmation Endpoint
+app.post('/api/appointments/send-confirmation', async (req, res) => {
+    const { appointmentId, patientEmail, patientName, doctorName, clinicName, specialist, date, time, address, id, token, resend } = req.body;
+    const targetEmail = patientEmail || req.body.email;
+
+    if (!targetEmail || !targetEmail.includes('@')) {
+        return res.status(400).json({ success: false, message: "Valid patient email is required" });
+    }
+
+    const bookingId = id || appointmentId || `APT-${Date.now().toString().slice(-6)}`;
+    const docName = doctorName || "Specialist";
+    const hospName = clinicName || "Arogya Health Centre";
+
+    const htmlContent = `
+<div style="font-family: 'Segoe UI', Arial, sans-serif; max-width: 600px; margin: 0 auto; border: 1px solid #e0e0e0; border-radius: 12px; overflow: hidden;">
+    <div style="background: linear-gradient(135deg, #1A365D, #00A86B); padding: 24px; text-align: center; color: white;">
+        <h1 style="margin: 0; font-size: 24px; font-weight: 700;">ArogyaAI</h1>
+        <p style="margin: 4px 0 0 0; font-size: 14px; opacity: 0.9;">AI-Powered Rural Healthcare Assistant</p>
+    </div>
+    <div style="padding: 24px; background-color: #ffffff; color: #2D3748;">
+        <h2 style="color: #1A365D; margin-top: 0;">${resend ? 'Resent: ' : ''}Appointment Confirmation</h2>
+        <p>Hello <strong>${patientName || 'Valued Patient'}</strong>,</p>
+        <p>Your ArogyaAI appointment has been successfully booked.</p>
+        <div style="background-color: #F7FAFC; border-left: 4px solid #00A86B; padding: 16px; margin: 20px 0; border-radius: 4px;">
+            <h3 style="margin-top: 0; color: #1A365D; font-size: 16px;">Appointment Details</h3>
+            <table style="width: 100%; border-collapse: collapse; font-size: 14px;">
+                <tr><td style="padding: 6px 0; color: #718096; width: 35%;">Patient:</td><td style="padding: 6px 0; font-weight: 600;">${patientName || 'N/A'}</td></tr>
+                <tr><td style="padding: 6px 0; color: #718096;">Doctor:</td><td style="padding: 6px 0; font-weight: 600;">Dr. ${docName}</td></tr>
+                <tr><td style="padding: 6px 0; color: #718096;">Hospital / Clinic:</td><td style="padding: 6px 0; font-weight: 600;">${hospName}</td></tr>
+                <tr><td style="padding: 6px 0; color: #718096;">Specialization:</td><td style="padding: 6px 0; font-weight: 600;">${specialist || 'General Healthcare'}</td></tr>
+                <tr><td style="padding: 6px 0; color: #718096;">Date:</td><td style="padding: 6px 0; font-weight: 600;">${date || 'N/A'}</td></tr>
+                <tr><td style="padding: 6px 0; color: #718096;">Time:</td><td style="padding: 6px 0; font-weight: 600;">${time || 'N/A'}</td></tr>
+                <tr><td style="padding: 6px 0; color: #718096;">Booking ID:</td><td style="padding: 6px 0; font-weight: 600; color: #00A86B;">${bookingId}</td></tr>
+                <tr><td style="padding: 6px 0; color: #718096;">Address:</td><td style="padding: 6px 0;">${address || 'N/A'}</td></tr>
+                <tr><td style="padding: 6px 0; color: #718096;">Status:</td><td style="padding: 6px 0; font-weight: 600; color: #00A86B;">Confirmed</td></tr>
+            </table>
+        </div>
+        <p>You can open ArogyaAI to view your appointment and clinical health records.</p>
+        <br>
+        <p style="margin-top: 24px;">Regards,<br><strong>ArogyaAI</strong><br>AI-Powered Healthcare Assistant</p>
+    </div>
+</div>`;
+
+    const result = await sendBrevoEmail({
+        toEmail: targetEmail,
+        toName: patientName || targetEmail,
+        subject: `ArogyaAI — Appointment Confirmation`,
+        htmlContent: htmlContent
+    });
+
+    if (result.success) {
+        return res.status(200).json({ success: true, message: "Appointment confirmation email sent via Brevo", messageId: result.messageId });
+    } else {
+        return res.status(500).json({ success: false, message: result.error || "Failed to send email via Brevo" });
+    }
+});
+
+// 6.2 Resend Appointment Email Endpoint
+app.post('/api/appointments/resend-confirmation', async (req, res) => {
+    return app._router.handle({ ...req, url: '/api/appointments/send-confirmation', body: { ...req.body, resend: true } }, res);
+});
+
+// 6.3 Email Prescription Endpoint
+app.post('/api/prescriptions/send-email', async (req, res) => {
+    const { patientEmail, patientName, condition, symptoms, medicines, diagnosisDate } = req.body;
+    if (!patientEmail || !patientEmail.includes('@')) {
+        return res.status(400).json({ success: false, message: "Valid patient email is required" });
+    }
+
+    const medsListHtml = Array.isArray(medicines)
+        ? medicines.map(m => `<li><strong>${m.name || 'Medication'}</strong> — ${m.instructions || 'As directed'}</li>`).join('')
+        : '<li>Paracetamol 500mg — 1 tablet after meals (SOS)</li>';
+
+    const htmlContent = `
+<div style="font-family: 'Segoe UI', Arial, sans-serif; max-width: 600px; margin: 0 auto; border: 1px solid #e0e0e0; border-radius: 12px; overflow: hidden;">
+    <div style="background: linear-gradient(135deg, #1A365D, #00A86B); padding: 24px; text-align: center; color: white;">
+        <h1 style="margin: 0; font-size: 24px; font-weight: 700;">ArogyaAI Medical Prescription</h1>
+        <p style="margin: 4px 0 0 0; font-size: 14px; opacity: 0.9;">AI-Powered Rural Healthcare Assistant</p>
+    </div>
+    <div style="padding: 24px; background-color: #ffffff; color: #2D3748;">
+        <p>Hello <strong>${patientName || 'Valued Patient'}</strong>,</p>
+        <p>Here is your digital prescription and AI clinical assessment record from ArogyaAI.</p>
+        <div style="background-color: #F7FAFC; border-left: 4px solid #00A86B; padding: 16px; margin: 20px 0; border-radius: 4px;">
+            <p><strong>Date:</strong> ${diagnosisDate || new Date().toLocaleDateString("en-IN")}</p>
+            <p><strong>Clinical Condition:</strong> ${condition || 'General Health Consultation'}</p>
+            <p><strong>Symptoms Reported:</strong> ${symptoms || 'None specified'}</p>
+            <h4 style="color: #1A365D; margin-bottom: 8px;">Prescribed Medications & Guidance:</h4>
+            <ul>${medsListHtml}</ul>
+        </div>
+        <p style="font-size: 12px; color: #718096; border-top: 1px solid #E2E8F0; padding-top: 12px;">
+            <em>Disclaimer: This prescription record is generated by ArogyaAI for informational reference and must be validated by a certified medical doctor.</em>
+        </p>
+        <p style="margin-top: 24px;">Regards,<br><strong>ArogyaAI Team</strong></p>
+    </div>
+</div>`;
+
+    const result = await sendBrevoEmail({
+        toEmail: patientEmail,
+        toName: patientName || patientEmail,
+        subject: "ArogyaAI — Your Clinical Prescription Record",
+        htmlContent: htmlContent
+    });
+
+    if (result.success) {
+        return res.status(200).json({ success: true, message: "Prescription email sent via Brevo", messageId: result.messageId });
+    } else {
+        return res.status(500).json({ success: false, message: result.error || "Failed to send email" });
+    }
+});
+
+// 6.4 Brevo Development Diagnostic Endpoint
+app.get('/api/test/brevo', async (req, res) => {
+    const testEmail = req.query.email || process.env.BREVO_SENDER_EMAIL || "knaveengoud123@gmail.com";
+    const result = await sendBrevoEmail({
+        toEmail: testEmail,
+        toName: "ArogyaAI Tester",
+        subject: "ArogyaAI — Brevo Integration Test Connection",
+        htmlContent: `<h2>ArogyaAI Brevo Test</h2><p>Brevo Transactional Email integration is operational.</p>`
+    });
+    return res.status(result.success ? 200 : 500).json(result);
 });
 
 // 7. Get Reports
@@ -871,6 +998,7 @@ app.get('/api/reports', (req, res) => {
     }
     return res.status(200).json(all);
 });
+
 
 // 8. Create Report Log
 app.post('/api/reports', (req, res) => {
@@ -992,6 +1120,20 @@ app.post('/api/emergency/sos', async (req, res) => {
         message: "SOS alert successfully broadcasted to nearest responders.",
         nearest_hospital: nearestHospital
     });
+});
+
+// Wildcard SPA Fallback Handler for Web Frontend Routing
+app.get('*', (req, res) => {
+    if (req.path.startsWith('/api') || req.path.startsWith('/health') || req.path.startsWith('/download-apk')) {
+        return res.status(404).json({ error: "API endpoint not found" });
+    }
+    const webIndex = fs.existsSync(path.join(__dirname, '../arogya_ai_web/index.html'))
+        ? path.join(__dirname, '../arogya_ai_web/index.html')
+        : path.join(__dirname, 'public/index.html');
+    if (fs.existsSync(webIndex)) {
+        return res.sendFile(webIndex);
+    }
+    return res.status(404).send("ArogyaAI Web application build not found.");
 });
 
 app.listen(PORT, '0.0.0.0', () => {

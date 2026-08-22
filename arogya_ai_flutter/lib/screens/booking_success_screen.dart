@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:animate_do/animate_do.dart';
 import 'home_dashboard.dart';
+import '../services/pdf_service.dart';
+import '../services/api_service.dart';
 
 class BookingSuccessScreen extends StatelessWidget {
   final Map<String, dynamic> appointment;
@@ -152,6 +154,66 @@ class BookingSuccessScreen extends StatelessWidget {
 
               const Spacer(),
               
+              // Action Buttons: Download PDF & Resend Email
+              FadeInUp(
+                delay: const Duration(milliseconds: 450),
+                child: Row(
+                  children: [
+                    Expanded(
+                      child: OutlinedButton.icon(
+                        onPressed: () async {
+                          final pdfBytes = await PdfService.generateAppointmentPdf(appointment);
+                          final filename = 'ArogyaAI_Appointment_${appointment['id'] ?? 'token'}.pdf';
+                          await PdfService.shareOrDownloadPdf(pdfBytes, filename);
+                        },
+                        icon: const Icon(Icons.picture_as_pdf, color: Color(0xFF065F46), size: 18),
+                        label: const Text(
+                          'Download PDF',
+                          style: TextStyle(color: Color(0xFF065F46), fontWeight: FontWeight.bold, fontSize: 13),
+                        ),
+                        style: OutlinedButton.styleFrom(
+                          side: const BorderSide(color: Color(0xFF10B981)),
+                          padding: const EdgeInsets.symmetric(vertical: 12),
+                          shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
+                        ),
+                      ),
+                    ),
+                    const SizedBox(width: 12),
+                    Expanded(
+                      child: OutlinedButton.icon(
+                        onPressed: () async {
+                          ScaffoldMessenger.of(context).showSnackBar(
+                            const SnackBar(content: Text('Sending email confirmation via Brevo...')),
+                          );
+                          final sent = await ApiService.resendAppointmentEmail(appointment);
+                          if (context.mounted) {
+                            ScaffoldMessenger.of(context).showSnackBar(
+                              SnackBar(
+                                content: Text(sent
+                                    ? 'Confirmation email sent successfully!'
+                                    : 'Email sending attempted. Check mailbox.'),
+                                backgroundColor: sent ? const Color(0xFF10B981) : Colors.orange,
+                              ),
+                            );
+                          }
+                        },
+                        icon: const Icon(Icons.email, color: Color(0xFF065F46), size: 18),
+                        label: const Text(
+                          'Resend Email',
+                          style: TextStyle(color: Color(0xFF065F46), fontWeight: FontWeight.bold, fontSize: 13),
+                        ),
+                        style: OutlinedButton.styleFrom(
+                          side: const BorderSide(color: Color(0xFF10B981)),
+                          padding: const EdgeInsets.symmetric(vertical: 12),
+                          shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
+                        ),
+                      ),
+                    ),
+                  ],
+                ),
+              ),
+              const SizedBox(height: 12),
+
               // Got It Button
               FadeInUp(
                 delay: const Duration(milliseconds: 500),
@@ -182,6 +244,7 @@ class BookingSuccessScreen extends StatelessWidget {
                 ),
               ),
               const SizedBox(height: 16),
+
             ],
           ),
         ),

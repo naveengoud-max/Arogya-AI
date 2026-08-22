@@ -7,13 +7,15 @@ class LocationService {
   static const double defaultLng = 80.2707;
 
   /// Fetches the user's current GPS location.
-  /// Falls back to default Hyderabad coordinates if permission is denied or service unavailable.
+  /// Falls back to default center coordinates if permission is denied or service unavailable.
   static Future<Position?> getCurrentLocation() async {
     try {
-      bool serviceEnabled = await Geolocator.isLocationServiceEnabled();
-      if (!serviceEnabled) {
-        debugPrint('Location services are disabled.');
-        return null;
+      if (!kIsWeb) {
+        bool serviceEnabled = await Geolocator.isLocationServiceEnabled();
+        if (!serviceEnabled) {
+          debugPrint('Location services are disabled.');
+          return null;
+        }
       }
 
       LocationPermission permission = await Geolocator.checkPermission();
@@ -32,7 +34,7 @@ class LocationService {
 
       try {
         return await Geolocator.getCurrentPosition(
-          desiredAccuracy: LocationAccuracy.medium,
+          desiredAccuracy: LocationAccuracy.high,
           timeLimit: const Duration(seconds: 12),
         );
       } catch (e) {

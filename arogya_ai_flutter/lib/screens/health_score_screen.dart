@@ -1,5 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:animate_do/animate_do.dart';
+import 'package:firebase_auth/firebase_auth.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
+import '../services/api_service.dart';
 
 class HealthScoreScreen extends StatefulWidget {
   const HealthScoreScreen({super.key});
@@ -21,6 +24,68 @@ class _HealthScoreScreenState extends State<HealthScoreScreen> {
   String _riskLevel = 'Low Risk';
   Color _riskColor = Colors.green;
 
+  @override
+  void initState() {
+    super.initState();
+    _loadLatestHealthScore();
+    _weightController.addListener(_onInputChanged);
+    _heightController.addListener(_onInputChanged);
+  }
+
+  void _onInputChanged() {
+    final double? weight = double.tryParse(_weightController.text);
+    final double? height = double.tryParse(_heightController.text);
+    if (weight != null && height != null && height > 0) {
+      final double heightInMeters = height / 100;
+      final double calculatedBmi = weight / (heightInMeters * heightInMeters);
+      double score = 100;
+      if (calculatedBmi < 18.5) {
+        score -= 15;
+      } else if (calculatedBmi >= 25 && calculatedBmi < 30) {
+        score -= 10;
+      } else if (calculatedBmi >= 30) {
+        score -= 20;
+      }
+      if (_sleepHours < 6) score -= 15;
+      if (_waterLiters < 2) score -= 10;
+      if (_activityLevel == 'Sedentary') score -= 15;
+
+      String risk = score >= 80 ? 'Low Risk' : (score >= 60 ? 'Medium Risk' : 'High Risk');
+      Color color = score >= 80 ? const Color(0xFF10B981) : (score >= 60 ? const Color(0xFFF59E0B) : const Color(0xFFEF4444));
+
+      setState(() {
+        _bmi = calculatedBmi;
+        _healthScore = score.clamp(10, 100).toInt();
+        _riskLevel = risk;
+        _riskColor = color;
+      });
+    }
+  }
+
+  Future<void> _loadLatestHealthScore() async {
+    if (!ApiService.isFirebaseAvailable) return;
+    try {
+      final uid = FirebaseAuth.instance.currentUser?.uid;
+      if (uid == null) return;
+      final snap = await FirebaseFirestore.instance
+          .collection('health_scores')
+          .where('userId', isEqualTo: uid)
+          .get();
+      if (snap.docs.isNotEmpty) {
+        final docs = snap.docs;
+        docs.sort((a, b) => (b.data()['calculatedAt'] ?? '').compareTo(a.data()['calculatedAt'] ?? ''));
+        final latest = docs.first.data();
+        setState(() {
+          _bmi = (latest['bmi'] as num?)?.toDouble() ?? 22.86;
+          _healthScore = (latest['score'] as num?)?.toInt() ?? 82;
+          _riskLevel = latest['riskStatus'] ?? 'Low Risk';
+        });
+      }
+    } catch (e) {
+      debugPrint('Error reloading latest health score: $e');
+    }
+  }
+
   void _calculateScore() {
     final double? weight = double.tryParse(_weightController.text);
     final double? height = double.tryParse(_heightController.text);
@@ -39,35 +104,30 @@ class _HealthScoreScreenState extends State<HealthScoreScreen> {
     // Score deduction starting from 100
     double score = 100;
 
-    // 1. BMI Penalty
     if (calculatedBmi < 18.5) {
-      score -= 15; // Underweight
+      score -= 15;
     } else if (calculatedBmi >= 25 && calculatedBmi < 30) {
-      score -= 10; // Overweight
+      score -= 10;
     } else if (calculatedBmi >= 30) {
-      score -= 20; // Obese
+      score -= 20;
     }
 
-    // 2. Sleep Penalty
     if (_sleepHours < 6) {
       score -= 15;
     } else if (_sleepHours < 7) {
       score -= 5;
     }
 
-    // 3. Water Penalty
     if (_waterLiters < 2) {
       score -= 10;
     }
 
-    // 4. Activity Penalty
     if (_activityLevel == 'Sedentary') {
       score -= 15;
     } else if (_activityLevel == 'Light') {
       score -= 5;
     }
 
-    // Set Risk Level
     String risk;
     Color color;
     if (score >= 80) {
@@ -87,6 +147,24 @@ class _HealthScoreScreenState extends State<HealthScoreScreen> {
       _riskLevel = risk;
       _riskColor = color;
     });
+
+    if (ApiService.isFirebaseAvailable) {
+      try {
+        final uid = FirebaseAuth.instance.currentUser?.uid ?? 'guest';
+        FirebaseFirestore.instance.collection('health_scores').add({
+          'userId': uid,
+          'bmi': calculatedBmi,
+          'score': _healthScore,
+          'riskStatus': risk,
+          'sleepHours': _sleepHours,
+          'waterLiters': _waterLiters,
+          'activityLevel': _activityLevel,
+          'calculatedAt': DateTime.now().toIso8601String(),
+        });
+      } catch (e) {
+        debugPrint('Firestore health score save error: $e');
+      }
+    }
   }
 
   List<String> _getSuggestions() {

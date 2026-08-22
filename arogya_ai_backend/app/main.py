@@ -56,8 +56,8 @@ async def health():
     except Exception:
         pass
     return {
-        "status": "online",
-        "app": "ArogyaAI",
+        "status": "ok",
+        "service": "ArogyaAI backend",
         "database": db_status,
         "timestamp": datetime.utcnow().isoformat()
     }
@@ -75,6 +75,8 @@ async def register_root(payload: dict):
     return await register_email(payload)
 
 @app.post("/symptom-analysis")
+@app.post("/predict")
+@app.post("/api/predict")
 async def symptom_analysis_root(payload: dict):
     from app.routes.ai import analyze_symptoms
     # Simulate current user dependency since it's a public top-level proxy

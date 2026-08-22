@@ -1,0 +1,122 @@
+{
+  "rep-1787260567202": {
+    "id": "rep-1787260567202",
+    "userId": "anonymous",
+    "symptoms": "fever and cold",
+    "condition": "Acute Febrile Illness / Mild Fever",
+    "severity": "low",
+    "specialist": "General Physician",
+    "description": "Standard body temperature elevation due to seasonal viral pathogens. Keep body cool and well-rested.",
+    "precautions": [
+      "Get complete bed rest and monitor temperature.",
+      "Drink plenty of water and warm soups.",
+      "Consult doctor if fever exceeds 102\u00b0F or lasts >3 days."
+    ],
+    "medicines": [
+      {
+        "name": "Paracetamol 500mg",
+        "instructions": "1 tablet after meals (SOS)",
+        "badge": "Fever/Pain"
+      },
+      {
+        "name": "Vitamin C Chewable",
+        "instructions": "1 tablet daily for 3 days",
+        "badge": "Immune Support"
+      }
+    ],
+    "type": "symptom",
+    "createdAt": "2026-08-21T02:46:07.202091",
+    "date": "21/08/2026",
+    "time": "02:46 AM"
+  },
+  "rep-1787260567213": {
+    "id": "rep-1787260567213",
+    "userId": "anonymous",
+    "symptoms": "jwaram and daggulu",
+    "condition": "\u0c24\u0c40\u0c35\u0c4d\u0c30\u0c2e\u0c48\u0c28 \u0c1c\u0c4d\u0c35\u0c30\u0c02 / \u0c38\u0c3e\u0c27\u0c3e\u0c30\u0c23 \u0c1c\u0c4d\u0c35\u0c30\u0c02 (Mild Fever)",
+    "severity": "low",
+    "specialist": "General Physician",
+    "description": "\u0c35\u0c3e\u0c24\u0c3e\u0c35\u0c30\u0c23 \u0c2e\u0c3e\u0c30\u0c4d\u0c2a\u0c41\u0c32 \u0c35\u0c32\u0c4d\u0c32 \u0c35\u0c1a\u0c4d\u0c1a\u0c47 \u0c35\u0c48\u0c30\u0c32\u0c4d \u0c1c\u0c4d\u0c35\u0c30\u0c02. \u0c36\u0c30\u0c40\u0c30\u0c3e\u0c28\u0c4d\u0c28\u0c3f \u0c1a\u0c32\u0c4d\u0c32\u0c17\u0c3e \u0c09\u0c02\u0c1a\u0c3f \u0c35\u0c3f\u0c36\u0c4d\u0c30\u0c3e\u0c02\u0c24\u0c3f \u0c24\u0c40\u0c38\u0c41\u0c15\u0c4b\u0c02\u0c21\u0c3f.",
+    "precautions": [
+      "\u0c2a\u0c42\u0c30\u0c4d\u0c24\u0c3f\u0c17\u0c3e \u0c2c\u0c46\u0c21\u0c4d \u0c30\u0c46\u0c38\u0c4d\u0c1f\u0c4d \u0c24\u0c40\u0c38\u0c41\u0c15\u0c4b\u0c02\u0c21\u0c3f \u0c2e\u0c30\u0c3f\u0c2f\u0c41 \u0c1c\u0c4d\u0c35\u0c30\u0c3e\u0c28\u0c4d\u0c28\u0c3f \u0c15\u0c4a\u0c32\u0c35\u0c02\u0c21\u0c3f.",
+      "\u0c2e\u0c02\u0c1a\u0c3f\u0c28\u0c40\u0c30\u0c41 \u0c2e\u0c30\u0c3f\u0c2f\u0c41 \u0c35\u0c47\u0c21\u0c3f \u0c38\u0c42\u0c2a\u0c4d\u200c\u0c32\u0c41 \u0c0e\u0c15\u0c4d\u0c15\u0c41\u0c35\u0c17\u0c3e \u0c24\u0c3e\u0c17\u0c02\u0c21\u0c3f.",
+      "\u0c1c\u0c4d\u0c35\u0c30\u0c02 102\u00b0F \u0c15\u0c02\u0c1f\u0c47 \u0c0e\u0c15\u0c4d\u0c15\u0c41\u0c35 \u0c09\u0c28\u0c4d\u0c28\u0c3e \u0c32\u0c47\u0c26\u0c3e 3 \u0c30\u0c4b\u0c1c\u0c41\u0c32\u0c41 \u0c26\u0c3e\u0c1f\u0c3f\u0c28\u0c3e \u0c21\u0c3e\u0c15\u0c4d\u0c1f\u0c30\u0c4d\u200c\u0c28\u0c3f \u0c38\u0c02\u0c2a\u0c4d\u0c30\u0c26\u0c3f\u0c02\u0c1a\u0c02\u0c21\u0c3f."
+    ],
+    "medicines": [
+      {
+        "name": "Paracetamol 500mg",
+        "instructions": "\u0c2d\u0c4b\u0c1c\u0c28\u0c02 \u0c24\u0c30\u0c4d\u0c35\u0c3e\u0c24 1 \u0c1f\u0c3e\u0c2c\u0c4d\u0c32\u0c46\u0c1f\u0c4d (\u0c05\u0c35\u0c38\u0c30\u0c2e\u0c48\u0c24\u0c47\u0c28\u0c47)",
+        "badge": "\u0c1c\u0c4d\u0c35\u0c30\u0c02/\u0c28\u0c4a\u0c2a\u0c4d\u0c2a\u0c3f"
+      },
+      {
+        "name": "Vitamin C \u0c1a\u0c42\u0c2f\u0c2c\u0c41\u0c32\u0c4d",
+        "instructions": "3 \u0c30\u0c4b\u0c1c\u0c41\u0c32 \u0c2a\u0c3e\u0c1f\u0c41 \u0c30\u0c4b\u0c1c\u0c41\u0c15\u0c41 1 \u0c1f\u0c3e\u0c2c\u0c4d\u0c32\u0c46\u0c1f\u0c4d",
+        "badge": "\u0c30\u0c4b\u0c17\u0c28\u0c3f\u0c30\u0c4b\u0c27\u0c15 \u0c36\u0c15\u0c4d\u0c24\u0c3f"
+      }
+    ],
+    "type": "symptom",
+    "createdAt": "2026-08-21T02:46:07.213218",
+    "date": "21/08/2026",
+    "time": "02:46 AM"
+  },
+  "rep-1787265607254": {
+    "id": "rep-1787265607254",
+    "userId": "anonymous",
+    "symptoms": "fever and cold",
+    "condition": "Acute Febrile Illness / Mild Fever",
+    "severity": "low",
+    "specialist": "General Physician",
+    "description": "Standard body temperature elevation due to seasonal viral pathogens. Keep body cool and well-rested.",
+    "precautions": [
+      "Get complete bed rest and monitor temperature.",
+      "Drink plenty of water and warm soups.",
+      "Consult doctor if fever exceeds 102\u00b0F or lasts >3 days."
+    ],
+    "medicines": [
+      {
+        "name": "Paracetamol 500mg",
+        "instructions": "1 tablet after meals (SOS)",
+        "badge": "Fever/Pain"
+      },
+      {
+        "name": "Vitamin C Chewable",
+        "instructions": "1 tablet daily for 3 days",
+        "badge": "Immune Support"
+      }
+    ],
+    "type": "symptom",
+    "createdAt": "2026-08-21T04:10:07.254335",
+    "date": "21/08/2026",
+    "time": "04:10 AM"
+  },
+  "rep-1787265607268": {
+    "id": "rep-1787265607268",
+    "userId": "anonymous",
+    "symptoms": "jwaram and daggulu",
+    "condition": "\u0c24\u0c40\u0c35\u0c4d\u0c30\u0c2e\u0c48\u0c28 \u0c1c\u0c4d\u0c35\u0c30\u0c02 / \u0c38\u0c3e\u0c27\u0c3e\u0c30\u0c23 \u0c1c\u0c4d\u0c35\u0c30\u0c02 (Mild Fever)",
+    "severity": "low",
+    "specialist": "General Physician",
+    "description": "\u0c35\u0c3e\u0c24\u0c3e\u0c35\u0c30\u0c23 \u0c2e\u0c3e\u0c30\u0c4d\u0c2a\u0c41\u0c32 \u0c35\u0c32\u0c4d\u0c32 \u0c35\u0c1a\u0c4d\u0c1a\u0c47 \u0c35\u0c48\u0c30\u0c32\u0c4d \u0c1c\u0c4d\u0c35\u0c30\u0c02. \u0c36\u0c30\u0c40\u0c30\u0c3e\u0c28\u0c4d\u0c28\u0c3f \u0c1a\u0c32\u0c4d\u0c32\u0c17\u0c3e \u0c09\u0c02\u0c1a\u0c3f \u0c35\u0c3f\u0c36\u0c4d\u0c30\u0c3e\u0c02\u0c24\u0c3f \u0c24\u0c40\u0c38\u0c41\u0c15\u0c4b\u0c02\u0c21\u0c3f.",
+    "precautions": [
+      "\u0c2a\u0c42\u0c30\u0c4d\u0c24\u0c3f\u0c17\u0c3e \u0c2c\u0c46\u0c21\u0c4d \u0c30\u0c46\u0c38\u0c4d\u0c1f\u0c4d \u0c24\u0c40\u0c38\u0c41\u0c15\u0c4b\u0c02\u0c21\u0c3f \u0c2e\u0c30\u0c3f\u0c2f\u0c41 \u0c1c\u0c4d\u0c35\u0c30\u0c3e\u0c28\u0c4d\u0c28\u0c3f \u0c15\u0c4a\u0c32\u0c35\u0c02\u0c21\u0c3f.",
+      "\u0c2e\u0c02\u0c1a\u0c3f\u0c28\u0c40\u0c30\u0c41 \u0c2e\u0c30\u0c3f\u0c2f\u0c41 \u0c35\u0c47\u0c21\u0c3f \u0c38\u0c42\u0c2a\u0c4d\u200c\u0c32\u0c41 \u0c0e\u0c15\u0c4d\u0c15\u0c41\u0c35\u0c17\u0c3e \u0c24\u0c3e\u0c17\u0c02\u0c21\u0c3f.",
+      "\u0c1c\u0c4d\u0c35\u0c30\u0c02 102\u00b0F \u0c15\u0c02\u0c1f\u0c47 \u0c0e\u0c15\u0c4d\u0c15\u0c41\u0c35 \u0c09\u0c28\u0c4d\u0c28\u0c3e \u0c32\u0c47\u0c26\u0c3e 3 \u0c30\u0c4b\u0c1c\u0c41\u0c32\u0c41 \u0c26\u0c3e\u0c1f\u0c3f\u0c28\u0c3e \u0c21\u0c3e\u0c15\u0c4d\u0c1f\u0c30\u0c4d\u200c\u0c28\u0c3f \u0c38\u0c02\u0c2a\u0c4d\u0c30\u0c26\u0c3f\u0c02\u0c1a\u0c02\u0c21\u0c3f."
+    ],
+    "medicines": [
+      {
+        "name": "Paracetamol 500mg",
+        "instructions": "\u0c2d\u0c4b\u0c1c\u0c28\u0c02 \u0c24\u0c30\u0c4d\u0c35\u0c3e\u0c24 1 \u0c1f\u0c3e\u0c2c\u0c4d\u0c32\u0c46\u0c1f\u0c4d (\u0c05\u0c35\u0c38\u0c30\u0c2e\u0c48\u0c24\u0c47\u0c28\u0c47)",
+        "badge": "\u0c1c\u0c4d\u0c35\u0c30\u0c02/\u0c28\u0c4a\u0c2a\u0c4d\u0c2a\u0c3f"
+      },
+      {
+        "name": "Vitamin C \u0c1a\u0c42\u0c2f\u0c2c\u0c41\u0c32\u0c4d",
+        "instructions": "3 \u0c30\u0c4b\u0c1c\u0c41\u0c32 \u0c2a\u0c3e\u0c1f\u0c41 \u0c30\u0c4b\u0c1c\u0c41\u0c15\u0c41 1 \u0c1f\u0c3e\u0c2c\u0c4d\u0c32\u0c46\u0c1f\u0c4d",
+        "badge": "\u0c30\u0c4b\u0c17\u0c28\u0c3f\u0c30\u0c4b\u0c27\u0c15 \u0c36\u0c15\u0c4d\u0c24\u0c3f"
+      }
+    ],
+    "type": "symptom",
+    "createdAt": "2026-08-21T04:10:07.268270",
+    "date": "21/08/2026",
+    "time": "04:10 AM"
+  }
+}

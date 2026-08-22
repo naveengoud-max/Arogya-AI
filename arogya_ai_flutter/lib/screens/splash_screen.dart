@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:animate_do/animate_do.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import '../services/api_service.dart';
 import 'home_dashboard.dart';
 import 'login_screen.dart';
@@ -19,9 +20,10 @@ class _SplashScreenState extends State<SplashScreen> {
   }
 
   void _navigateToNext() async {
-    await Future.delayed(const Duration(milliseconds: 3000));
+    await Future.delayed(const Duration(milliseconds: 2500));
     final session = await ApiService.loadSession();
-    final bool isLoggedIn = session != null;
+    final fbUser = FirebaseAuth.instance.currentUser;
+    final bool isLoggedIn = fbUser != null || session != null;
     
     if (mounted) {
       Navigator.pushReplacement(

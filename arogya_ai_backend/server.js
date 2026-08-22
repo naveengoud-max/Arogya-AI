@@ -788,6 +788,63 @@ app.get('/api/appointments', (req, res) => {
     return res.status(200).json(all);
 });
 
+// 5.5 Payment Gateway Endpoints
+app.post('/api/payments/create-order', (req, res) => {
+    const { amount, currency = "INR", doctorName, patientName } = req.body;
+    if (!amount) {
+        return res.status(400).json({ success: false, message: "Amount is required" });
+    }
+    const orderId = `order_${Date.now()}_${Math.floor(Math.random() * 1000)}`;
+    const razorpayKey = process.env.RAZORPAY_KEY_ID || "rzp_test_arogya_ai_demo";
+    return res.status(200).json({
+        success: true,
+        orderId: orderId,
+        amount: amount,
+        currency: currency,
+        key: razorpayKey
+    });
+});
+
+app.post('/api/payments/verify', async (req, res) => {
+    const { razorpay_order_id, razorpay_payment_id, razorpay_signature, bookingData } = req.body;
+    
+    if (!razorpay_payment_id || !bookingData) {
+        return res.status(400).json({ success: false, message: "Payment ID and Booking Data are required." });
+    }
+
+    const all = readDb(APPOINTMENTS_FILE);
+    const existing = all.find(a => a.paymentId === razorpay_payment_id);
+    if (existing) {
+        return res.status(200).json({ success: true, appointment: existing, message: "Appointment already created for this payment." });
+    }
+
+    const tokenNum = `TK-${100 + (all.length % 900)}`;
+    const apptId = `apt-${Date.now()}-${Math.floor(Math.random() * 100)}`;
+
+    const newBooking = {
+        id: apptId,
+        appointmentId: apptId,
+        type: 'appointment',
+        token: tokenNum,
+        ...bookingData,
+        paymentStatus: 'paid',
+        paymentId: razorpay_payment_id,
+        paymentMethod: 'razorpay',
+        status: 'Confirmed',
+        createdAt: new Date().toISOString()
+    };
+
+    all.push(newBooking);
+    writeDb(APPOINTMENTS_FILE, all);
+
+    const smsMessage = `[ArogyaAI] Booking Confirmed! Token: ${tokenNum} for ${newBooking.patientName} at ${newBooking.clinicName} (Dr. ${newBooking.doctorName}) on ${newBooking.date} at ${newBooking.time}. Fee: ${newBooking.fee}. Address: ${newBooking.address}.`;
+    sendSms(newBooking.patientPhone, smsMessage).catch(err => {
+        console.error("Failed to send booking confirmation SMS:", err);
+    });
+
+    return res.status(200).json({ success: true, appointment: newBooking });
+});
+
 // 6. Book Appointment
 app.post('/api/appointments', async (req, res) => {
     const booking = req.body;

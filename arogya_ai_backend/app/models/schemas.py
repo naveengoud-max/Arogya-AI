@@ -70,6 +70,9 @@ class AppointmentBase(BaseModel):
     symptoms: Optional[str] = None
     condition: Optional[str] = None
     severity: Optional[str] = None
+    paymentStatus: Optional[str] = "paid"
+    paymentId: Optional[str] = None
+    paymentMethod: Optional[str] = "razorpay"
 
 class AppointmentCreate(AppointmentBase):
     userId: Optional[str] = None

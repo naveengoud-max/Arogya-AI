@@ -80,10 +80,13 @@ async def book_appointment(
             "symptoms": booking_data.symptoms or "Not provided",
             "condition": booking_data.condition or "",
             "severity": booking_data.severity or "",
+            "paymentStatus": booking_data.paymentStatus or "paid",
+            "paymentId": booking_data.paymentId or f"pay_{int(time.time()*1000)}",
+            "paymentMethod": booking_data.paymentMethod or "razorpay",
             "token": token_num,
             "type": "appointment",
             "createdAt": now_iso,
-            "status": "booked"
+            "status": "Confirmed"
         }
         
         # Write to Firestore (using appt_id as document key)

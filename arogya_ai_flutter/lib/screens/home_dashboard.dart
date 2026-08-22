@@ -432,11 +432,12 @@ class _HistoryScreenState extends State<HistoryScreen> {
       final String officialWebsite = (item['officialWebsite'] ?? 'Not available').toString();
       final String fee = (item['fee'] ?? 'Free').toString();
       final String status = (item['status'] ?? 'Confirmed').toString();
+      final String payStatus = (item['paymentStatus'] ?? 'paid').toString();
+      final String payId = (item['paymentId'] ?? 'pay_${token.replaceAll('TK-', '')}').toString();
       final String rawSym = (item['symptoms'] ?? '').toString().trim();
       final String symptoms = (rawSym.isNotEmpty && rawSym != 'null')
           ? rawSym
           : 'Symptoms / reason not available';
-      print("[DEBUG] STORED APPOINTMENT SYMPTOMS = '$symptoms'");
       final String createdAt = (item['createdAt'] ?? 'Not available').toString();
 
       final double? lat = (item['lat'] ?? item['hospitalLat']) != null ? double.tryParse((item['lat'] ?? item['hospitalLat']).toString()) : null;
@@ -508,6 +509,8 @@ class _HistoryScreenState extends State<HistoryScreen> {
                     _buildDetailRow(Icons.numbers_outlined, 'Appointment ID', apptId),
                     _buildDetailRow(Icons.verified_outlined, 'Status', status, isStatus: true),
                     _buildDetailRow(Icons.payments_outlined, 'Consultation Fee', fee),
+                    _buildDetailRow(Icons.credit_card_outlined, 'Payment Status', payStatus == 'paid' ? 'Paid' : payStatus),
+                    _buildDetailRow(Icons.receipt_long_outlined, 'Payment ID', payId),
                     _buildDetailRow(Icons.phone, 'Hospital Landline', hospitalPhone),
                     if (emergencyPhone != 'Not available')
                       _buildDetailRow(Icons.medical_services, 'Emergency Hotline', emergencyPhone),

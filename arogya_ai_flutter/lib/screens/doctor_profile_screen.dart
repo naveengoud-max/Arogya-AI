@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:animate_do/animate_do.dart';
 import '../services/api_service.dart';
 import 'booking_success_screen.dart';
+import 'payment_review_screen.dart';
 
 class DoctorProfileScreen extends StatefulWidget {
   final Map<String, dynamic> doctor;
@@ -93,38 +94,25 @@ class _DoctorProfileScreenState extends State<DoctorProfileScreen> {
         ? enteredSym
         : ((widget.symptoms != null && widget.symptoms!.isNotEmpty) ? widget.symptoms! : 'Not provided');
 
-    final res = await ApiService.bookAppointment(
-      date: selectedDate.toString(),
-      time: selectedTime.toString(),
-      clinicName: (widget.doctor['name'] ?? 'Arogya Clinic').toString(),
-      doctorName: (widget.doctor['doctor'] ?? 'General Physician').toString(),
-      specialist: widget.specialist ?? (widget.doctor['specialist'] ?? 'GP').toString(),
-      patientName: name,
-      patientPhone: phone,
-      fee: (widget.doctor['fee'] ?? 'Free').toString(),
-      address: (widget.doctor['address'] ?? 'Rural Main Bypass').toString(),
-      symptoms: finalSymptoms,
-      condition: widget.condition,
-      severity: widget.severity,
-    );
+    final rawFee = (widget.doctor['fee'] ?? '₹400').toString();
 
-    setState(() {
-      _isBooking = false;
-    });
-
-    if (res != null && res['success'] == true) {
-      final apt = res['appointment'] as Map<String, dynamic>;
-      Navigator.push(
-        context,
-        MaterialPageRoute(
-          builder: (_) => BookingSuccessScreen(appointment: apt),
+    Navigator.push(
+      context,
+      MaterialPageRoute(
+        builder: (_) => PaymentReviewScreen(
+          doctor: widget.doctor,
+          hospital: widget.doctor,
+          patientName: name,
+          patientPhone: phone,
+          appointmentDate: selectedDate.toString(),
+          appointmentTime: selectedTime.toString(),
+          symptoms: finalSymptoms,
+          condition: widget.condition ?? '',
+          severity: widget.severity ?? '',
+          fee: rawFee,
         ),
-      );
-    } else {
-      ScaffoldMessenger.of(context).showSnackBar(
-        const SnackBar(content: Text('Appointment booking failed. Please try again.')),
-      );
-    }
+      ),
+    );
   }
 
   @override

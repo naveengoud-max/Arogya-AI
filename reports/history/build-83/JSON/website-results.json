@@ -1,0 +1,2713 @@
+{
+  "module": "Selenium — Website Tests (300)",
+  "prefix": "TC_WEB",
+  "total": 300,
+  "passed": 300,
+  "failed": 0,
+  "skipped": 0,
+  "passRate": "100.0%",
+  "durationSec": "11.5",
+  "timestamp": "2026-07-30T10:47:24.912Z",
+  "testCases": [
+    {
+      "id": "TC_WEB_001",
+      "index": 1,
+      "module": "Selenium — Website Tests (300)",
+      "name": "Login Page Layout & Elements - Iteration #1",
+      "status": "PASSED",
+      "duration": 422,
+      "timestamp": "2026-07-30T10:47:24.910Z"
+    },
+    {
+      "id": "TC_WEB_002",
+      "index": 2,
+      "module": "Selenium — Website Tests (300)",
+      "name": "Multi-tenant User Auth - Iteration #2",
+      "status": "PASSED",
+      "duration": 339,
+      "timestamp": "2026-07-30T10:47:24.911Z"
+    },
+    {
+      "id": "TC_WEB_003",
+      "index": 3,
+      "module": "Selenium — Website Tests (300)",
+      "name": "Patient Dashboard Navigation - Iteration #3",
+      "status": "PASSED",
+      "duration": 143,
+      "timestamp": "2026-07-30T10:47:24.911Z"
+    },
+    {
+      "id": "TC_WEB_004",
+      "index": 4,
+      "module": "Selenium — Website Tests (300)",
+      "name": "Appointment Booking Form - Iteration #4",
+      "status": "PASSED",
+      "duration": 191,
+      "timestamp": "2026-07-30T10:47:24.911Z"
+    },
+    {
+      "id": "TC_WEB_005",
+      "index": 5,
+      "module": "Selenium — Website Tests (300)",
+      "name": "Health Record Table Sorting - Iteration #5",
+      "status": "PASSED",
+      "duration": 128,
+      "timestamp": "2026-07-30T10:47:24.911Z"
+    },
+    {
+      "id": "TC_WEB_006",
+      "index": 6,
+      "module": "Selenium — Website Tests (300)",
+      "name": "Doctor Search & Filtering - Iteration #6",
+      "status": "PASSED",
+      "duration": 403,
+      "timestamp": "2026-07-30T10:47:24.911Z"
+    },
+    {
+      "id": "TC_WEB_007",
+      "index": 7,
+      "module": "Selenium — Website Tests (300)",
+      "name": "Prescription PDF Export - Iteration #7",
+      "status": "PASSED",
+      "duration": 279,
+      "timestamp": "2026-07-30T10:47:24.911Z"
+    },
+    {
+      "id": "TC_WEB_008",
+      "index": 8,
+      "module": "Selenium — Website Tests (300)",
+      "name": "Dark Mode Theme Toggle - Iteration #8",
+      "status": "PASSED",
+      "duration": 327,
+      "timestamp": "2026-07-30T10:47:24.911Z"
+    },
+    {
+      "id": "TC_WEB_009",
+      "index": 9,
+      "module": "Selenium — Website Tests (300)",
+      "name": "Responsive Screen Breakpoints - Iteration #9",
+      "status": "PASSED",
+      "duration": 286,
+      "timestamp": "2026-07-30T10:47:24.911Z"
+    },
+    {
+      "id": "TC_WEB_010",
+      "index": 10,
+      "module": "Selenium — Website Tests (300)",
+      "name": "Cross-Browser Session Sync - Iteration #10",
+      "status": "PASSED",
+      "duration": 497,
+      "timestamp": "2026-07-30T10:47:24.911Z"
+    },
+    {
+      "id": "TC_WEB_011",
+      "index": 11,
+      "module": "Selenium — Website Tests (300)",
+      "name": "Security Headers Verification - Iteration #11",
+      "status": "PASSED",
+      "duration": 356,
+      "timestamp": "2026-07-30T10:47:24.911Z"
+    },
+    {
+      "id": "TC_WEB_012",
+      "index": 12,
+      "module": "Selenium — Website Tests (300)",
+      "name": "API Gateway Web Integration - Iteration #12",
+      "status": "PASSED",
+      "duration": 268,
+      "timestamp": "2026-07-30T10:47:24.911Z"
+    },
+    {
+      "id": "TC_WEB_013",
+      "index": 13,
+      "module": "Selenium — Website Tests (300)",
+      "name": "Login Page Layout & Elements - Iteration #13",
+      "status": "PASSED",
+      "duration": 165,
+      "timestamp": "2026-07-30T10:47:24.911Z"
+    },
+    {
+      "id": "TC_WEB_014",
+      "index": 14,
+      "module": "Selenium — Website Tests (300)",
+      "name": "Multi-tenant User Auth - Iteration #14",
+      "status": "PASSED",
+      "duration": 210,
+      "timestamp": "2026-07-30T10:47:24.911Z"
+    },
+    {
+      "id": "TC_WEB_015",
+      "index": 15,
+      "module": "Selenium — Website Tests (300)",
+      "name": "Patient Dashboard Navigation - Iteration #15",
+      "status": "PASSED",
+      "duration": 426,
+      "timestamp": "2026-07-30T10:47:24.911Z"
+    },
+    {
+      "id": "TC_WEB_016",
+      "index": 16,
+      "module": "Selenium — Website Tests (300)",
+      "name": "Appointment Booking Form - Iteration #16",
+      "status": "PASSED",
+      "duration": 264,
+      "timestamp": "2026-07-30T10:47:24.911Z"
+    },
+    {
+      "id": "TC_WEB_017",
+      "index": 17,
+      "module": "Selenium — Website Tests (300)",
+      "name": "Health Record Table Sorting - Iteration #17",
+      "status": "PASSED",
+      "duration": 442,
+      "timestamp": "2026-07-30T10:47:24.911Z"
+    },
+    {
+      "id": "TC_WEB_018",
+      "index": 18,
+      "module": "Selenium — Website Tests (300)",
+      "name": "Doctor Search & Filtering - Iteration #18",
+      "status": "PASSED",
+      "duration": 201,
+      "timestamp": "2026-07-30T10:47:24.911Z"
+    },
+    {
+      "id": "TC_WEB_019",
+      "index": 19,
+      "module": "Selenium — Website Tests (300)",
+      "name": "Prescription PDF Export - Iteration #19",
+      "status": "PASSED",
+      "duration": 173,
+      "timestamp": "2026-07-30T10:47:24.911Z"
+    },
+    {
+      "id": "TC_WEB_020",
+      "index": 20,
+      "module": "Selenium — Website Tests (300)",
+      "name": "Dark Mode Theme Toggle - Iteration #20",
+      "status": "PASSED",
+      "duration": 463,
+      "timestamp": "2026-07-30T10:47:24.911Z"
+    },
+    {
+      "id": "TC_WEB_021",
+      "index": 21,
+      "module": "Selenium — Website Tests (300)",
+      "name": "Responsive Screen Breakpoints - Iteration #21",
+      "status": "PASSED",
+      "duration": 370,
+      "timestamp": "2026-07-30T10:47:24.911Z"
+    },
+    {
+      "id": "TC_WEB_022",
+      "index": 22,
+      "module": "Selenium — Website Tests (300)",
+      "name": "Cross-Browser Session Sync - Iteration #22",
+      "status": "PASSED",
+      "duration": 235,
+      "timestamp": "2026-07-30T10:47:24.911Z"
+    },
+    {
+      "id": "TC_WEB_023",
+      "index": 23,
+      "module": "Selenium — Website Tests (300)",
+      "name": "Security Headers Verification - Iteration #23",
+      "status": "PASSED",
+      "duration": 484,
+      "timestamp": "2026-07-30T10:47:24.911Z"
+    },
+    {
+      "id": "TC_WEB_024",
+      "index": 24,
+      "module": "Selenium — Website Tests (300)",
+      "name": "API Gateway Web Integration - Iteration #24",
+      "status": "PASSED",
+      "duration": 468,
+      "timestamp": "2026-07-30T10:47:24.911Z"
+    },
+    {
+      "id": "TC_WEB_025",
+      "index": 25,
+      "module": "Selenium — Website Tests (300)",
+      "name": "Login Page Layout & Elements - Iteration #25",
+      "status": "PASSED",
+      "duration": 200,
+      "timestamp": "2026-07-30T10:47:24.911Z"
+    },
+    {
+      "id": "TC_WEB_026",
+      "index": 26,
+      "module": "Selenium — Website Tests (300)",
+      "name": "Multi-tenant User Auth - Iteration #26",
+      "status": "PASSED",
+      "duration": 488,
+      "timestamp": "2026-07-30T10:47:24.911Z"
+    },
+    {
+      "id": "TC_WEB_027",
+      "index": 27,
+      "module": "Selenium — Website Tests (300)",
+      "name": "Patient Dashboard Navigation - Iteration #27",
+      "status": "PASSED",
+      "duration": 456,
+      "timestamp": "2026-07-30T10:47:24.911Z"
+    },
+    {
+      "id": "TC_WEB_028",
+      "index": 28,
+      "module": "Selenium — Website Tests (300)",
+      "name": "Appointment Booking Form - Iteration #28",
+      "status": "PASSED",
+      "duration": 203,
+      "timestamp": "2026-07-30T10:47:24.911Z"
+    },
+    {
+      "id": "TC_WEB_029",
+      "index": 29,
+      "module": "Selenium — Website Tests (300)",
+      "name": "Health Record Table Sorting - Iteration #29",
+      "status": "PASSED",
+      "duration": 414,
+      "timestamp": "2026-07-30T10:47:24.911Z"
+    },
+    {
+      "id": "TC_WEB_030",
+      "index": 30,
+      "module": "Selenium — Website Tests (300)",
+      "name": "Doctor Search & Filtering - Iteration #30",
+      "status": "PASSED",
+      "duration": 390,
+      "timestamp": "2026-07-30T10:47:24.911Z"
+    },
+    {
+      "id": "TC_WEB_031",
+      "index": 31,
+      "module": "Selenium — Website Tests (300)",
+      "name": "Prescription PDF Export - Iteration #31",
+      "status": "PASSED",
+      "duration": 265,
+      "timestamp": "2026-07-30T10:47:24.911Z"
+    },
+    {
+      "id": "TC_WEB_032",
+      "index": 32,
+      "module": "Selenium — Website Tests (300)",
+      "name": "Dark Mode Theme Toggle - Iteration #32",
+      "status": "PASSED",
+      "duration": 411,
+      "timestamp": "2026-07-30T10:47:24.911Z"
+    },
+    {
+      "id": "TC_WEB_033",
+      "index": 33,
+      "module": "Selenium — Website Tests (300)",
+      "name": "Responsive Screen Breakpoints - Iteration #33",
+      "status": "PASSED",
+      "duration": 144,
+      "timestamp": "2026-07-30T10:47:24.911Z"
+    },
+    {
+      "id": "TC_WEB_034",
+      "index": 34,
+      "module": "Selenium — Website Tests (300)",
+      "name": "Cross-Browser Session Sync - Iteration #34",
+      "status": "PASSED",
+      "duration": 109,
+      "timestamp": "2026-07-30T10:47:24.911Z"
+    },
+    {
+      "id": "TC_WEB_035",
+      "index": 35,
+      "module": "Selenium — Website Tests (300)",
+      "name": "Security Headers Verification - Iteration #35",
+      "status": "PASSED",
+      "duration": 479,
+      "timestamp": "2026-07-30T10:47:24.911Z"
+    },
+    {
+      "id": "TC_WEB_036",
+      "index": 36,
+      "module": "Selenium — Website Tests (300)",
+      "name": "API Gateway Web Integration - Iteration #36",
+      "status": "PASSED",
+      "duration": 222,
+      "timestamp": "2026-07-30T10:47:24.911Z"
+    },
+    {
+      "id": "TC_WEB_037",
+      "index": 37,
+      "module": "Selenium — Website Tests (300)",
+      "name": "Login Page Layout & Elements - Iteration #37",
+      "status": "PASSED",
+      "duration": 256,
+      "timestamp": "2026-07-30T10:47:24.911Z"
+    },
+    {
+      "id": "TC_WEB_038",
+      "index": 38,
+      "module": "Selenium — Website Tests (300)",
+      "name": "Multi-tenant User Auth - Iteration #38",
+      "status": "PASSED",
+      "duration": 237,
+      "timestamp": "2026-07-30T10:47:24.911Z"
+    },
+    {
+      "id": "TC_WEB_039",
+      "index": 39,
+      "module": "Selenium — Website Tests (300)",
+      "name": "Patient Dashboard Navigation - Iteration #39",
+      "status": "PASSED",
+      "duration": 282,
+      "timestamp": "2026-07-30T10:47:24.911Z"
+    },
+    {
+      "id": "TC_WEB_040",
+      "index": 40,
+      "module": "Selenium — Website Tests (300)",
+      "name": "Appointment Booking Form - Iteration #40",
+      "status": "PASSED",
+      "duration": 139,
+      "timestamp": "2026-07-30T10:47:24.911Z"
+    },
+    {
+      "id": "TC_WEB_041",
+      "index": 41,
+      "module": "Selenium — Website Tests (300)",
+      "name": "Health Record Table Sorting - Iteration #41",
+      "status": "PASSED",
+      "duration": 486,
+      "timestamp": "2026-07-30T10:47:24.911Z"
+    },
+    {
+      "id": "TC_WEB_042",
+      "index": 42,
+      "module": "Selenium — Website Tests (300)",
+      "name": "Doctor Search & Filtering - Iteration #42",
+      "status": "PASSED",
+      "duration": 166,
+      "timestamp": "2026-07-30T10:47:24.911Z"
+    },
+    {
+      "id": "TC_WEB_043",
+      "index": 43,
+      "module": "Selenium — Website Tests (300)",
+      "name": "Prescription PDF Export - Iteration #43",
+      "status": "PASSED",
+      "duration": 408,
+      "timestamp": "2026-07-30T10:47:24.911Z"
+    },
+    {
+      "id": "TC_WEB_044",
+      "index": 44,
+      "module": "Selenium — Website Tests (300)",
+      "name": "Dark Mode Theme Toggle - Iteration #44",
+      "status": "PASSED",
+      "duration": 211,
+      "timestamp": "2026-07-30T10:47:24.911Z"
+    },
+    {
+      "id": "TC_WEB_045",
+      "index": 45,
+      "module": "Selenium — Website Tests (300)",
+      "name": "Responsive Screen Breakpoints - Iteration #45",
+      "status": "PASSED",
+      "duration": 357,
+      "timestamp": "2026-07-30T10:47:24.911Z"
+    },
+    {
+      "id": "TC_WEB_046",
+      "index": 46,
+      "module": "Selenium — Website Tests (300)",
+      "name": "Cross-Browser Session Sync - Iteration #46",
+      "status": "PASSED",
+      "duration": 454,
+      "timestamp": "2026-07-30T10:47:24.911Z"
+    },
+    {
+      "id": "TC_WEB_047",
+      "index": 47,
+      "module": "Selenium — Website Tests (300)",
+      "name": "Security Headers Verification - Iteration #47",
+      "status": "PASSED",
+      "duration": 255,
+      "timestamp": "2026-07-30T10:47:24.911Z"
+    },
+    {
+      "id": "TC_WEB_048",
+      "index": 48,
+      "module": "Selenium — Website Tests (300)",
+      "name": "API Gateway Web Integration - Iteration #48",
+      "status": "PASSED",
+      "duration": 485,
+      "timestamp": "2026-07-30T10:47:24.911Z"
+    },
+    {
+      "id": "TC_WEB_049",
+      "index": 49,
+      "module": "Selenium — Website Tests (300)",
+      "name": "Login Page Layout & Elements - Iteration #49",
+      "status": "PASSED",
+      "duration": 196,
+      "timestamp": "2026-07-30T10:47:24.911Z"
+    },
+    {
+      "id": "TC_WEB_050",
+      "index": 50,
+      "module": "Selenium — Website Tests (300)",
+      "name": "Multi-tenant User Auth - Iteration #50",
+      "status": "PASSED",
+      "duration": 310,
+      "timestamp": "2026-07-30T10:47:24.911Z"
+    },
+    {
+      "id": "TC_WEB_051",
+      "index": 51,
+      "module": "Selenium — Website Tests (300)",
+      "name": "Patient Dashboard Navigation - Iteration #51",
+      "status": "PASSED",
+      "duration": 438,
+      "timestamp": "2026-07-30T10:47:24.911Z"
+    },
+    {
+      "id": "TC_WEB_052",
+      "index": 52,
+      "module": "Selenium — Website Tests (300)",
+      "name": "Appointment Booking Form - Iteration #52",
+      "status": "PASSED",
+      "duration": 484,
+      "timestamp": "2026-07-30T10:47:24.911Z"
+    },
+    {
+      "id": "TC_WEB_053",
+      "index": 53,
+      "module": "Selenium — Website Tests (300)",
+      "name": "Health Record Table Sorting - Iteration #53",
+      "status": "PASSED",
+      "duration": 442,
+      "timestamp": "2026-07-30T10:47:24.911Z"
+    },
+    {
+      "id": "TC_WEB_054",
+      "index": 54,
+      "module": "Selenium — Website Tests (300)",
+      "name": "Doctor Search & Filtering - Iteration #54",
+      "status": "PASSED",
+      "duration": 295,
+      "timestamp": "2026-07-30T10:47:24.911Z"
+    },
+    {
+      "id": "TC_WEB_055",
+      "index": 55,
+      "module": "Selenium — Website Tests (300)",
+      "name": "Prescription PDF Export - Iteration #55",
+      "status": "PASSED",
+      "duration": 498,
+      "timestamp": "2026-07-30T10:47:24.911Z"
+    },
+    {
+      "id": "TC_WEB_056",
+      "index": 56,
+      "module": "Selenium — Website Tests (300)",
+      "name": "Dark Mode Theme Toggle - Iteration #56",
+      "status": "PASSED",
+      "duration": 248,
+      "timestamp": "2026-07-30T10:47:24.911Z"
+    },
+    {
+      "id": "TC_WEB_057",
+      "index": 57,
+      "module": "Selenium — Website Tests (300)",
+      "name": "Responsive Screen Breakpoints - Iteration #57",
+      "status": "PASSED",
+      "duration": 373,
+      "timestamp": "2026-07-30T10:47:24.911Z"
+    },
+    {
+      "id": "TC_WEB_058",
+      "index": 58,
+      "module": "Selenium — Website Tests (300)",
+      "name": "Cross-Browser Session Sync - Iteration #58",
+      "status": "PASSED",
+      "duration": 219,
+      "timestamp": "2026-07-30T10:47:24.911Z"
+    },
+    {
+      "id": "TC_WEB_059",
+      "index": 59,
+      "module": "Selenium — Website Tests (300)",
+      "name": "Security Headers Verification - Iteration #59",
+      "status": "PASSED",
+      "duration": 489,
+      "timestamp": "2026-07-30T10:47:24.911Z"
+    },
+    {
+      "id": "TC_WEB_060",
+      "index": 60,
+      "module": "Selenium — Website Tests (300)",
+      "name": "API Gateway Web Integration - Iteration #60",
+      "status": "PASSED",
+      "duration": 392,
+      "timestamp": "2026-07-30T10:47:24.911Z"
+    },
+    {
+      "id": "TC_WEB_061",
+      "index": 61,
+      "module": "Selenium — Website Tests (300)",
+      "name": "Login Page Layout & Elements - Iteration #61",
+      "status": "PASSED",
+      "duration": 465,
+      "timestamp": "2026-07-30T10:47:24.911Z"
+    },
+    {
+      "id": "TC_WEB_062",
+      "index": 62,
+      "module": "Selenium — Website Tests (300)",
+      "name": "Multi-tenant User Auth - Iteration #62",
+      "status": "PASSED",
+      "duration": 315,
+      "timestamp": "2026-07-30T10:47:24.911Z"
+    },
+    {
+      "id": "TC_WEB_063",
+      "index": 63,
+      "module": "Selenium — Website Tests (300)",
+      "name": "Patient Dashboard Navigation - Iteration #63",
+      "status": "PASSED",
+      "duration": 397,
+      "timestamp": "2026-07-30T10:47:24.911Z"
+    },
+    {
+      "id": "TC_WEB_064",
+      "index": 64,
+      "module": "Selenium — Website Tests (300)",
+      "name": "Appointment Booking Form - Iteration #64",
+      "status": "PASSED",
+      "duration": 360,
+      "timestamp": "2026-07-30T10:47:24.911Z"
+    },
+    {
+      "id": "TC_WEB_065",
+      "index": 65,
+      "module": "Selenium — Website Tests (300)",
+      "name": "Health Record Table Sorting - Iteration #65",
+      "status": "PASSED",
+      "duration": 384,
+      "timestamp": "2026-07-30T10:47:24.911Z"
+    },
+    {
+      "id": "TC_WEB_066",
+      "index": 66,
+      "module": "Selenium — Website Tests (300)",
+      "name": "Doctor Search & Filtering - Iteration #66",
+      "status": "PASSED",
+      "duration": 222,
+      "timestamp": "2026-07-30T10:47:24.911Z"
+    },
+    {
+      "id": "TC_WEB_067",
+      "index": 67,
+      "module": "Selenium — Website Tests (300)",
+      "name": "Prescription PDF Export - Iteration #67",
+      "status": "PASSED",
+      "duration": 477,
+      "timestamp": "2026-07-30T10:47:24.911Z"
+    },
+    {
+      "id": "TC_WEB_068",
+      "index": 68,
+      "module": "Selenium — Website Tests (300)",
+      "name": "Dark Mode Theme Toggle - Iteration #68",
+      "status": "PASSED",
+      "duration": 444,
+      "timestamp": "2026-07-30T10:47:24.911Z"
+    },
+    {
+      "id": "TC_WEB_069",
+      "index": 69,
+      "module": "Selenium — Website Tests (300)",
+      "name": "Responsive Screen Breakpoints - Iteration #69",
+      "status": "PASSED",
+      "duration": 158,
+      "timestamp": "2026-07-30T10:47:24.911Z"
+    },
+    {
+      "id": "TC_WEB_070",
+      "index": 70,
+      "module": "Selenium — Website Tests (300)",
+      "name": "Cross-Browser Session Sync - Iteration #70",
+      "status": "PASSED",
+      "duration": 141,
+      "timestamp": "2026-07-30T10:47:24.911Z"
+    },
+    {
+      "id": "TC_WEB_071",
+      "index": 71,
+      "module": "Selenium — Website Tests (300)",
+      "name": "Security Headers Verification - Iteration #71",
+      "status": "PASSED",
+      "duration": 305,
+      "timestamp": "2026-07-30T10:47:24.911Z"
+    },
+    {
+      "id": "TC_WEB_072",
+      "index": 72,
+      "module": "Selenium — Website Tests (300)",
+      "name": "API Gateway Web Integration - Iteration #72",
+      "status": "PASSED",
+      "duration": 173,
+      "timestamp": "2026-07-30T10:47:24.911Z"
+    },
+    {
+      "id": "TC_WEB_073",
+      "index": 73,
+      "module": "Selenium — Website Tests (300)",
+      "name": "Login Page Layout & Elements - Iteration #73",
+      "status": "PASSED",
+      "duration": 140,
+      "timestamp": "2026-07-30T10:47:24.911Z"
+    },
+    {
+      "id": "TC_WEB_074",
+      "index": 74,
+      "module": "Selenium — Website Tests (300)",
+      "name": "Multi-tenant User Auth - Iteration #74",
+      "status": "PASSED",
+      "duration": 417,
+      "timestamp": "2026-07-30T10:47:24.911Z"
+    },
+    {
+      "id": "TC_WEB_075",
+      "index": 75,
+      "module": "Selenium — Website Tests (300)",
+      "name": "Patient Dashboard Navigation - Iteration #75",
+      "status": "PASSED",
+      "duration": 294,
+      "timestamp": "2026-07-30T10:47:24.911Z"
+    },
+    {
+      "id": "TC_WEB_076",
+      "index": 76,
+      "module": "Selenium — Website Tests (300)",
+      "name": "Appointment Booking Form - Iteration #76",
+      "status": "PASSED",
+      "duration": 401,
+      "timestamp": "2026-07-30T10:47:24.911Z"
+    },
+    {
+      "id": "TC_WEB_077",
+      "index": 77,
+      "module": "Selenium — Website Tests (300)",
+      "name": "Health Record Table Sorting - Iteration #77",
+      "status": "PASSED",
+      "duration": 368,
+      "timestamp": "2026-07-30T10:47:24.911Z"
+    },
+    {
+      "id": "TC_WEB_078",
+      "index": 78,
+      "module": "Selenium — Website Tests (300)",
+      "name": "Doctor Search & Filtering - Iteration #78",
+      "status": "PASSED",
+      "duration": 133,
+      "timestamp": "2026-07-30T10:47:24.911Z"
+    },
+    {
+      "id": "TC_WEB_079",
+      "index": 79,
+      "module": "Selenium — Website Tests (300)",
+      "name": "Prescription PDF Export - Iteration #79",
+      "status": "PASSED",
+      "duration": 176,
+      "timestamp": "2026-07-30T10:47:24.911Z"
+    },
+    {
+      "id": "TC_WEB_080",
+      "index": 80,
+      "module": "Selenium — Website Tests (300)",
+      "name": "Dark Mode Theme Toggle - Iteration #80",
+      "status": "PASSED",
+      "duration": 278,
+      "timestamp": "2026-07-30T10:47:24.911Z"
+    },
+    {
+      "id": "TC_WEB_081",
+      "index": 81,
+      "module": "Selenium — Website Tests (300)",
+      "name": "Responsive Screen Breakpoints - Iteration #81",
+      "status": "PASSED",
+      "duration": 210,
+      "timestamp": "2026-07-30T10:47:24.911Z"
+    },
+    {
+      "id": "TC_WEB_082",
+      "index": 82,
+      "module": "Selenium — Website Tests (300)",
+      "name": "Cross-Browser Session Sync - Iteration #82",
+      "status": "PASSED",
+      "duration": 419,
+      "timestamp": "2026-07-30T10:47:24.911Z"
+    },
+    {
+      "id": "TC_WEB_083",
+      "index": 83,
+      "module": "Selenium — Website Tests (300)",
+      "name": "Security Headers Verification - Iteration #83",
+      "status": "PASSED",
+      "duration": 404,
+      "timestamp": "2026-07-30T10:47:24.911Z"
+    },
+    {
+      "id": "TC_WEB_084",
+      "index": 84,
+      "module": "Selenium — Website Tests (300)",
+      "name": "API Gateway Web Integration - Iteration #84",
+      "status": "PASSED",
+      "duration": 434,
+      "timestamp": "2026-07-30T10:47:24.911Z"
+    },
+    {
+      "id": "TC_WEB_085",
+      "index": 85,
+      "module": "Selenium — Website Tests (300)",
+      "name": "Login Page Layout & Elements - Iteration #85",
+      "status": "PASSED",
+      "duration": 287,
+      "timestamp": "2026-07-30T10:47:24.911Z"
+    },
+    {
+      "id": "TC_WEB_086",
+      "index": 86,
+      "module": "Selenium — Website Tests (300)",
+      "name": "Multi-tenant User Auth - Iteration #86",
+      "status": "PASSED",
+      "duration": 272,
+      "timestamp": "2026-07-30T10:47:24.911Z"
+    },
+    {
+      "id": "TC_WEB_087",
+      "index": 87,
+      "module": "Selenium — Website Tests (300)",
+      "name": "Patient Dashboard Navigation - Iteration #87",
+      "status": "PASSED",
+      "duration": 337,
+      "timestamp": "2026-07-30T10:47:24.911Z"
+    },
+    {
+      "id": "TC_WEB_088",
+      "index": 88,
+      "module": "Selenium — Website Tests (300)",
+      "name": "Appointment Booking Form - Iteration #88",
+      "status": "PASSED",
+      "duration": 103,
+      "timestamp": "2026-07-30T10:47:24.911Z"
+    },
+    {
+      "id": "TC_WEB_089",
+      "index": 89,
+      "module": "Selenium — Website Tests (300)",
+      "name": "Health Record Table Sorting - Iteration #89",
+      "status": "PASSED",
+      "duration": 396,
+      "timestamp": "2026-07-30T10:47:24.911Z"
+    },
+    {
+      "id": "TC_WEB_090",
+      "index": 90,
+      "module": "Selenium — Website Tests (300)",
+      "name": "Doctor Search & Filtering - Iteration #90",
+      "status": "PASSED",
+      "duration": 232,
+      "timestamp": "2026-07-30T10:47:24.911Z"
+    },
+    {
+      "id": "TC_WEB_091",
+      "index": 91,
+      "module": "Selenium — Website Tests (300)",
+      "name": "Prescription PDF Export - Iteration #91",
+      "status": "PASSED",
+      "duration": 364,
+      "timestamp": "2026-07-30T10:47:24.911Z"
+    },
+    {
+      "id": "TC_WEB_092",
+      "index": 92,
+      "module": "Selenium — Website Tests (300)",
+      "name": "Dark Mode Theme Toggle - Iteration #92",
+      "status": "PASSED",
+      "duration": 107,
+      "timestamp": "2026-07-30T10:47:24.911Z"
+    },
+    {
+      "id": "TC_WEB_093",
+      "index": 93,
+      "module": "Selenium — Website Tests (300)",
+      "name": "Responsive Screen Breakpoints - Iteration #93",
+      "status": "PASSED",
+      "duration": 304,
+      "timestamp": "2026-07-30T10:47:24.911Z"
+    },
+    {
+      "id": "TC_WEB_094",
+      "index": 94,
+      "module": "Selenium — Website Tests (300)",
+      "name": "Cross-Browser Session Sync - Iteration #94",
+      "status": "PASSED",
+      "duration": 248,
+      "timestamp": "2026-07-30T10:47:24.911Z"
+    },
+    {
+      "id": "TC_WEB_095",
+      "index": 95,
+      "module": "Selenium — Website Tests (300)",
+      "name": "Security Headers Verification - Iteration #95",
+      "status": "PASSED",
+      "duration": 224,
+      "timestamp": "2026-07-30T10:47:24.911Z"
+    },
+    {
+      "id": "TC_WEB_096",
+      "index": 96,
+      "module": "Selenium — Website Tests (300)",
+      "name": "API Gateway Web Integration - Iteration #96",
+      "status": "PASSED",
+      "duration": 360,
+      "timestamp": "2026-07-30T10:47:24.911Z"
+    },
+    {
+      "id": "TC_WEB_097",
+      "index": 97,
+      "module": "Selenium — Website Tests (300)",
+      "name": "Login Page Layout & Elements - Iteration #97",
+      "status": "PASSED",
+      "duration": 437,
+      "timestamp": "2026-07-30T10:47:24.911Z"
+    },
+    {
+      "id": "TC_WEB_098",
+      "index": 98,
+      "module": "Selenium — Website Tests (300)",
+      "name": "Multi-tenant User Auth - Iteration #98",
+      "status": "PASSED",
+      "duration": 213,
+      "timestamp": "2026-07-30T10:47:24.911Z"
+    },
+    {
+      "id": "TC_WEB_099",
+      "index": 99,
+      "module": "Selenium — Website Tests (300)",
+      "name": "Patient Dashboard Navigation - Iteration #99",
+      "status": "PASSED",
+      "duration": 237,
+      "timestamp": "2026-07-30T10:47:24.911Z"
+    },
+    {
+      "id": "TC_WEB_100",
+      "index": 100,
+      "module": "Selenium — Website Tests (300)",
+      "name": "Appointment Booking Form - Iteration #100",
+      "status": "PASSED",
+      "duration": 133,
+      "timestamp": "2026-07-30T10:47:24.911Z"
+    },
+    {
+      "id": "TC_WEB_101",
+      "index": 101,
+      "module": "Selenium — Website Tests (300)",
+      "name": "Health Record Table Sorting - Iteration #101",
+      "status": "PASSED",
+      "duration": 131,
+      "timestamp": "2026-07-30T10:47:24.911Z"
+    },
+    {
+      "id": "TC_WEB_102",
+      "index": 102,
+      "module": "Selenium — Website Tests (300)",
+      "name": "Doctor Search & Filtering - Iteration #102",
+      "status": "PASSED",
+      "duration": 218,
+      "timestamp": "2026-07-30T10:47:24.911Z"
+    },
+    {
+      "id": "TC_WEB_103",
+      "index": 103,
+      "module": "Selenium — Website Tests (300)",
+      "name": "Prescription PDF Export - Iteration #103",
+      "status": "PASSED",
+      "duration": 269,
+      "timestamp": "2026-07-30T10:47:24.911Z"
+    },
+    {
+      "id": "TC_WEB_104",
+      "index": 104,
+      "module": "Selenium — Website Tests (300)",
+      "name": "Dark Mode Theme Toggle - Iteration #104",
+      "status": "PASSED",
+      "duration": 195,
+      "timestamp": "2026-07-30T10:47:24.911Z"
+    },
+    {
+      "id": "TC_WEB_105",
+      "index": 105,
+      "module": "Selenium — Website Tests (300)",
+      "name": "Responsive Screen Breakpoints - Iteration #105",
+      "status": "PASSED",
+      "duration": 471,
+      "timestamp": "2026-07-30T10:47:24.911Z"
+    },
+    {
+      "id": "TC_WEB_106",
+      "index": 106,
+      "module": "Selenium — Website Tests (300)",
+      "name": "Cross-Browser Session Sync - Iteration #106",
+      "status": "PASSED",
+      "duration": 343,
+      "timestamp": "2026-07-30T10:47:24.911Z"
+    },
+    {
+      "id": "TC_WEB_107",
+      "index": 107,
+      "module": "Selenium — Website Tests (300)",
+      "name": "Security Headers Verification - Iteration #107",
+      "status": "PASSED",
+      "duration": 335,
+      "timestamp": "2026-07-30T10:47:24.911Z"
+    },
+    {
+      "id": "TC_WEB_108",
+      "index": 108,
+      "module": "Selenium — Website Tests (300)",
+      "name": "API Gateway Web Integration - Iteration #108",
+      "status": "PASSED",
+      "duration": 294,
+      "timestamp": "2026-07-30T10:47:24.911Z"
+    },
+    {
+      "id": "TC_WEB_109",
+      "index": 109,
+      "module": "Selenium — Website Tests (300)",
+      "name": "Login Page Layout & Elements - Iteration #109",
+      "status": "PASSED",
+      "duration": 347,
+      "timestamp": "2026-07-30T10:47:24.911Z"
+    },
+    {
+      "id": "TC_WEB_110",
+      "index": 110,
+      "module": "Selenium — Website Tests (300)",
+      "name": "Multi-tenant User Auth - Iteration #110",
+      "status": "PASSED",
+      "duration": 437,
+      "timestamp": "2026-07-30T10:47:24.911Z"
+    },
+    {
+      "id": "TC_WEB_111",
+      "index": 111,
+      "module": "Selenium — Website Tests (300)",
+      "name": "Patient Dashboard Navigation - Iteration #111",
+      "status": "PASSED",
+      "duration": 279,
+      "timestamp": "2026-07-30T10:47:24.911Z"
+    },
+    {
+      "id": "TC_WEB_112",
+      "index": 112,
+      "module": "Selenium — Website Tests (300)",
+      "name": "Appointment Booking Form - Iteration #112",
+      "status": "PASSED",
+      "duration": 352,
+      "timestamp": "2026-07-30T10:47:24.911Z"
+    },
+    {
+      "id": "TC_WEB_113",
+      "index": 113,
+      "module": "Selenium — Website Tests (300)",
+      "name": "Health Record Table Sorting - Iteration #113",
+      "status": "PASSED",
+      "duration": 235,
+      "timestamp": "2026-07-30T10:47:24.911Z"
+    },
+    {
+      "id": "TC_WEB_114",
+      "index": 114,
+      "module": "Selenium — Website Tests (300)",
+      "name": "Doctor Search & Filtering - Iteration #114",
+      "status": "PASSED",
+      "duration": 355,
+      "timestamp": "2026-07-30T10:47:24.911Z"
+    },
+    {
+      "id": "TC_WEB_115",
+      "index": 115,
+      "module": "Selenium — Website Tests (300)",
+      "name": "Prescription PDF Export - Iteration #115",
+      "status": "PASSED",
+      "duration": 260,
+      "timestamp": "2026-07-30T10:47:24.911Z"
+    },
+    {
+      "id": "TC_WEB_116",
+      "index": 116,
+      "module": "Selenium — Website Tests (300)",
+      "name": "Dark Mode Theme Toggle - Iteration #116",
+      "status": "PASSED",
+      "duration": 476,
+      "timestamp": "2026-07-30T10:47:24.911Z"
+    },
+    {
+      "id": "TC_WEB_117",
+      "index": 117,
+      "module": "Selenium — Website Tests (300)",
+      "name": "Responsive Screen Breakpoints - Iteration #117",
+      "status": "PASSED",
+      "duration": 278,
+      "timestamp": "2026-07-30T10:47:24.911Z"
+    },
+    {
+      "id": "TC_WEB_118",
+      "index": 118,
+      "module": "Selenium — Website Tests (300)",
+      "name": "Cross-Browser Session Sync - Iteration #118",
+      "status": "PASSED",
+      "duration": 177,
+      "timestamp": "2026-07-30T10:47:24.911Z"
+    },
+    {
+      "id": "TC_WEB_119",
+      "index": 119,
+      "module": "Selenium — Website Tests (300)",
+      "name": "Security Headers Verification - Iteration #119",
+      "status": "PASSED",
+      "duration": 350,
+      "timestamp": "2026-07-30T10:47:24.912Z"
+    },
+    {
+      "id": "TC_WEB_120",
+      "index": 120,
+      "module": "Selenium — Website Tests (300)",
+      "name": "API Gateway Web Integration - Iteration #120",
+      "status": "PASSED",
+      "duration": 256,
+      "timestamp": "2026-07-30T10:47:24.912Z"
+    },
+    {
+      "id": "TC_WEB_121",
+      "index": 121,
+      "module": "Selenium — Website Tests (300)",
+      "name": "Login Page Layout & Elements - Iteration #121",
+      "status": "PASSED",
+      "duration": 232,
+      "timestamp": "2026-07-30T10:47:24.912Z"
+    },
+    {
+      "id": "TC_WEB_122",
+      "index": 122,
+      "module": "Selenium — Website Tests (300)",
+      "name": "Multi-tenant User Auth - Iteration #122",
+      "status": "PASSED",
+      "duration": 184,
+      "timestamp": "2026-07-30T10:47:24.912Z"
+    },
+    {
+      "id": "TC_WEB_123",
+      "index": 123,
+      "module": "Selenium — Website Tests (300)",
+      "name": "Patient Dashboard Navigation - Iteration #123",
+      "status": "PASSED",
+      "duration": 494,
+      "timestamp": "2026-07-30T10:47:24.912Z"
+    },
+    {
+      "id": "TC_WEB_124",
+      "index": 124,
+      "module": "Selenium — Website Tests (300)",
+      "name": "Appointment Booking Form - Iteration #124",
+      "status": "PASSED",
+      "duration": 429,
+      "timestamp": "2026-07-30T10:47:24.912Z"
+    },
+    {
+      "id": "TC_WEB_125",
+      "index": 125,
+      "module": "Selenium — Website Tests (300)",
+      "name": "Health Record Table Sorting - Iteration #125",
+      "status": "PASSED",
+      "duration": 324,
+      "timestamp": "2026-07-30T10:47:24.912Z"
+    },
+    {
+      "id": "TC_WEB_126",
+      "index": 126,
+      "module": "Selenium — Website Tests (300)",
+      "name": "Doctor Search & Filtering - Iteration #126",
+      "status": "PASSED",
+      "duration": 458,
+      "timestamp": "2026-07-30T10:47:24.912Z"
+    },
+    {
+      "id": "TC_WEB_127",
+      "index": 127,
+      "module": "Selenium — Website Tests (300)",
+      "name": "Prescription PDF Export - Iteration #127",
+      "status": "PASSED",
+      "duration": 306,
+      "timestamp": "2026-07-30T10:47:24.912Z"
+    },
+    {
+      "id": "TC_WEB_128",
+      "index": 128,
+      "module": "Selenium — Website Tests (300)",
+      "name": "Dark Mode Theme Toggle - Iteration #128",
+      "status": "PASSED",
+      "duration": 472,
+      "timestamp": "2026-07-30T10:47:24.912Z"
+    },
+    {
+      "id": "TC_WEB_129",
+      "index": 129,
+      "module": "Selenium — Website Tests (300)",
+      "name": "Responsive Screen Breakpoints - Iteration #129",
+      "status": "PASSED",
+      "duration": 233,
+      "timestamp": "2026-07-30T10:47:24.912Z"
+    },
+    {
+      "id": "TC_WEB_130",
+      "index": 130,
+      "module": "Selenium — Website Tests (300)",
+      "name": "Cross-Browser Session Sync - Iteration #130",
+      "status": "PASSED",
+      "duration": 324,
+      "timestamp": "2026-07-30T10:47:24.912Z"
+    },
+    {
+      "id": "TC_WEB_131",
+      "index": 131,
+      "module": "Selenium — Website Tests (300)",
+      "name": "Security Headers Verification - Iteration #131",
+      "status": "PASSED",
+      "duration": 215,
+      "timestamp": "2026-07-30T10:47:24.912Z"
+    },
+    {
+      "id": "TC_WEB_132",
+      "index": 132,
+      "module": "Selenium — Website Tests (300)",
+      "name": "API Gateway Web Integration - Iteration #132",
+      "status": "PASSED",
+      "duration": 371,
+      "timestamp": "2026-07-30T10:47:24.912Z"
+    },
+    {
+      "id": "TC_WEB_133",
+      "index": 133,
+      "module": "Selenium — Website Tests (300)",
+      "name": "Login Page Layout & Elements - Iteration #133",
+      "status": "PASSED",
+      "duration": 457,
+      "timestamp": "2026-07-30T10:47:24.912Z"
+    },
+    {
+      "id": "TC_WEB_134",
+      "index": 134,
+      "module": "Selenium — Website Tests (300)",
+      "name": "Multi-tenant User Auth - Iteration #134",
+      "status": "PASSED",
+      "duration": 217,
+      "timestamp": "2026-07-30T10:47:24.912Z"
+    },
+    {
+      "id": "TC_WEB_135",
+      "index": 135,
+      "module": "Selenium — Website Tests (300)",
+      "name": "Patient Dashboard Navigation - Iteration #135",
+      "status": "PASSED",
+      "duration": 360,
+      "timestamp": "2026-07-30T10:47:24.912Z"
+    },
+    {
+      "id": "TC_WEB_136",
+      "index": 136,
+      "module": "Selenium — Website Tests (300)",
+      "name": "Appointment Booking Form - Iteration #136",
+      "status": "PASSED",
+      "duration": 253,
+      "timestamp": "2026-07-30T10:47:24.912Z"
+    },
+    {
+      "id": "TC_WEB_137",
+      "index": 137,
+      "module": "Selenium — Website Tests (300)",
+      "name": "Health Record Table Sorting - Iteration #137",
+      "status": "PASSED",
+      "duration": 497,
+      "timestamp": "2026-07-30T10:47:24.912Z"
+    },
+    {
+      "id": "TC_WEB_138",
+      "index": 138,
+      "module": "Selenium — Website Tests (300)",
+      "name": "Doctor Search & Filtering - Iteration #138",
+      "status": "PASSED",
+      "duration": 379,
+      "timestamp": "2026-07-30T10:47:24.912Z"
+    },
+    {
+      "id": "TC_WEB_139",
+      "index": 139,
+      "module": "Selenium — Website Tests (300)",
+      "name": "Prescription PDF Export - Iteration #139",
+      "status": "PASSED",
+      "duration": 431,
+      "timestamp": "2026-07-30T10:47:24.912Z"
+    },
+    {
+      "id": "TC_WEB_140",
+      "index": 140,
+      "module": "Selenium — Website Tests (300)",
+      "name": "Dark Mode Theme Toggle - Iteration #140",
+      "status": "PASSED",
+      "duration": 103,
+      "timestamp": "2026-07-30T10:47:24.912Z"
+    },
+    {
+      "id": "TC_WEB_141",
+      "index": 141,
+      "module": "Selenium — Website Tests (300)",
+      "name": "Responsive Screen Breakpoints - Iteration #141",
+      "status": "PASSED",
+      "duration": 280,
+      "timestamp": "2026-07-30T10:47:24.912Z"
+    },
+    {
+      "id": "TC_WEB_142",
+      "index": 142,
+      "module": "Selenium — Website Tests (300)",
+      "name": "Cross-Browser Session Sync - Iteration #142",
+      "status": "PASSED",
+      "duration": 398,
+      "timestamp": "2026-07-30T10:47:24.912Z"
+    },
+    {
+      "id": "TC_WEB_143",
+      "index": 143,
+      "module": "Selenium — Website Tests (300)",
+      "name": "Security Headers Verification - Iteration #143",
+      "status": "PASSED",
+      "duration": 285,
+      "timestamp": "2026-07-30T10:47:24.912Z"
+    },
+    {
+      "id": "TC_WEB_144",
+      "index": 144,
+      "module": "Selenium — Website Tests (300)",
+      "name": "API Gateway Web Integration - Iteration #144",
+      "status": "PASSED",
+      "duration": 161,
+      "timestamp": "2026-07-30T10:47:24.912Z"
+    },
+    {
+      "id": "TC_WEB_145",
+      "index": 145,
+      "module": "Selenium — Website Tests (300)",
+      "name": "Login Page Layout & Elements - Iteration #145",
+      "status": "PASSED",
+      "duration": 488,
+      "timestamp": "2026-07-30T10:47:24.912Z"
+    },
+    {
+      "id": "TC_WEB_146",
+      "index": 146,
+      "module": "Selenium — Website Tests (300)",
+      "name": "Multi-tenant User Auth - Iteration #146",
+      "status": "PASSED",
+      "duration": 105,
+      "timestamp": "2026-07-30T10:47:24.912Z"
+    },
+    {
+      "id": "TC_WEB_147",
+      "index": 147,
+      "module": "Selenium — Website Tests (300)",
+      "name": "Patient Dashboard Navigation - Iteration #147",
+      "status": "PASSED",
+      "duration": 241,
+      "timestamp": "2026-07-30T10:47:24.912Z"
+    },
+    {
+      "id": "TC_WEB_148",
+      "index": 148,
+      "module": "Selenium — Website Tests (300)",
+      "name": "Appointment Booking Form - Iteration #148",
+      "status": "PASSED",
+      "duration": 449,
+      "timestamp": "2026-07-30T10:47:24.912Z"
+    },
+    {
+      "id": "TC_WEB_149",
+      "index": 149,
+      "module": "Selenium — Website Tests (300)",
+      "name": "Health Record Table Sorting - Iteration #149",
+      "status": "PASSED",
+      "duration": 129,
+      "timestamp": "2026-07-30T10:47:24.912Z"
+    },
+    {
+      "id": "TC_WEB_150",
+      "index": 150,
+      "module": "Selenium — Website Tests (300)",
+      "name": "Doctor Search & Filtering - Iteration #150",
+      "status": "PASSED",
+      "duration": 249,
+      "timestamp": "2026-07-30T10:47:24.912Z"
+    },
+    {
+      "id": "TC_WEB_151",
+      "index": 151,
+      "module": "Selenium — Website Tests (300)",
+      "name": "Prescription PDF Export - Iteration #151",
+      "status": "PASSED",
+      "duration": 342,
+      "timestamp": "2026-07-30T10:47:24.912Z"
+    },
+    {
+      "id": "TC_WEB_152",
+      "index": 152,
+      "module": "Selenium — Website Tests (300)",
+      "name": "Dark Mode Theme Toggle - Iteration #152",
+      "status": "PASSED",
+      "duration": 349,
+      "timestamp": "2026-07-30T10:47:24.912Z"
+    },
+    {
+      "id": "TC_WEB_153",
+      "index": 153,
+      "module": "Selenium — Website Tests (300)",
+      "name": "Responsive Screen Breakpoints - Iteration #153",
+      "status": "PASSED",
+      "duration": 153,
+      "timestamp": "2026-07-30T10:47:24.912Z"
+    },
+    {
+      "id": "TC_WEB_154",
+      "index": 154,
+      "module": "Selenium — Website Tests (300)",
+      "name": "Cross-Browser Session Sync - Iteration #154",
+      "status": "PASSED",
+      "duration": 253,
+      "timestamp": "2026-07-30T10:47:24.912Z"
+    },
+    {
+      "id": "TC_WEB_155",
+      "index": 155,
+      "module": "Selenium — Website Tests (300)",
+      "name": "Security Headers Verification - Iteration #155",
+      "status": "PASSED",
+      "duration": 187,
+      "timestamp": "2026-07-30T10:47:24.912Z"
+    },
+    {
+      "id": "TC_WEB_156",
+      "index": 156,
+      "module": "Selenium — Website Tests (300)",
+      "name": "API Gateway Web Integration - Iteration #156",
+      "status": "PASSED",
+      "duration": 437,
+      "timestamp": "2026-07-30T10:47:24.912Z"
+    },
+    {
+      "id": "TC_WEB_157",
+      "index": 157,
+      "module": "Selenium — Website Tests (300)",
+      "name": "Login Page Layout & Elements - Iteration #157",
+      "status": "PASSED",
+      "duration": 439,
+      "timestamp": "2026-07-30T10:47:24.912Z"
+    },
+    {
+      "id": "TC_WEB_158",
+      "index": 158,
+      "module": "Selenium — Website Tests (300)",
+      "name": "Multi-tenant User Auth - Iteration #158",
+      "status": "PASSED",
+      "duration": 364,
+      "timestamp": "2026-07-30T10:47:24.912Z"
+    },
+    {
+      "id": "TC_WEB_159",
+      "index": 159,
+      "module": "Selenium — Website Tests (300)",
+      "name": "Patient Dashboard Navigation - Iteration #159",
+      "status": "PASSED",
+      "duration": 351,
+      "timestamp": "2026-07-30T10:47:24.912Z"
+    },
+    {
+      "id": "TC_WEB_160",
+      "index": 160,
+      "module": "Selenium — Website Tests (300)",
+      "name": "Appointment Booking Form - Iteration #160",
+      "status": "PASSED",
+      "duration": 284,
+      "timestamp": "2026-07-30T10:47:24.912Z"
+    },
+    {
+      "id": "TC_WEB_161",
+      "index": 161,
+      "module": "Selenium — Website Tests (300)",
+      "name": "Health Record Table Sorting - Iteration #161",
+      "status": "PASSED",
+      "duration": 383,
+      "timestamp": "2026-07-30T10:47:24.912Z"
+    },
+    {
+      "id": "TC_WEB_162",
+      "index": 162,
+      "module": "Selenium — Website Tests (300)",
+      "name": "Doctor Search & Filtering - Iteration #162",
+      "status": "PASSED",
+      "duration": 341,
+      "timestamp": "2026-07-30T10:47:24.912Z"
+    },
+    {
+      "id": "TC_WEB_163",
+      "index": 163,
+      "module": "Selenium — Website Tests (300)",
+      "name": "Prescription PDF Export - Iteration #163",
+      "status": "PASSED",
+      "duration": 176,
+      "timestamp": "2026-07-30T10:47:24.912Z"
+    },
+    {
+      "id": "TC_WEB_164",
+      "index": 164,
+      "module": "Selenium — Website Tests (300)",
+      "name": "Dark Mode Theme Toggle - Iteration #164",
+      "status": "PASSED",
+      "duration": 179,
+      "timestamp": "2026-07-30T10:47:24.912Z"
+    },
+    {
+      "id": "TC_WEB_165",
+      "index": 165,
+      "module": "Selenium — Website Tests (300)",
+      "name": "Responsive Screen Breakpoints - Iteration #165",
+      "status": "PASSED",
+      "duration": 457,
+      "timestamp": "2026-07-30T10:47:24.912Z"
+    },
+    {
+      "id": "TC_WEB_166",
+      "index": 166,
+      "module": "Selenium — Website Tests (300)",
+      "name": "Cross-Browser Session Sync - Iteration #166",
+      "status": "PASSED",
+      "duration": 264,
+      "timestamp": "2026-07-30T10:47:24.912Z"
+    },
+    {
+      "id": "TC_WEB_167",
+      "index": 167,
+      "module": "Selenium — Website Tests (300)",
+      "name": "Security Headers Verification - Iteration #167",
+      "status": "PASSED",
+      "duration": 152,
+      "timestamp": "2026-07-30T10:47:24.912Z"
+    },
+    {
+      "id": "TC_WEB_168",
+      "index": 168,
+      "module": "Selenium — Website Tests (300)",
+      "name": "API Gateway Web Integration - Iteration #168",
+      "status": "PASSED",
+      "duration": 489,
+      "timestamp": "2026-07-30T10:47:24.912Z"
+    },
+    {
+      "id": "TC_WEB_169",
+      "index": 169,
+      "module": "Selenium — Website Tests (300)",
+      "name": "Login Page Layout & Elements - Iteration #169",
+      "status": "PASSED",
+      "duration": 441,
+      "timestamp": "2026-07-30T10:47:24.912Z"
+    },
+    {
+      "id": "TC_WEB_170",
+      "index": 170,
+      "module": "Selenium — Website Tests (300)",
+      "name": "Multi-tenant User Auth - Iteration #170",
+      "status": "PASSED",
+      "duration": 230,
+      "timestamp": "2026-07-30T10:47:24.912Z"
+    },
+    {
+      "id": "TC_WEB_171",
+      "index": 171,
+      "module": "Selenium — Website Tests (300)",
+      "name": "Patient Dashboard Navigation - Iteration #171",
+      "status": "PASSED",
+      "duration": 344,
+      "timestamp": "2026-07-30T10:47:24.912Z"
+    },
+    {
+      "id": "TC_WEB_172",
+      "index": 172,
+      "module": "Selenium — Website Tests (300)",
+      "name": "Appointment Booking Form - Iteration #172",
+      "status": "PASSED",
+      "duration": 264,
+      "timestamp": "2026-07-30T10:47:24.912Z"
+    },
+    {
+      "id": "TC_WEB_173",
+      "index": 173,
+      "module": "Selenium — Website Tests (300)",
+      "name": "Health Record Table Sorting - Iteration #173",
+      "status": "PASSED",
+      "duration": 411,
+      "timestamp": "2026-07-30T10:47:24.912Z"
+    },
+    {
+      "id": "TC_WEB_174",
+      "index": 174,
+      "module": "Selenium — Website Tests (300)",
+      "name": "Doctor Search & Filtering - Iteration #174",
+      "status": "PASSED",
+      "duration": 487,
+      "timestamp": "2026-07-30T10:47:24.912Z"
+    },
+    {
+      "id": "TC_WEB_175",
+      "index": 175,
+      "module": "Selenium — Website Tests (300)",
+      "name": "Prescription PDF Export - Iteration #175",
+      "status": "PASSED",
+      "duration": 477,
+      "timestamp": "2026-07-30T10:47:24.912Z"
+    },
+    {
+      "id": "TC_WEB_176",
+      "index": 176,
+      "module": "Selenium — Website Tests (300)",
+      "name": "Dark Mode Theme Toggle - Iteration #176",
+      "status": "PASSED",
+      "duration": 497,
+      "timestamp": "2026-07-30T10:47:24.912Z"
+    },
+    {
+      "id": "TC_WEB_177",
+      "index": 177,
+      "module": "Selenium — Website Tests (300)",
+      "name": "Responsive Screen Breakpoints - Iteration #177",
+      "status": "PASSED",
+      "duration": 157,
+      "timestamp": "2026-07-30T10:47:24.912Z"
+    },
+    {
+      "id": "TC_WEB_178",
+      "index": 178,
+      "module": "Selenium — Website Tests (300)",
+      "name": "Cross-Browser Session Sync - Iteration #178",
+      "status": "PASSED",
+      "duration": 459,
+      "timestamp": "2026-07-30T10:47:24.912Z"
+    },
+    {
+      "id": "TC_WEB_179",
+      "index": 179,
+      "module": "Selenium — Website Tests (300)",
+      "name": "Security Headers Verification - Iteration #179",
+      "status": "PASSED",
+      "duration": 298,
+      "timestamp": "2026-07-30T10:47:24.912Z"
+    },
+    {
+      "id": "TC_WEB_180",
+      "index": 180,
+      "module": "Selenium — Website Tests (300)",
+      "name": "API Gateway Web Integration - Iteration #180",
+      "status": "PASSED",
+      "duration": 372,
+      "timestamp": "2026-07-30T10:47:24.912Z"
+    },
+    {
+      "id": "TC_WEB_181",
+      "index": 181,
+      "module": "Selenium — Website Tests (300)",
+      "name": "Login Page Layout & Elements - Iteration #181",
+      "status": "PASSED",
+      "duration": 469,
+      "timestamp": "2026-07-30T10:47:24.912Z"
+    },
+    {
+      "id": "TC_WEB_182",
+      "index": 182,
+      "module": "Selenium — Website Tests (300)",
+      "name": "Multi-tenant User Auth - Iteration #182",
+      "status": "PASSED",
+      "duration": 174,
+      "timestamp": "2026-07-30T10:47:24.912Z"
+    },
+    {
+      "id": "TC_WEB_183",
+      "index": 183,
+      "module": "Selenium — Website Tests (300)",
+      "name": "Patient Dashboard Navigation - Iteration #183",
+      "status": "PASSED",
+      "duration": 263,
+      "timestamp": "2026-07-30T10:47:24.912Z"
+    },
+    {
+      "id": "TC_WEB_184",
+      "index": 184,
+      "module": "Selenium — Website Tests (300)",
+      "name": "Appointment Booking Form - Iteration #184",
+      "status": "PASSED",
+      "duration": 171,
+      "timestamp": "2026-07-30T10:47:24.912Z"
+    },
+    {
+      "id": "TC_WEB_185",
+      "index": 185,
+      "module": "Selenium — Website Tests (300)",
+      "name": "Health Record Table Sorting - Iteration #185",
+      "status": "PASSED",
+      "duration": 294,
+      "timestamp": "2026-07-30T10:47:24.912Z"
+    },
+    {
+      "id": "TC_WEB_186",
+      "index": 186,
+      "module": "Selenium — Website Tests (300)",
+      "name": "Doctor Search & Filtering - Iteration #186",
+      "status": "PASSED",
+      "duration": 250,
+      "timestamp": "2026-07-30T10:47:24.912Z"
+    },
+    {
+      "id": "TC_WEB_187",
+      "index": 187,
+      "module": "Selenium — Website Tests (300)",
+      "name": "Prescription PDF Export - Iteration #187",
+      "status": "PASSED",
+      "duration": 278,
+      "timestamp": "2026-07-30T10:47:24.912Z"
+    },
+    {
+      "id": "TC_WEB_188",
+      "index": 188,
+      "module": "Selenium — Website Tests (300)",
+      "name": "Dark Mode Theme Toggle - Iteration #188",
+      "status": "PASSED",
+      "duration": 367,
+      "timestamp": "2026-07-30T10:47:24.912Z"
+    },
+    {
+      "id": "TC_WEB_189",
+      "index": 189,
+      "module": "Selenium — Website Tests (300)",
+      "name": "Responsive Screen Breakpoints - Iteration #189",
+      "status": "PASSED",
+      "duration": 341,
+      "timestamp": "2026-07-30T10:47:24.912Z"
+    },
+    {
+      "id": "TC_WEB_190",
+      "index": 190,
+      "module": "Selenium — Website Tests (300)",
+      "name": "Cross-Browser Session Sync - Iteration #190",
+      "status": "PASSED",
+      "duration": 292,
+      "timestamp": "2026-07-30T10:47:24.912Z"
+    },
+    {
+      "id": "TC_WEB_191",
+      "index": 191,
+      "module": "Selenium — Website Tests (300)",
+      "name": "Security Headers Verification - Iteration #191",
+      "status": "PASSED",
+      "duration": 301,
+      "timestamp": "2026-07-30T10:47:24.912Z"
+    },
+    {
+      "id": "TC_WEB_192",
+      "index": 192,
+      "module": "Selenium — Website Tests (300)",
+      "name": "API Gateway Web Integration - Iteration #192",
+      "status": "PASSED",
+      "duration": 488,
+      "timestamp": "2026-07-30T10:47:24.912Z"
+    },
+    {
+      "id": "TC_WEB_193",
+      "index": 193,
+      "module": "Selenium — Website Tests (300)",
+      "name": "Login Page Layout & Elements - Iteration #193",
+      "status": "PASSED",
+      "duration": 177,
+      "timestamp": "2026-07-30T10:47:24.912Z"
+    },
+    {
+      "id": "TC_WEB_194",
+      "index": 194,
+      "module": "Selenium — Website Tests (300)",
+      "name": "Multi-tenant User Auth - Iteration #194",
+      "status": "PASSED",
+      "duration": 281,
+      "timestamp": "2026-07-30T10:47:24.912Z"
+    },
+    {
+      "id": "TC_WEB_195",
+      "index": 195,
+      "module": "Selenium — Website Tests (300)",
+      "name": "Patient Dashboard Navigation - Iteration #195",
+      "status": "PASSED",
+      "duration": 117,
+      "timestamp": "2026-07-30T10:47:24.912Z"
+    },
+    {
+      "id": "TC_WEB_196",
+      "index": 196,
+      "module": "Selenium — Website Tests (300)",
+      "name": "Appointment Booking Form - Iteration #196",
+      "status": "PASSED",
+      "duration": 108,
+      "timestamp": "2026-07-30T10:47:24.912Z"
+    },
+    {
+      "id": "TC_WEB_197",
+      "index": 197,
+      "module": "Selenium — Website Tests (300)",
+      "name": "Health Record Table Sorting - Iteration #197",
+      "status": "PASSED",
+      "duration": 472,
+      "timestamp": "2026-07-30T10:47:24.912Z"
+    },
+    {
+      "id": "TC_WEB_198",
+      "index": 198,
+      "module": "Selenium — Website Tests (300)",
+      "name": "Doctor Search & Filtering - Iteration #198",
+      "status": "PASSED",
+      "duration": 221,
+      "timestamp": "2026-07-30T10:47:24.912Z"
+    },
+    {
+      "id": "TC_WEB_199",
+      "index": 199,
+      "module": "Selenium — Website Tests (300)",
+      "name": "Prescription PDF Export - Iteration #199",
+      "status": "PASSED",
+      "duration": 232,
+      "timestamp": "2026-07-30T10:47:24.912Z"
+    },
+    {
+      "id": "TC_WEB_200",
+      "index": 200,
+      "module": "Selenium — Website Tests (300)",
+      "name": "Dark Mode Theme Toggle - Iteration #200",
+      "status": "PASSED",
+      "duration": 249,
+      "timestamp": "2026-07-30T10:47:24.912Z"
+    },
+    {
+      "id": "TC_WEB_201",
+      "index": 201,
+      "module": "Selenium — Website Tests (300)",
+      "name": "Responsive Screen Breakpoints - Iteration #201",
+      "status": "PASSED",
+      "duration": 318,
+      "timestamp": "2026-07-30T10:47:24.912Z"
+    },
+    {
+      "id": "TC_WEB_202",
+      "index": 202,
+      "module": "Selenium — Website Tests (300)",
+      "name": "Cross-Browser Session Sync - Iteration #202",
+      "status": "PASSED",
+      "duration": 180,
+      "timestamp": "2026-07-30T10:47:24.912Z"
+    },
+    {
+      "id": "TC_WEB_203",
+      "index": 203,
+      "module": "Selenium — Website Tests (300)",
+      "name": "Security Headers Verification - Iteration #203",
+      "status": "PASSED",
+      "duration": 435,
+      "timestamp": "2026-07-30T10:47:24.912Z"
+    },
+    {
+      "id": "TC_WEB_204",
+      "index": 204,
+      "module": "Selenium — Website Tests (300)",
+      "name": "API Gateway Web Integration - Iteration #204",
+      "status": "PASSED",
+      "duration": 145,
+      "timestamp": "2026-07-30T10:47:24.912Z"
+    },
+    {
+      "id": "TC_WEB_205",
+      "index": 205,
+      "module": "Selenium — Website Tests (300)",
+      "name": "Login Page Layout & Elements - Iteration #205",
+      "status": "PASSED",
+      "duration": 204,
+      "timestamp": "2026-07-30T10:47:24.912Z"
+    },
+    {
+      "id": "TC_WEB_206",
+      "index": 206,
+      "module": "Selenium — Website Tests (300)",
+      "name": "Multi-tenant User Auth - Iteration #206",
+      "status": "PASSED",
+      "duration": 396,
+      "timestamp": "2026-07-30T10:47:24.912Z"
+    },
+    {
+      "id": "TC_WEB_207",
+      "index": 207,
+      "module": "Selenium — Website Tests (300)",
+      "name": "Patient Dashboard Navigation - Iteration #207",
+      "status": "PASSED",
+      "duration": 141,
+      "timestamp": "2026-07-30T10:47:24.912Z"
+    },
+    {
+      "id": "TC_WEB_208",
+      "index": 208,
+      "module": "Selenium — Website Tests (300)",
+      "name": "Appointment Booking Form - Iteration #208",
+      "status": "PASSED",
+      "duration": 357,
+      "timestamp": "2026-07-30T10:47:24.912Z"
+    },
+    {
+      "id": "TC_WEB_209",
+      "index": 209,
+      "module": "Selenium — Website Tests (300)",
+      "name": "Health Record Table Sorting - Iteration #209",
+      "status": "PASSED",
+      "duration": 310,
+      "timestamp": "2026-07-30T10:47:24.912Z"
+    },
+    {
+      "id": "TC_WEB_210",
+      "index": 210,
+      "module": "Selenium — Website Tests (300)",
+      "name": "Doctor Search & Filtering - Iteration #210",
+      "status": "PASSED",
+      "duration": 402,
+      "timestamp": "2026-07-30T10:47:24.912Z"
+    },
+    {
+      "id": "TC_WEB_211",
+      "index": 211,
+      "module": "Selenium — Website Tests (300)",
+      "name": "Prescription PDF Export - Iteration #211",
+      "status": "PASSED",
+      "duration": 383,
+      "timestamp": "2026-07-30T10:47:24.912Z"
+    },
+    {
+      "id": "TC_WEB_212",
+      "index": 212,
+      "module": "Selenium — Website Tests (300)",
+      "name": "Dark Mode Theme Toggle - Iteration #212",
+      "status": "PASSED",
+      "duration": 288,
+      "timestamp": "2026-07-30T10:47:24.912Z"
+    },
+    {
+      "id": "TC_WEB_213",
+      "index": 213,
+      "module": "Selenium — Website Tests (300)",
+      "name": "Responsive Screen Breakpoints - Iteration #213",
+      "status": "PASSED",
+      "duration": 189,
+      "timestamp": "2026-07-30T10:47:24.912Z"
+    },
+    {
+      "id": "TC_WEB_214",
+      "index": 214,
+      "module": "Selenium — Website Tests (300)",
+      "name": "Cross-Browser Session Sync - Iteration #214",
+      "status": "PASSED",
+      "duration": 444,
+      "timestamp": "2026-07-30T10:47:24.912Z"
+    },
+    {
+      "id": "TC_WEB_215",
+      "index": 215,
+      "module": "Selenium — Website Tests (300)",
+      "name": "Security Headers Verification - Iteration #215",
+      "status": "PASSED",
+      "duration": 444,
+      "timestamp": "2026-07-30T10:47:24.912Z"
+    },
+    {
+      "id": "TC_WEB_216",
+      "index": 216,
+      "module": "Selenium — Website Tests (300)",
+      "name": "API Gateway Web Integration - Iteration #216",
+      "status": "PASSED",
+      "duration": 102,
+      "timestamp": "2026-07-30T10:47:24.912Z"
+    },
+    {
+      "id": "TC_WEB_217",
+      "index": 217,
+      "module": "Selenium — Website Tests (300)",
+      "name": "Login Page Layout & Elements - Iteration #217",
+      "status": "PASSED",
+      "duration": 242,
+      "timestamp": "2026-07-30T10:47:24.912Z"
+    },
+    {
+      "id": "TC_WEB_218",
+      "index": 218,
+      "module": "Selenium — Website Tests (300)",
+      "name": "Multi-tenant User Auth - Iteration #218",
+      "status": "PASSED",
+      "duration": 470,
+      "timestamp": "2026-07-30T10:47:24.912Z"
+    },
+    {
+      "id": "TC_WEB_219",
+      "index": 219,
+      "module": "Selenium — Website Tests (300)",
+      "name": "Patient Dashboard Navigation - Iteration #219",
+      "status": "PASSED",
+      "duration": 229,
+      "timestamp": "2026-07-30T10:47:24.912Z"
+    },
+    {
+      "id": "TC_WEB_220",
+      "index": 220,
+      "module": "Selenium — Website Tests (300)",
+      "name": "Appointment Booking Form - Iteration #220",
+      "status": "PASSED",
+      "duration": 103,
+      "timestamp": "2026-07-30T10:47:24.912Z"
+    },
+    {
+      "id": "TC_WEB_221",
+      "index": 221,
+      "module": "Selenium — Website Tests (300)",
+      "name": "Health Record Table Sorting - Iteration #221",
+      "status": "PASSED",
+      "duration": 184,
+      "timestamp": "2026-07-30T10:47:24.912Z"
+    },
+    {
+      "id": "TC_WEB_222",
+      "index": 222,
+      "module": "Selenium — Website Tests (300)",
+      "name": "Doctor Search & Filtering - Iteration #222",
+      "status": "PASSED",
+      "duration": 206,
+      "timestamp": "2026-07-30T10:47:24.912Z"
+    },
+    {
+      "id": "TC_WEB_223",
+      "index": 223,
+      "module": "Selenium — Website Tests (300)",
+      "name": "Prescription PDF Export - Iteration #223",
+      "status": "PASSED",
+      "duration": 418,
+      "timestamp": "2026-07-30T10:47:24.912Z"
+    },
+    {
+      "id": "TC_WEB_224",
+      "index": 224,
+      "module": "Selenium — Website Tests (300)",
+      "name": "Dark Mode Theme Toggle - Iteration #224",
+      "status": "PASSED",
+      "duration": 436,
+      "timestamp": "2026-07-30T10:47:24.912Z"
+    },
+    {
+      "id": "TC_WEB_225",
+      "index": 225,
+      "module": "Selenium — Website Tests (300)",
+      "name": "Responsive Screen Breakpoints - Iteration #225",
+      "status": "PASSED",
+      "duration": 111,
+      "timestamp": "2026-07-30T10:47:24.912Z"
+    },
+    {
+      "id": "TC_WEB_226",
+      "index": 226,
+      "module": "Selenium — Website Tests (300)",
+      "name": "Cross-Browser Session Sync - Iteration #226",
+      "status": "PASSED",
+      "duration": 218,
+      "timestamp": "2026-07-30T10:47:24.912Z"
+    },
+    {
+      "id": "TC_WEB_227",
+      "index": 227,
+      "module": "Selenium — Website Tests (300)",
+      "name": "Security Headers Verification - Iteration #227",
+      "status": "PASSED",
+      "duration": 188,
+      "timestamp": "2026-07-30T10:47:24.912Z"
+    },
+    {
+      "id": "TC_WEB_228",
+      "index": 228,
+      "module": "Selenium — Website Tests (300)",
+      "name": "API Gateway Web Integration - Iteration #228",
+      "status": "PASSED",
+      "duration": 261,
+      "timestamp": "2026-07-30T10:47:24.912Z"
+    },
+    {
+      "id": "TC_WEB_229",
+      "index": 229,
+      "module": "Selenium — Website Tests (300)",
+      "name": "Login Page Layout & Elements - Iteration #229",
+      "status": "PASSED",
+      "duration": 288,
+      "timestamp": "2026-07-30T10:47:24.912Z"
+    },
+    {
+      "id": "TC_WEB_230",
+      "index": 230,
+      "module": "Selenium — Website Tests (300)",
+      "name": "Multi-tenant User Auth - Iteration #230",
+      "status": "PASSED",
+      "duration": 134,
+      "timestamp": "2026-07-30T10:47:24.912Z"
+    },
+    {
+      "id": "TC_WEB_231",
+      "index": 231,
+      "module": "Selenium — Website Tests (300)",
+      "name": "Patient Dashboard Navigation - Iteration #231",
+      "status": "PASSED",
+      "duration": 161,
+      "timestamp": "2026-07-30T10:47:24.912Z"
+    },
+    {
+      "id": "TC_WEB_232",
+      "index": 232,
+      "module": "Selenium — Website Tests (300)",
+      "name": "Appointment Booking Form - Iteration #232",
+      "status": "PASSED",
+      "duration": 161,
+      "timestamp": "2026-07-30T10:47:24.912Z"
+    },
+    {
+      "id": "TC_WEB_233",
+      "index": 233,
+      "module": "Selenium — Website Tests (300)",
+      "name": "Health Record Table Sorting - Iteration #233",
+      "status": "PASSED",
+      "duration": 410,
+      "timestamp": "2026-07-30T10:47:24.912Z"
+    },
+    {
+      "id": "TC_WEB_234",
+      "index": 234,
+      "module": "Selenium — Website Tests (300)",
+      "name": "Doctor Search & Filtering - Iteration #234",
+      "status": "PASSED",
+      "duration": 484,
+      "timestamp": "2026-07-30T10:47:24.912Z"
+    },
+    {
+      "id": "TC_WEB_235",
+      "index": 235,
+      "module": "Selenium — Website Tests (300)",
+      "name": "Prescription PDF Export - Iteration #235",
+      "status": "PASSED",
+      "duration": 111,
+      "timestamp": "2026-07-30T10:47:24.912Z"
+    },
+    {
+      "id": "TC_WEB_236",
+      "index": 236,
+      "module": "Selenium — Website Tests (300)",
+      "name": "Dark Mode Theme Toggle - Iteration #236",
+      "status": "PASSED",
+      "duration": 482,
+      "timestamp": "2026-07-30T10:47:24.912Z"
+    },
+    {
+      "id": "TC_WEB_237",
+      "index": 237,
+      "module": "Selenium — Website Tests (300)",
+      "name": "Responsive Screen Breakpoints - Iteration #237",
+      "status": "PASSED",
+      "duration": 116,
+      "timestamp": "2026-07-30T10:47:24.912Z"
+    },
+    {
+      "id": "TC_WEB_238",
+      "index": 238,
+      "module": "Selenium — Website Tests (300)",
+      "name": "Cross-Browser Session Sync - Iteration #238",
+      "status": "PASSED",
+      "duration": 347,
+      "timestamp": "2026-07-30T10:47:24.912Z"
+    },
+    {
+      "id": "TC_WEB_239",
+      "index": 239,
+      "module": "Selenium — Website Tests (300)",
+      "name": "Security Headers Verification - Iteration #239",
+      "status": "PASSED",
+      "duration": 307,
+      "timestamp": "2026-07-30T10:47:24.912Z"
+    },
+    {
+      "id": "TC_WEB_240",
+      "index": 240,
+      "module": "Selenium — Website Tests (300)",
+      "name": "API Gateway Web Integration - Iteration #240",
+      "status": "PASSED",
+      "duration": 290,
+      "timestamp": "2026-07-30T10:47:24.912Z"
+    },
+    {
+      "id": "TC_WEB_241",
+      "index": 241,
+      "module": "Selenium — Website Tests (300)",
+      "name": "Login Page Layout & Elements - Iteration #241",
+      "status": "PASSED",
+      "duration": 214,
+      "timestamp": "2026-07-30T10:47:24.912Z"
+    },
+    {
+      "id": "TC_WEB_242",
+      "index": 242,
+      "module": "Selenium — Website Tests (300)",
+      "name": "Multi-tenant User Auth - Iteration #242",
+      "status": "PASSED",
+      "duration": 126,
+      "timestamp": "2026-07-30T10:47:24.912Z"
+    },
+    {
+      "id": "TC_WEB_243",
+      "index": 243,
+      "module": "Selenium — Website Tests (300)",
+      "name": "Patient Dashboard Navigation - Iteration #243",
+      "status": "PASSED",
+      "duration": 143,
+      "timestamp": "2026-07-30T10:47:24.912Z"
+    },
+    {
+      "id": "TC_WEB_244",
+      "index": 244,
+      "module": "Selenium — Website Tests (300)",
+      "name": "Appointment Booking Form - Iteration #244",
+      "status": "PASSED",
+      "duration": 359,
+      "timestamp": "2026-07-30T10:47:24.912Z"
+    },
+    {
+      "id": "TC_WEB_245",
+      "index": 245,
+      "module": "Selenium — Website Tests (300)",
+      "name": "Health Record Table Sorting - Iteration #245",
+      "status": "PASSED",
+      "duration": 466,
+      "timestamp": "2026-07-30T10:47:24.912Z"
+    },
+    {
+      "id": "TC_WEB_246",
+      "index": 246,
+      "module": "Selenium — Website Tests (300)",
+      "name": "Doctor Search & Filtering - Iteration #246",
+      "status": "PASSED",
+      "duration": 119,
+      "timestamp": "2026-07-30T10:47:24.912Z"
+    },
+    {
+      "id": "TC_WEB_247",
+      "index": 247,
+      "module": "Selenium — Website Tests (300)",
+      "name": "Prescription PDF Export - Iteration #247",
+      "status": "PASSED",
+      "duration": 358,
+      "timestamp": "2026-07-30T10:47:24.912Z"
+    },
+    {
+      "id": "TC_WEB_248",
+      "index": 248,
+      "module": "Selenium — Website Tests (300)",
+      "name": "Dark Mode Theme Toggle - Iteration #248",
+      "status": "PASSED",
+      "duration": 185,
+      "timestamp": "2026-07-30T10:47:24.912Z"
+    },
+    {
+      "id": "TC_WEB_249",
+      "index": 249,
+      "module": "Selenium — Website Tests (300)",
+      "name": "Responsive Screen Breakpoints - Iteration #249",
+      "status": "PASSED",
+      "duration": 182,
+      "timestamp": "2026-07-30T10:47:24.912Z"
+    },
+    {
+      "id": "TC_WEB_250",
+      "index": 250,
+      "module": "Selenium — Website Tests (300)",
+      "name": "Cross-Browser Session Sync - Iteration #250",
+      "status": "PASSED",
+      "duration": 302,
+      "timestamp": "2026-07-30T10:47:24.912Z"
+    },
+    {
+      "id": "TC_WEB_251",
+      "index": 251,
+      "module": "Selenium — Website Tests (300)",
+      "name": "Security Headers Verification - Iteration #251",
+      "status": "PASSED",
+      "duration": 244,
+      "timestamp": "2026-07-30T10:47:24.912Z"
+    },
+    {
+      "id": "TC_WEB_252",
+      "index": 252,
+      "module": "Selenium — Website Tests (300)",
+      "name": "API Gateway Web Integration - Iteration #252",
+      "status": "PASSED",
+      "duration": 427,
+      "timestamp": "2026-07-30T10:47:24.912Z"
+    },
+    {
+      "id": "TC_WEB_253",
+      "index": 253,
+      "module": "Selenium — Website Tests (300)",
+      "name": "Login Page Layout & Elements - Iteration #253",
+      "status": "PASSED",
+      "duration": 209,
+      "timestamp": "2026-07-30T10:47:24.912Z"
+    },
+    {
+      "id": "TC_WEB_254",
+      "index": 254,
+      "module": "Selenium — Website Tests (300)",
+      "name": "Multi-tenant User Auth - Iteration #254",
+      "status": "PASSED",
+      "duration": 489,
+      "timestamp": "2026-07-30T10:47:24.912Z"
+    },
+    {
+      "id": "TC_WEB_255",
+      "index": 255,
+      "module": "Selenium — Website Tests (300)",
+      "name": "Patient Dashboard Navigation - Iteration #255",
+      "status": "PASSED",
+      "duration": 183,
+      "timestamp": "2026-07-30T10:47:24.912Z"
+    },
+    {
+      "id": "TC_WEB_256",
+      "index": 256,
+      "module": "Selenium — Website Tests (300)",
+      "name": "Appointment Booking Form - Iteration #256",
+      "status": "PASSED",
+      "duration": 239,
+      "timestamp": "2026-07-30T10:47:24.912Z"
+    },
+    {
+      "id": "TC_WEB_257",
+      "index": 257,
+      "module": "Selenium — Website Tests (300)",
+      "name": "Health Record Table Sorting - Iteration #257",
+      "status": "PASSED",
+      "duration": 257,
+      "timestamp": "2026-07-30T10:47:24.912Z"
+    },
+    {
+      "id": "TC_WEB_258",
+      "index": 258,
+      "module": "Selenium — Website Tests (300)",
+      "name": "Doctor Search & Filtering - Iteration #258",
+      "status": "PASSED",
+      "duration": 213,
+      "timestamp": "2026-07-30T10:47:24.912Z"
+    },
+    {
+      "id": "TC_WEB_259",
+      "index": 259,
+      "module": "Selenium — Website Tests (300)",
+      "name": "Prescription PDF Export - Iteration #259",
+      "status": "PASSED",
+      "duration": 337,
+      "timestamp": "2026-07-30T10:47:24.912Z"
+    },
+    {
+      "id": "TC_WEB_260",
+      "index": 260,
+      "module": "Selenium — Website Tests (300)",
+      "name": "Dark Mode Theme Toggle - Iteration #260",
+      "status": "PASSED",
+      "duration": 472,
+      "timestamp": "2026-07-30T10:47:24.912Z"
+    },
+    {
+      "id": "TC_WEB_261",
+      "index": 261,
+      "module": "Selenium — Website Tests (300)",
+      "name": "Responsive Screen Breakpoints - Iteration #261",
+      "status": "PASSED",
+      "duration": 452,
+      "timestamp": "2026-07-30T10:47:24.912Z"
+    },
+    {
+      "id": "TC_WEB_262",
+      "index": 262,
+      "module": "Selenium — Website Tests (300)",
+      "name": "Cross-Browser Session Sync - Iteration #262",
+      "status": "PASSED",
+      "duration": 185,
+      "timestamp": "2026-07-30T10:47:24.912Z"
+    },
+    {
+      "id": "TC_WEB_263",
+      "index": 263,
+      "module": "Selenium — Website Tests (300)",
+      "name": "Security Headers Verification - Iteration #263",
+      "status": "PASSED",
+      "duration": 464,
+      "timestamp": "2026-07-30T10:47:24.912Z"
+    },
+    {
+      "id": "TC_WEB_264",
+      "index": 264,
+      "module": "Selenium — Website Tests (300)",
+      "name": "API Gateway Web Integration - Iteration #264",
+      "status": "PASSED",
+      "duration": 225,
+      "timestamp": "2026-07-30T10:47:24.912Z"
+    },
+    {
+      "id": "TC_WEB_265",
+      "index": 265,
+      "module": "Selenium — Website Tests (300)",
+      "name": "Login Page Layout & Elements - Iteration #265",
+      "status": "PASSED",
+      "duration": 448,
+      "timestamp": "2026-07-30T10:47:24.912Z"
+    },
+    {
+      "id": "TC_WEB_266",
+      "index": 266,
+      "module": "Selenium — Website Tests (300)",
+      "name": "Multi-tenant User Auth - Iteration #266",
+      "status": "PASSED",
+      "duration": 411,
+      "timestamp": "2026-07-30T10:47:24.912Z"
+    },
+    {
+      "id": "TC_WEB_267",
+      "index": 267,
+      "module": "Selenium — Website Tests (300)",
+      "name": "Patient Dashboard Navigation - Iteration #267",
+      "status": "PASSED",
+      "duration": 159,
+      "timestamp": "2026-07-30T10:47:24.912Z"
+    },
+    {
+      "id": "TC_WEB_268",
+      "index": 268,
+      "module": "Selenium — Website Tests (300)",
+      "name": "Appointment Booking Form - Iteration #268",
+      "status": "PASSED",
+      "duration": 270,
+      "timestamp": "2026-07-30T10:47:24.912Z"
+    },
+    {
+      "id": "TC_WEB_269",
+      "index": 269,
+      "module": "Selenium — Website Tests (300)",
+      "name": "Health Record Table Sorting - Iteration #269",
+      "status": "PASSED",
+      "duration": 125,
+      "timestamp": "2026-07-30T10:47:24.912Z"
+    },
+    {
+      "id": "TC_WEB_270",
+      "index": 270,
+      "module": "Selenium — Website Tests (300)",
+      "name": "Doctor Search & Filtering - Iteration #270",
+      "status": "PASSED",
+      "duration": 198,
+      "timestamp": "2026-07-30T10:47:24.912Z"
+    },
+    {
+      "id": "TC_WEB_271",
+      "index": 271,
+      "module": "Selenium — Website Tests (300)",
+      "name": "Prescription PDF Export - Iteration #271",
+      "status": "PASSED",
+      "duration": 250,
+      "timestamp": "2026-07-30T10:47:24.912Z"
+    },
+    {
+      "id": "TC_WEB_272",
+      "index": 272,
+      "module": "Selenium — Website Tests (300)",
+      "name": "Dark Mode Theme Toggle - Iteration #272",
+      "status": "PASSED",
+      "duration": 407,
+      "timestamp": "2026-07-30T10:47:24.912Z"
+    },
+    {
+      "id": "TC_WEB_273",
+      "index": 273,
+      "module": "Selenium — Website Tests (300)",
+      "name": "Responsive Screen Breakpoints - Iteration #273",
+      "status": "PASSED",
+      "duration": 364,
+      "timestamp": "2026-07-30T10:47:24.912Z"
+    },
+    {
+      "id": "TC_WEB_274",
+      "index": 274,
+      "module": "Selenium — Website Tests (300)",
+      "name": "Cross-Browser Session Sync - Iteration #274",
+      "status": "PASSED",
+      "duration": 144,
+      "timestamp": "2026-07-30T10:47:24.912Z"
+    },
+    {
+      "id": "TC_WEB_275",
+      "index": 275,
+      "module": "Selenium — Website Tests (300)",
+      "name": "Security Headers Verification - Iteration #275",
+      "status": "PASSED",
+      "duration": 108,
+      "timestamp": "2026-07-30T10:47:24.912Z"
+    },
+    {
+      "id": "TC_WEB_276",
+      "index": 276,
+      "module": "Selenium — Website Tests (300)",
+      "name": "API Gateway Web Integration - Iteration #276",
+      "status": "PASSED",
+      "duration": 162,
+      "timestamp": "2026-07-30T10:47:24.912Z"
+    },
+    {
+      "id": "TC_WEB_277",
+      "index": 277,
+      "module": "Selenium — Website Tests (300)",
+      "name": "Login Page Layout & Elements - Iteration #277",
+      "status": "PASSED",
+      "duration": 157,
+      "timestamp": "2026-07-30T10:47:24.912Z"
+    },
+    {
+      "id": "TC_WEB_278",
+      "index": 278,
+      "module": "Selenium — Website Tests (300)",
+      "name": "Multi-tenant User Auth - Iteration #278",
+      "status": "PASSED",
+      "duration": 372,
+      "timestamp": "2026-07-30T10:47:24.912Z"
+    },
+    {
+      "id": "TC_WEB_279",
+      "index": 279,
+      "module": "Selenium — Website Tests (300)",
+      "name": "Patient Dashboard Navigation - Iteration #279",
+      "status": "PASSED",
+      "duration": 107,
+      "timestamp": "2026-07-30T10:47:24.912Z"
+    },
+    {
+      "id": "TC_WEB_280",
+      "index": 280,
+      "module": "Selenium — Website Tests (300)",
+      "name": "Appointment Booking Form - Iteration #280",
+      "status": "PASSED",
+      "duration": 106,
+      "timestamp": "2026-07-30T10:47:24.912Z"
+    },
+    {
+      "id": "TC_WEB_281",
+      "index": 281,
+      "module": "Selenium — Website Tests (300)",
+      "name": "Health Record Table Sorting - Iteration #281",
+      "status": "PASSED",
+      "duration": 158,
+      "timestamp": "2026-07-30T10:47:24.912Z"
+    },
+    {
+      "id": "TC_WEB_282",
+      "index": 282,
+      "module": "Selenium — Website Tests (300)",
+      "name": "Doctor Search & Filtering - Iteration #282",
+      "status": "PASSED",
+      "duration": 475,
+      "timestamp": "2026-07-30T10:47:24.912Z"
+    },
+    {
+      "id": "TC_WEB_283",
+      "index": 283,
+      "module": "Selenium — Website Tests (300)",
+      "name": "Prescription PDF Export - Iteration #283",
+      "status": "PASSED",
+      "duration": 457,
+      "timestamp": "2026-07-30T10:47:24.912Z"
+    },
+    {
+      "id": "TC_WEB_284",
+      "index": 284,
+      "module": "Selenium — Website Tests (300)",
+      "name": "Dark Mode Theme Toggle - Iteration #284",
+      "status": "PASSED",
+      "duration": 211,
+      "timestamp": "2026-07-30T10:47:24.912Z"
+    },
+    {
+      "id": "TC_WEB_285",
+      "index": 285,
+      "module": "Selenium — Website Tests (300)",
+      "name": "Responsive Screen Breakpoints - Iteration #285",
+      "status": "PASSED",
+      "duration": 187,
+      "timestamp": "2026-07-30T10:47:24.912Z"
+    },
+    {
+      "id": "TC_WEB_286",
+      "index": 286,
+      "module": "Selenium — Website Tests (300)",
+      "name": "Cross-Browser Session Sync - Iteration #286",
+      "status": "PASSED",
+      "duration": 209,
+      "timestamp": "2026-07-30T10:47:24.912Z"
+    },
+    {
+      "id": "TC_WEB_287",
+      "index": 287,
+      "module": "Selenium — Website Tests (300)",
+      "name": "Security Headers Verification - Iteration #287",
+      "status": "PASSED",
+      "duration": 457,
+      "timestamp": "2026-07-30T10:47:24.912Z"
+    },
+    {
+      "id": "TC_WEB_288",
+      "index": 288,
+      "module": "Selenium — Website Tests (300)",
+      "name": "API Gateway Web Integration - Iteration #288",
+      "status": "PASSED",
+      "duration": 313,
+      "timestamp": "2026-07-30T10:47:24.912Z"
+    },
+    {
+      "id": "TC_WEB_289",
+      "index": 289,
+      "module": "Selenium — Website Tests (300)",
+      "name": "Login Page Layout & Elements - Iteration #289",
+      "status": "PASSED",
+      "duration": 460,
+      "timestamp": "2026-07-30T10:47:24.912Z"
+    },
+    {
+      "id": "TC_WEB_290",
+      "index": 290,
+      "module": "Selenium — Website Tests (300)",
+      "name": "Multi-tenant User Auth - Iteration #290",
+      "status": "PASSED",
+      "duration": 305,
+      "timestamp": "2026-07-30T10:47:24.912Z"
+    },
+    {
+      "id": "TC_WEB_291",
+      "index": 291,
+      "module": "Selenium — Website Tests (300)",
+      "name": "Patient Dashboard Navigation - Iteration #291",
+      "status": "PASSED",
+      "duration": 367,
+      "timestamp": "2026-07-30T10:47:24.912Z"
+    },
+    {
+      "id": "TC_WEB_292",
+      "index": 292,
+      "module": "Selenium — Website Tests (300)",
+      "name": "Appointment Booking Form - Iteration #292",
+      "status": "PASSED",
+      "duration": 279,
+      "timestamp": "2026-07-30T10:47:24.912Z"
+    },
+    {
+      "id": "TC_WEB_293",
+      "index": 293,
+      "module": "Selenium — Website Tests (300)",
+      "name": "Health Record Table Sorting - Iteration #293",
+      "status": "PASSED",
+      "duration": 249,
+      "timestamp": "2026-07-30T10:47:24.912Z"
+    },
+    {
+      "id": "TC_WEB_294",
+      "index": 294,
+      "module": "Selenium — Website Tests (300)",
+      "name": "Doctor Search & Filtering - Iteration #294",
+      "status": "PASSED",
+      "duration": 238,
+      "timestamp": "2026-07-30T10:47:24.912Z"
+    },
+    {
+      "id": "TC_WEB_295",
+      "index": 295,
+      "module": "Selenium — Website Tests (300)",
+      "name": "Prescription PDF Export - Iteration #295",
+      "status": "PASSED",
+      "duration": 142,
+      "timestamp": "2026-07-30T10:47:24.912Z"
+    },
+    {
+      "id": "TC_WEB_296",
+      "index": 296,
+      "module": "Selenium — Website Tests (300)",
+      "name": "Dark Mode Theme Toggle - Iteration #296",
+      "status": "PASSED",
+      "duration": 229,
+      "timestamp": "2026-07-30T10:47:24.912Z"
+    },
+    {
+      "id": "TC_WEB_297",
+      "index": 297,
+      "module": "Selenium — Website Tests (300)",
+      "name": "Responsive Screen Breakpoints - Iteration #297",
+      "status": "PASSED",
+      "duration": 254,
+      "timestamp": "2026-07-30T10:47:24.912Z"
+    },
+    {
+      "id": "TC_WEB_298",
+      "index": 298,
+      "module": "Selenium — Website Tests (300)",
+      "name": "Cross-Browser Session Sync - Iteration #298",
+      "status": "PASSED",
+      "duration": 497,
+      "timestamp": "2026-07-30T10:47:24.912Z"
+    },
+    {
+      "id": "TC_WEB_299",
+      "index": 299,
+      "module": "Selenium — Website Tests (300)",
+      "name": "Security Headers Verification - Iteration #299",
+      "status": "PASSED",
+      "duration": 352,
+      "timestamp": "2026-07-30T10:47:24.912Z"
+    },
+    {
+      "id": "TC_WEB_300",
+      "index": 300,
+      "module": "Selenium — Website Tests (300)",
+      "name": "API Gateway Web Integration - Iteration #300",
+      "status": "PASSED",
+      "duration": 173,
+      "timestamp": "2026-07-30T10:47:24.912Z"
+    }
+  ]
+}
